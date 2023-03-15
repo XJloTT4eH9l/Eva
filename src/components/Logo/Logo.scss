@@ -1,0 +1,15 @@
+@import '../../styles/variables.scss';
+
+.logo {
+    display: block;
+    max-width: 160px;
+    &__img {
+        width: 100px;
+        height: 60px;
+    }
+    &__text {
+        font-size: 16px;
+        font-weight: 700;
+        color: $color-white;
+    }
+}

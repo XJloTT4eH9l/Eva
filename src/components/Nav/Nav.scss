@@ -1,0 +1,46 @@
+@import '../../styles/variables.scss';
+
+.nav {
+    @media screen and (max-width: 900px) {
+        display: none;
+    }
+    &--mobile {
+        display: none;
+        @media screen and  (max-width: 900px) {
+            display: block;
+        }
+    }
+    &__list {
+        display: flex;
+        align-items: center
+    }
+    &__item {
+        font-size: 16px;
+        color: $color-white;
+        margin-right: 30px;
+        &--mobile {
+            font-size: 16px;
+            color: $color-white;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    }
+    &__item:last-child {
+        margin-right: 0;
+    }
+    &__link {
+        padding-bottom: 5px;
+        border-bottom: 2px solid;
+        border-color: transparent;
+    }
+    &__link {
+        transition: border-color 0.3s linear;
+    }
+    &__item:hover &__link{
+        border-color: $color-white;
+    }
+}
+
+.active {
+    border-color: $color-white;
+}

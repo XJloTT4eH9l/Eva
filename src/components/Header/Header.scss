@@ -1,0 +1,54 @@
+@import '../../styles/variables.scss';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 0;
+    z-index: 5;
+    background-color: $color-green;
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__cart {
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        background-color: $color-white;
+        border-radius: 6px;
+        transition: transform 0.2s ease-in-out;
+        &:hover {
+            transform: translateX(-10px);
+        }
+    }
+    &__cart-img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+    &__cart-text {
+        color: $color-green;
+        font-weight: 600;
+    }
+    &__mobile-menu {
+        background-color: $color-green;
+        display: none;
+        left: 0;
+        padding-top: 80px;
+        position: fixed;
+        top: -100%;
+        transition: top .3s ease-in-out;
+        width: 100%;
+        z-index: 20;
+        &--active {
+            top: 0;
+        }
+        @media screen and (max-width: 900px) {
+            display: flex;
+            justify-content: center;
+        }
+    }
+}
