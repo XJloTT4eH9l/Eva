@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/img/logo.svg';
 import './Logo.scss';
 
-const Logo:FC = () => {
+interface LogoProps {
+    type: string;
+}
+
+const Logo:FC<LogoProps> = ({ type }) => {
     return (
-        <Link to ='/eva' className="logo">
-            <img className='logo__img' src={logo} alt='Eva' />
+        <Link to ='/eva' className={type === 'footer' ? "logo logo--footer" : 'logo'}>
+            <img className={type === 'footer' ? 'logo__img--footer' : 'logo__img'} src={logo} alt='Eva' />
             <span className='logo__text'>ТОВ "Витамин2015"</span>
         </Link>
     )

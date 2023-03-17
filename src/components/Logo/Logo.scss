@@ -3,9 +3,19 @@
 .logo {
     display: block;
     max-width: 160px;
+    &--footer {
+        @media screen and (max-width: 800px) {
+            margin: 0 auto;
+        }
+    }
     &__img {
         width: 100px;
         height: 60px;
+        &--footer {
+            @media screen and (max-width: 800px) {
+                margin: 0 auto;
+            }
+        }
     }
     &__text {
         font-size: 16px;

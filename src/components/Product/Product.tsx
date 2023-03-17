@@ -9,7 +9,7 @@ interface ProductProps {
     price: number;
 }
 
-const Product:FC<ProductProps> = ({ id, title, img, price}) => {
+const Product:FC<ProductProps> = ({ id, title, img, price }) => {
     return (
         <Link 
             key={id}

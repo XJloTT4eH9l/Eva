@@ -15,6 +15,7 @@ const Discount = () => {
                 <ul className="discount__list">
                     {discountList.map(item => (
                         <Product
+                            key={item.id}
                             id={item.id}
                             title={item.title}
                             img={item.img}

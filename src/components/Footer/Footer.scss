@@ -1,0 +1,92 @@
+@import '../../styles/variables.scss';
+
+.footer {
+    color: $color-white;
+    margin-top: 50px;
+    padding: 50px 0;
+    background-color: $color-green;
+    @media screen and (max-width: 800px) {
+        padding: 25px 0;
+    }
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        @media screen and (max-width: 800px) {
+            flex-direction: column;
+        }
+    }
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        &--contacts {
+            @media screen and (max-width: 800px) {
+                padding-left: 40px;
+            }
+        }
+        @media screen and (max-width: 800px) {
+            margin: 0 auto;
+        }
+    }
+    &__column {
+        display: flex;
+        flex-direction: column;
+        @media screen and (max-width: 800px) {
+            margin-top: 30px;
+        }
+    }
+    &__title {
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 30px;
+        @media screen and (max-width: 800px) {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    }
+    &__item {
+        margin-bottom: 15px;
+        font-size: 16px;
+        line-height: 1.4;
+        max-width: 210px;
+    }
+    &__link {
+        padding-bottom: 5px;
+        border-bottom: 2px solid;
+        border-color: transparent;
+        transition: border-color 0.3s linear;
+        &:hover {
+            border-color: $color-white;
+        }
+        &--contact {
+            position: relative;
+            padding-bottom: 0px;
+            border-bottom: none;
+            border-color: transparent;
+            // display: flex;
+            // align-items: center;
+            span {
+                padding-bottom: 5px;
+                border-bottom: 2px solid;
+                border-color: transparent;
+                transition: border-color 0.3s linear;
+            }
+            &:hover .footer__icon{
+                fill: $color-white;
+            }
+            &:hover span {
+                border-color: $color-white;
+            }
+        }
+    }
+    &__icon {
+        position: absolute;
+        top: 2px;
+        left: -35px;
+        width: 20px;
+        height: 20px;
+        fill: $color-black;
+        margin-right: 10px;
+        transition: fill 0.3s linear;
+    }
+}
