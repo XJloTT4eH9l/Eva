@@ -1,0 +1,49 @@
+@import '../../styles/variables.scss'; 
+
+.slick-slider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.slick-slide > div {
+    margin: 0 10px;
+}
+
+.slick-list {
+    margin: 0 -10px;
+}
+.slick-prev {
+    top: -40px !important;
+    left: auto !important;
+    right: 75px !important;
+}
+
+.slick-next {
+    top: -40px !important;
+    right: 30px !important;
+}
+
+.slick-next::before {
+    font-size: 40px !important;
+    color: $color-green !important;
+}
+
+.slick-prev::before {
+    font-size: 40px !important;
+    color: $color-green !important;
+}
+
+.slick-arrow .slick-next:hover {
+    img {
+        opacity: 0.8;
+    }
+}
+
+.slick-dots {
+    bottom: -30px !important;
+}
+
+.slick-dots li.slick-active button:before {
+    font-size: 10px !important;
+    color: $color-green !important;
+}
