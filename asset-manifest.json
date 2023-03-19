@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/Eva/static/css/main.7b6bba47.css",
+    "main.js": "/Eva/static/js/main.b60b74e0.js",
+    "static/media/hero-bg3.jpg": "/Eva/static/media/hero-bg3.32a18a29d6774930452e.jpg",
+    "static/media/hero-bg2.jpg": "/Eva/static/media/hero-bg2.b897b8b0c8da8f7c54ea.jpg",
+    "static/media/hero-bg.jpg": "/Eva/static/media/hero-bg.f6b5f0030fe7a7cc4cd7.jpg",
+    "static/media/jam.png": "/Eva/static/media/jam.b799f5684121091f3dc4.png",
+    "static/media/fruit-berry-juice.png": "/Eva/static/media/fruit-berry-juice.fa11ec00fca754df30b3.png",
+    "static/media/juice.png": "/Eva/static/media/juice.abfa5a3e451e33fb76d5.png",
+    "static/media/sauce.png": "/Eva/static/media/sauce.dab4b536fb0660d8ff33.png",
+    "static/media/grape-juice.png": "/Eva/static/media/grape-juice.c298e6d12d57a891eee0.png",
+    "static/media/tea.png": "/Eva/static/media/tea.9ec9eb99d4ec4df53f36.png",
+    "static/media/logo.svg": "/Eva/static/media/logo.68d7e87fb36daf667959a6519fe0868f.svg",
+    "static/media/slick.svg": "/Eva/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/Eva/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/Eva/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/cart.svg": "/Eva/static/media/cart.af478224b10fae42e607f8551ebad524.svg",
+    "static/media/slick.woff": "/Eva/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/Eva/index.html",
+    "main.7b6bba47.css.map": "/Eva/static/css/main.7b6bba47.css.map",
+    "main.b60b74e0.js.map": "/Eva/static/js/main.b60b74e0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7b6bba47.css",
+    "static/js/main.b60b74e0.js"
+  ]
+}
