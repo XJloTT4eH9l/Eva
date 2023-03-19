@@ -3,6 +3,9 @@
 .proposition {
     position: relative;
     margin-top: 50px;
+    &__title {
+        padding-left: 15px;
+    }
     &__shadow {
         position: absolute;
         top: 50%;
@@ -16,7 +19,8 @@
         @media screen and (max-width: 1050px) {
             grid-template-columns: repeat(2, 1fr);
         }
-        @media screen and (max-width: 480px) {
+        @media screen and (max-width: 500px) {
+            padding: 0 15px;
             grid-template-columns: repeat(1, 1fr);
         }
     }

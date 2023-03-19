@@ -38,6 +38,11 @@
     bottom: -30px !important;
 }
 
+.slick-dots li button:before {
+    font-size: 10px !important;
+}
+
+
 .slick-dots li.slick-active button:before {
     font-size: 10px !important;
     color: $color-green !important;

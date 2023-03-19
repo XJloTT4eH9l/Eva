@@ -12,7 +12,7 @@ const Nav:FC<NavProps> = ({ type, setMobileMenuOpen }) => {
         <nav className={type === 'desktop' ? "nav" : "nav--mobile"}>
             <ul className={type === 'desktop' ? "nav__list" : "nav__list--mobile"}>
                 <li className={type === 'desktop' ? "nav__item" : "nav__item--mobile"}>
-                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/Eva/'>Головна</NavLink>
+                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/Eva'>Головна</NavLink>
                 </li>
                 <li className={type === 'desktop' ? "nav__item" : "nav__item--mobile"}>
                     <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/Eva/catalog'>Категорії</NavLink>

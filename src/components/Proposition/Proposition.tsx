@@ -15,10 +15,10 @@ const Proposition:FC<PropositionProps> = ({ title, link, products }) => {
     return (
         <section className="proposition">
             {products.length > 0 && (
-                <div className="container">
-                <h2 className="title">{title}</h2>
+                <div className="container container--proposition">
+                <h2 className="title proposition__title">{title}</h2>
                     {
-                        products.length > 4 ? (
+                        products.length > 2 ? (
                             <>
                                 <ProductSlider products={products} />
                             </>
@@ -36,7 +36,7 @@ const Proposition:FC<PropositionProps> = ({ title, link, products }) => {
                             </ul>
                         )
                     }          
-            </div>
+                </div>
             )}
         </section>
     )

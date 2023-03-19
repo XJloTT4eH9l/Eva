@@ -17,7 +17,7 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
         infinite: false,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 1,
+        slidesToScroll: 4,
         initialSlide: 0,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
@@ -26,7 +26,7 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
             breakpoint: 1024,
             settings: {
               slidesToShow: 3,
-              slidesToScroll: 1,
+              slidesToScroll: 3,
               dots: true
             }
           },
@@ -34,7 +34,7 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
             breakpoint: 800,
             settings: {
               slidesToShow: 2,
-              slidesToScroll: 1,
+              slidesToScroll: 2,
               initialSlide: 2
             }
           },
