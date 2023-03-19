@@ -39,7 +39,7 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
             }
           },
           {
-            breakpoint: 480,
+            breakpoint: 500,
             settings: {
               slidesToShow: 1.4,
               slidesToScroll: 1,

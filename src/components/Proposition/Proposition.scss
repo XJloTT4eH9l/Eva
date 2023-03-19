@@ -1,7 +1,14 @@
 @import '../../styles/variables.scss';
 
 .proposition {
+    position: relative;
     margin-top: 50px;
+    &__shadow {
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        transform: translateX(-50%);
+    }
     &__list {
         display: grid;
         grid-template-columns: repeat(4, 1fr);

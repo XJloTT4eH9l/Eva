@@ -26,11 +26,13 @@
         -webkit-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
         -moz-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
         box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
-        &:hover {
-            background-color: $color-green;
-        }
-        &:hover .categories__name {
-            color: $color-white;
+        @media screen and (min-width: 900px) {
+            &:hover {
+                background-color: $color-green;
+            }
+            &:hover .categories__name {
+                color: $color-white;
+            }
         }
         @media screen and (max-width: 520px) {
             padding: 10px;

@@ -19,7 +19,9 @@ const Proposition:FC<PropositionProps> = ({ title, link, products }) => {
                 <h2 className="title">{title}</h2>
                     {
                         products.length > 4 ? (
-                            <ProductSlider products={products} />
+                            <>
+                                <ProductSlider products={products} />
+                            </>
                         ) : (
                             <ul className='proposition__list'>
                                  {products.map(item => (
