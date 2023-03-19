@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import Svg from '../Svg/Svg';
 import './Footer.scss';
@@ -15,9 +15,9 @@ const Footer:FC = () => {
                     <div className="footer__column">
                         <h4 className='footer__title'>Інформація</h4>
                         <ul className="footer__list">
-                            <li className='footer__item'><Link className='footer__link' to='/'>Головна</Link></li>
-                            <li className='footer__item'><Link className='footer__link' to='/about'>Про нас</Link></li>
-                            <li className='footer__item'><Link className='footer__link' to='/contacts'>Контакти</Link></li>
+                            <li className='footer__item'><NavLink className='footer__link' to='/'>Головна</NavLink></li>
+                            <li className='footer__item'><NavLink className='footer__link' to='/about'>Про нас</NavLink></li>
+                            <li className='footer__item'><NavLink className='footer__link' to='/contacts'>Контакти</NavLink></li>
                         </ul>
                     </div>
                     <div className="footer__column">

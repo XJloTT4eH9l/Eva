@@ -16,6 +16,7 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
         dots: true,
         infinite: false,
         speed: 500,
+        dontAnimate: true,
         slidesToShow: 4,
         slidesToScroll: 4,
         initialSlide: 0,

@@ -18,10 +18,8 @@ const Proposition:FC<PropositionProps> = ({ title, link, products }) => {
                 <div className="container container--proposition">
                 <h2 className="title proposition__title">{title}</h2>
                     {
-                        products.length > 2 ? (
-                            <>
-                                <ProductSlider products={products} />
-                            </>
+                        products.length > 1 ? (
+                            <ProductSlider products={products} />
                         ) : (
                             <ul className='proposition__list'>
                                  {products.map(item => (
