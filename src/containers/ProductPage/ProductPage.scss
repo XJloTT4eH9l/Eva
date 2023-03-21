@@ -1,0 +1,173 @@
+@import '../../styles/variables.scss';
+
+.bread-crumbs {
+    margin-bottom: 30px;
+    &__item {
+        position: relative;
+        font-size: 16px;
+        color: $color-light-grey;
+        transition: color 0.3s linear;
+        &:not(:last-child) {
+            margin-right: 40px;
+            &:hover {
+                color: $color-green;
+            }
+        }
+        &:last-child {
+            @media screen and (max-width: 520px) {
+                display: block;
+            }
+        }
+    }
+    &__item:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        display: block;
+        top: 50%;
+        right: -28px;
+        transform: translateY(-50%);
+        width: 15px;
+        height: 1px;
+        background-color: $color-light-grey;
+    }
+}
+
+.product-page {
+    padding: 50px 0;
+    font-size: 16px;
+    &__inner {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        @media screen and (max-width: 700px) {
+            flex-direction: column;
+        }
+    }
+    &__left {
+        margin-right: 100px;
+        @media screen and (max-width: 1000px) {
+            margin-right: 50px;
+        }
+        @media screen and (max-width: 700px) {
+            margin-right: 0;
+            margin-bottom: 30px;
+        }
+    }
+    &__right {
+        @media screen and (max-width: 700px) {
+            margin: 0 auto;
+        }
+    }
+    &__img {
+        width: 300px;
+        height: 300px;
+    }
+    &__cart {
+        padding: 20px;
+        max-width: 300px;
+        -webkit-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
+        -moz-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
+        box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
+        @media screen and (max-width: 700px) {
+            margin: 0 auto;
+        }
+    }
+    &__availability {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        &--true {
+            color: $color-green;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                display: block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: $color-green;
+            }
+        }
+        &--false {
+            color: $color-red;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                display: block;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background-color: $color-red;
+            }
+        }
+    }
+    &__title {
+        font-size: 30px;
+        margin-bottom: 30px;
+        @media screen and (max-width: 1000px) {
+            max-width: 300px;
+        }
+        @media screen and (max-width: 700px) {
+            max-width: 100%;
+            text-align: center;
+        }
+    }
+    &__price {
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+    &__btn {
+        padding: 10px 15px;
+        font-size: 16px;
+        border: 1px solid;
+        border-radius: 6px;
+        color: $color-black;
+        border-color: $color-green;
+        background-color: $color-white;
+        transition: background-color 0.3s, color 0.5s linear;
+        &--active {
+            background-color: $color-green;
+            color: $color-white; 
+        }
+        &:hover {
+            background-color: $color-green;
+            color: $color-white;
+        }
+    }
+    &__switch {
+        margin-bottom: 30px;
+        max-width: 300px;
+        & .product-page__btn:not(:last-child) {
+            margin-right: 10px;
+        }
+        @media screen and (max-width: 700px) {
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    &__text {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    &__char {
+        color: $color-light-grey;
+        margin-bottom: 20px;
+        & span:first-child {
+            color: $color-light-grey;
+            margin-right: 20px;
+        }
+        & span:last-child {
+            color: $color-black;
+            margin-left: 20px;
+        }
+    }
+}

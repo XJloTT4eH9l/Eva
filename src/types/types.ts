@@ -1,6 +1,18 @@
 export interface IProduct {
     id: number;
     title: string;
-    img: string;
+    img: string[];
     price: number;
+}
+
+type Characteristics = {
+    name: string,
+    text: string
+}
+
+export interface IProductDetail extends IProduct {
+    minQuanityOrder: number;
+    characteristics: Characteristics[];
+    description: string;
+    availability: boolean;
 }

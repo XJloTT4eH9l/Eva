@@ -1,0 +1,111 @@
+import { useState, useEffect, useRef, FC } from 'react';
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { IProductDetail } from '../../types/types';
+
+import LinkBack from '../../components/LinkBack/LinkBack';
+import SliderThumbs from '../../components/SliderThumbs/SliderThumbs';
+
+import './ProductPage.scss';
+
+const ProductPage:FC = () => {
+    const { id } = useParams();
+    console.log(id);
+    const filmId = id?.slice(1);
+
+    const [productInfo, setProductInfo] = useState<IProductDetail>();
+    const [textType, setTextType] = useState<string>('description');
+
+    const product = {
+        id: 34,
+        title: 'Концентрований абрикосовий сік',
+        img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712230/1-500x500.jpg', 
+        'https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-500x500.jpg'],
+        price: 88,
+        minQuanityOrder: 13,
+        availability: true,
+        description: 'Концентрований освітлений абрикосовий сік виготовляється із стиглих, свіжих плодів абрикосу різних сортів. Сік має характерний насичений смак і запахУ абрикосах містяться такі мінерали як кальцій, залізо, магній та фосфор. Фахівці з ароматерапії переконують, що аромат абрикосів здатний діяти як антидепресант. Ці фрукти сприяють покращення діяльності мозку, пам’яті, підвищують концентрацію уваги. Абрикосовий сік корисно пити дітям та вагітним жінкам, а також людям зі зниженим гемоглобіном',
+        characteristics: [
+            {name: 'Додатковий сервіс', text: 'Відправка протягом 1-3 днів з моменту оплати. Великі партії товару ( від 1 тони) протягом 4-6 днів'},
+            {name: 'Колір', text: 'Продукт має темно-оранжевий колір (в результаті термічної обробки), після відновлення - жовтий'},
+            {name: 'Виробник', text: 'Власне виробництво'}
+        ]
+    };
+
+    useEffect(() => {
+        setProductInfo(product);
+        window.scrollTo(0, 0);
+    }, [])
+
+    return (
+        <section className="product-page">
+            <div className="container">
+                <div className="bread-crumbs">
+                    <Link className='bread-crumbs__item' to='/'>Головна</Link>
+                    <Link className='bread-crumbs__item' to='/catalog'>Категорії</Link>
+                    <span className='bread-crumbs__item'>{productInfo?.title}</span>
+                </div>
+                <LinkBack />
+                <div className='product-page__inner'>
+                    <div className="product-page__left">
+                        {
+                            productInfo && (
+                                productInfo?.img.length === 1 ? (
+                                    <img className='product-page__img' src={productInfo.img[0]} alt={productInfo.title} />
+                                ) : (
+                                    <SliderThumbs imgs={productInfo.img} />
+                                )
+                            )
+                        }
+                    </div>
+                    <div className="product-page__right">
+                        <h1 className='product-page__title'>{productInfo?.title}</h1>
+                        <div className='product-page__cart'>
+                            <div className='product-page__price'><span>Ціна: </span> {productInfo?.price} грн</div>
+                            {
+                                productInfo?.availability === true 
+                                    ?  <div className='product-page__availability product-page__availability--true'>Є в наявності</div>
+                                    :  <div className='product-page__availability product-page__availability--false'>Немає в наявності</div>
+                            }
+                            {productInfo?.availability && <button className='product-page__btn'>Додати в корзину</button>}
+                        </div>
+                    </div>
+                </div>
+                <div className='product-page__switch'>
+                    <button 
+                        className={textType === 'description' ? 'product-page__btn product-page__btn--active' : 'product-page__btn'}
+                        onClick={() => setTextType('description')}
+                    >
+                        Опис
+                    </button>
+                    <button 
+                        className={textType === 'characteristics' ? 'product-page__btn product-page__btn--active' : 'product-page__btn'}
+                        onClick={() => setTextType('characteristics')}
+                    >
+                        Характеристики
+                    </button>
+                </div>
+                {
+                    textType === 'description' 
+                        ?   <p className='product-page__text'>{productInfo?.description}</p>
+                        :  (
+                            <ul className='product-page__list'>
+                                {
+                                     productInfo?.characteristics.map(char => (
+                                        <li key={char.name} className='product-page__char'>
+                                            <span>{char.name}</span>
+                                            —
+                                            <span>{char.text}</span>
+                                        </li>
+                                    ))
+                                }
+                            </ul>
+                        )
+                }
+                
+            </div>
+        </section>
+    )
+}
+
+export default ProductPage;
