@@ -121,7 +121,7 @@ svg {
 	height: 8px;
 }
 ::-webkit-scrollbar-thumb {
-	background-color: rgb(252, 252, 252);
+	background-color: $color-green;
 	border-radius: 2px;
 }
 ::-webkit-scrollbar-track {

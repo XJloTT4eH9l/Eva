@@ -14,7 +14,7 @@ const Product:FC<ProductProps> = ({ id, title, img, price }) => {
         <Link 
             key={id}
             className='product' 
-            to={`/catalog/:${id}`}
+            to={`/catalog/${id}`}
         >
             <div className='product__top'>
                 <img className='product__img' src={img[0]} alt={title} />

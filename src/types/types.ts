@@ -16,3 +16,8 @@ export interface IProductDetail extends IProduct {
     description: string;
     availability: boolean;
 }
+
+export interface ICartItem extends IProduct {
+    quanity: number;
+    minQuanityOrder: number;
+}

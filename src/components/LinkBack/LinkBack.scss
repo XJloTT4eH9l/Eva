@@ -10,9 +10,6 @@
     -webkit-tap-highlight-color: transparent;
     &:hover &__img {
         transform: translateX(-20px) rotate(90deg);
-        @media screen and (max-width: 900px) {
-            transform: none;
-        }
     }
     &__img {
         width: 35px;

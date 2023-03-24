@@ -16,6 +16,7 @@
         background-color: $color-white;
         border-radius: 6px;
         transition: transform 0.2s ease-in-out;
+        cursor: pointer;
         &:hover {
             transform: translateX(-10px);
         }
@@ -46,5 +47,18 @@
             display: flex;
             justify-content: center;
         }
+    }
+}
+
+.overlay {
+    position: fixed;
+    background-color: transparent;
+    &--active {
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba($color-black, 0.6);
+        z-index: 45;
     }
 }

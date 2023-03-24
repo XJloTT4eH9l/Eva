@@ -1,15 +1,23 @@
-import { FC, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { FC, useState, useEffect } from 'react';
+import { useAppSelector } from '../../hooks/reduxHooks';
 
 import Logo from '../Logo/Logo';
 import Nav from '../Nav/Nav';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
+import SideCart from '../SideCart/SideCart';
 
 import cartIcon from '../../assets/img/cart.svg';
 import './Header.scss';
 
 const Header:FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+    const [cartOpen, setCartOpen] = useState<boolean>(false);
+    const cartItems = useAppSelector(state => state.cartItems.cartItems);
+    const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+
+    useEffect(() => {
+        cartOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow ='visible';
+    }, [cartOpen])
 
     return (
         <header className="header">
@@ -23,10 +31,18 @@ const Header:FC = () => {
                         <Nav type='mobile' setMobileMenuOpen={setMobileMenuOpen} />
                     </div>
                     
-                    <NavLink className='header__cart' to='/cart'>
+                    <div className='header__cart' onClick={() => setCartOpen(true)}>
                         <img src={cartIcon} alt='Корзина' className='header__cart-img'/>
-                        <span className='header__cart-text'>650 грн</span>
-                    </NavLink>
+                        <span className='header__cart-text'>{sum} грн</span>
+                    </div>
+                    <SideCart
+                        cartOpen={cartOpen}
+                        setCartOpen={setCartOpen} 
+                    />
+                    <div
+                        onClick={() => setCartOpen(false)} 
+                        className={cartOpen ? 'overlay overlay--active' : 'overlay'}>
+                    </div>
                 </div>
             </div>
         </header>
