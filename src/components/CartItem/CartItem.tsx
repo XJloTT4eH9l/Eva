@@ -6,7 +6,7 @@ import './CartItem.scss';
 interface CartItemProps {
     id: number;
     title: string;
-    img: string;
+    img: string[];
     price: number;
     quanity: number;
     minQuanityOrder: number;
@@ -32,7 +32,13 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
             <h3 className='cart-item__title'>{title}</h3>
             <div className="cart-item__inner">
                 <div className='cart-item__middle'>
-                    <img className='cart-item__img' src={img} alt={title} />
+                    {img.map((item, i) => {
+                        if(i < 1) {
+                            return (
+                                <img key={item} className='cart-item__img' src={item} alt={title} />
+                            )
+                        }
+                    })}
                     <div>
                         <div className='cart-item__summ'>
                             Сумма: {price * quanity} грн

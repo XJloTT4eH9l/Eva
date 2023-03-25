@@ -32,35 +32,36 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                     </button>
                 </div>
             </div>
-            {
-                cartItems.length > 0
-                    ? (
-                        <div>
-                            <ul className='side-cart__list'>
-                            {
-                                 cartItems.map(item => (
-                                    <CartItem
-                                        key={item.id}
-                                        id={item.id}
-                                        title={item.title}
-                                        price={item.price}
-                                        img={item.img[0]} 
-                                        quanity={item.quanity}
-                                        minQuanityOrder={item.minQuanityOrder}
-                                    />
-                                ))
-                            }
-                        </ul>
-                        <div className='side-cart__btn-container'>
-                            <button className='side-cart__btn-clean' onClick={onClearCart}>Очистити корзину</button>
-                        </div>
-                        </div>
-                    )
-                    : (
-                        <div>
-                            <h3>Корзина пуста</h3>
-                        </div>
-                    )
+            {cartItems && (
+                    cartItems.length > 0
+                        ? (
+                            <div>
+                                <ul className='side-cart__list'>
+                                {
+                                    cartItems.map(item => (
+                                        <CartItem
+                                            key={item.id}
+                                            id={item.id}
+                                            title={item.title}
+                                            price={item.price}
+                                            img={item.img} 
+                                            quanity={item.quanity}
+                                            minQuanityOrder={item.minQuanityOrder}
+                                        />
+                                    ))
+                                }
+                            </ul>
+                            <div className='side-cart__btn-container'>
+                                <button className='side-cart__btn-clean' onClick={onClearCart}>Очистити корзину</button>
+                            </div>
+                            </div>
+                        )
+                        : (
+                            <div>
+                                <h3>Корзина пуста</h3>
+                            </div>
+                        )
+            )
             }
             <div className='side-cart__bottom'>
                 <div className='side-cart__bottom--inner'>
