@@ -32,13 +32,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
             <h3 className='cart-item__title'>{title}</h3>
             <div className="cart-item__inner">
                 <div className='cart-item__middle'>
-                    {img.map((item, i) => {
-                        if(i < 1) {
-                            return (
-                                <img key={item} className='cart-item__img' src={item} alt={title} />
-                            )
-                        }
-                    })}
+                    <img className='cart-item__img' src={img[0]} alt={title} />
                     <div>
                         <div className='cart-item__summ'>
                             Сумма: {price * quanity} грн

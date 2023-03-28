@@ -1,6 +1,9 @@
 @import '../../styles/variables.scss';
 
 .bread-crumbs {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 30px;
     &__item {
         position: relative;
@@ -11,11 +14,6 @@
             margin-right: 40px;
             &:hover {
                 color: $color-green;
-            }
-        }
-        &:last-child {
-            @media screen and (max-width: 520px) {
-                display: block;
             }
         }
     }

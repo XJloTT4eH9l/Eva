@@ -15,9 +15,14 @@ const Header:FC = () => {
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
 
+    const close = () => {
+        setMobileMenuOpen(false);
+        setCartOpen(false);
+    }
+
     useEffect(() => {
-        cartOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow ='visible';
-    }, [cartOpen])
+        cartOpen || mobileMenuOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow ='visible';
+    }, [cartOpen, mobileMenuOpen])
 
     return (
         <header className="header">
@@ -40,8 +45,8 @@ const Header:FC = () => {
                         setCartOpen={setCartOpen} 
                     />
                     <div
-                        onClick={() => setCartOpen(false)} 
-                        className={cartOpen ? 'overlay overlay--active' : 'overlay'}>
+                        onClick={close} 
+                        className={cartOpen || mobileMenuOpen ? 'overlay overlay--active' : 'overlay'}>
                     </div>
                 </div>
             </div>

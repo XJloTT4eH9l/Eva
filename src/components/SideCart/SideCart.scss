@@ -82,4 +82,16 @@
             background-color: $color-green;
         }
     }
+    &__empty {
+        text-align: center;
+    }
+    &__empty-img {
+        width: 240px;
+        height: 240px;
+        margin: 0 auto;
+    }
+    &__heading {
+        font-size: 24px;
+        font-weight: 700;
+    }
 }

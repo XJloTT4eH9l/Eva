@@ -12,12 +12,12 @@ import './Categories.scss';
 
 const Categories = () => {
     const categoriesList = [
-        {id: 1, name: 'Зброжений сік', href: '/categories/zbrozheniy-sik', img: zbrozhJuice},
-        {id: 2, name: 'Концентровані чаї', href: '/categories/teas', img: tea},
-        {id: 3, name: 'Концентрований сік', href: '/categories/concentrated-juice', img: concentratedJuice},
-        {id: 4, name: 'Фруктові сиропи', href: '/categories/fruit-syrup', img: jam},
-        {id: 5, name: 'Фруктове пюре', href: '/categories/fruit-puree', img: puree},
-        {id: 6, name: 'Фруктово-ягідні соки', href: '/categories/fruit-berry-juices', img: fruitBerryJuice}
+        {id: 1, name: 'Зброжений сік', href: '/catalog/fermented-juice', img: zbrozhJuice},
+        {id: 2, name: 'Концентровані чаї', href: '/catalog/teas', img: tea},
+        {id: 3, name: 'Концентрований сік', href: '/catalog/concentrated-juice', img: concentratedJuice},
+        {id: 4, name: 'Фруктові сиропи', href: '/catalog/fruit-syrup', img: jam},
+        {id: 5, name: 'Фруктове пюре', href: '/catalog/fruit-puree', img: puree},
+        {id: 6, name: 'Фруктово-ягідні соки', href: '/catalog/fruit-berry-juices', img: fruitBerryJuice},
     ];
 
     return (
@@ -25,13 +25,13 @@ const Categories = () => {
             <div className="container">
                 <h2 className="title">Категорії</h2>
                 <ul className="categories__list">
-                    {categoriesList.map(category => (
-                        <li key={category.id} className='categories__item'>
-                            <Link className='categories__link' to={category.href}>
+                    {categoriesList.map((category, i) => (
+                        <Link key={category.id} className={`categories__item categories__item--${i+1}`} to={category.href}>
+                            <div className='categories__block'>
                                 <img className='categories__img' src={category.img} alt={category.name} />
                                 <h3 className='categories__name'>{category.name}</h3>
-                            </Link>
-                        </li>
+                            </div>
+                        </Link>
                     ))}
                 </ul>
             </div>

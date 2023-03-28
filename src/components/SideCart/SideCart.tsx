@@ -5,6 +5,7 @@ import { clearCart } from '../../store/cartSlice';
 
 import CartItem from '../CartItem/CartItem';
 import close from '../../assets/img/close.png';
+import cartEmpty from '../../assets/img/cart-empty.svg';
 
 import './SideCart.scss';
 
@@ -17,6 +18,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+    console.log(cartItems);
 
     const onClearCart = () => {
         dispatch(clearCart())
@@ -26,7 +28,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
         <div className={cartOpen ? "side-cart side-cart--active" : 'side-cart'}>
             <div className='side-cart__header'>
                 <div className='side-cart__top'>
-                    <h2 className='side-cart__title'>Корзина</h2>
+                    <h2 className='side-cart__title'>Кошик</h2>
                     <button className='side-cart__close-btn' onClick={() => setCartOpen(false)}>
                         <img src={close} alt='Закрити корзину'/>
                     </button>
@@ -57,8 +59,9 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                             </div>
                         )
                         : (
-                            <div>
-                                <h3>Корзина пуста</h3>
+                            <div className='side-cart__empty'>
+                                <img className='side-cart__empty-img' src={cartEmpty} alt='Кошик порожній' />
+                                <h3 className='side-cart__heading'>Кошик порожній</h3>
                             </div>
                         )
             )
@@ -68,9 +71,11 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                     <h4 className='side-cart__subtitle'>Разом</h4>
                     <span>{sum} грн</span>
                 </div>
-                <div className='side-cart__btn-container'>
-                    <Link to={'/order-page'} className='side-cart__confirm'>Оформити замовлення</Link>
-                </div>
+                {cartItems.length > 0 && (
+                    <div className='side-cart__btn-container'>
+                        <Link to={'/order-page'} className='side-cart__confirm'>Оформити замовлення</Link>
+                    </div>
+                )}
             </div>
         </div>
     )
