@@ -4,7 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import HomePage from "../HomePage/HomePage";
 import ProductPage from "../ProductPage/ProductPage";
 import CatalogPage from "../CatalogPage/CatalogPage";
-import FermentedJuicePage from "../CategoriesPages/FermentedJuicePage";
+import CategoryPage from "../CategoriesPages/CategoryPage";
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={ <HomePage /> } />
-        <Route path='/catalog' element={ <CatalogPage /> } />
-        <Route path="/catalog/:id" element={ <ProductPage />} />
-        <Route path="/catalog/fermented-juice" element={ <FermentedJuicePage /> } />
+        <Route path='/categories' element={ <CatalogPage /> } />
+        <Route path="/categories/product/:id" element={ <ProductPage />} />
+        <Route path="/categories/:id" element={ <CategoryPage /> } />
       </Routes>
       <Footer />
     </>

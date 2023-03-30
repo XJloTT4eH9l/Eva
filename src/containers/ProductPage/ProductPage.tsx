@@ -41,14 +41,16 @@ const ProductPage:FC = () => {
     const cartItemsSelector = useAppSelector(state => state.cartItems.cartItems);
 
     const onCart = () => {
-        dispatch(addToCart({ 
-            id: productInfo.id,
-            title: productInfo.title,
-            img: productInfo.img,
-            price: productInfo.price,
-            quanity: productInfo.minQuanityOrder,
-            minQuanityOrder: productInfo.minQuanityOrder
-        }));
+        if(productInfo) {
+            dispatch(addToCart({ 
+                id: productInfo.id,
+                title: productInfo.title,
+                img: productInfo.img,
+                price: productInfo.price,
+                quanity: productInfo.minQuanityOrder,
+                minQuanityOrder: productInfo.minQuanityOrder
+            }));
+        }
     }
 
     const onPlus = (id: number) => {
@@ -96,7 +98,7 @@ const ProductPage:FC = () => {
             <div className="container">
                 <div className="bread-crumbs">
                     <Link className='bread-crumbs__item' to='/'>Головна</Link>
-                    <Link className='bread-crumbs__item' to='/catalog'>Категорії</Link>
+                    <Link className='bread-crumbs__item' to='/categories'>Категорії</Link>
                     <span className='bread-crumbs__item'>{productInfo?.title}</span>
                 </div>
                 <LinkBack />

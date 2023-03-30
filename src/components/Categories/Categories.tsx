@@ -26,7 +26,11 @@ const Categories = () => {
                 <h2 className="title">Категорії</h2>
                 <ul className="categories__list">
                     {categoriesList.map((category, i) => (
-                        <Link key={category.id} className={`categories__item categories__item--${i+1}`} to={category.href}>
+                        <Link 
+                            key={category.id} 
+                            className={`categories__item categories__item--${i+1}`} 
+                            to={`/categories/${category.id}`}
+                        >
                             <div className='categories__block'>
                                 <img className='categories__img' src={category.img} alt={category.name} />
                                 <h3 className='categories__name'>{category.name}</h3>

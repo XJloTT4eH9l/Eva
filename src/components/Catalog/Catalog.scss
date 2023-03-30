@@ -1,0 +1,97 @@
+@import '../../styles/variables.scss';
+
+.catalog {
+    position: relative;
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        @media screen and (max-width: 1024px) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media screen and (max-width: 800px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media screen and (max-width: 520px) {
+            padding-top: 60px;
+        }
+        @media screen and (max-width: 500px) {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}
+
+.sorting {
+    position: absolute;
+    top: -65px;
+    left: 250px;
+    z-index: 1;
+    &--active {
+        z-index: 50;
+    }
+    @media screen and (max-width: 520px) {
+        top: -20px;
+        left: 0px;
+    }
+    &__btn {
+        padding: 10px 15px;
+        font-size: 16px;
+        border: 1px solid;
+        border-color: $color-green;
+        border-radius: 6px;
+        transition: color 0.2s linear, background-color 0.2s linear;
+        &--active {
+            color: $color-white;
+            background-color: $color-green;
+        }
+        &:hover {
+            color: $color-white;
+            background-color: $color-green;
+        }
+    }
+    &__list {
+        margin-top: 10px;
+        border-radius: 6px;
+        opacity: 0;
+        background-color: #c9c8c8;
+        box-shadow: 1px 1px 15px 0px rgba(0, 0, 0, 0.3);
+        transition: opacity 0.3s linear;
+        &--active {
+            opacity: 1;
+            z-index: 50;
+        }
+    }
+    &__item {
+        cursor: pointer;
+        &:first-child {
+            border-radius: 6px 6px 0px 0px;
+        }
+        &:last-child {
+            border-radius: 0px 0px 6px 6px;
+        }
+        padding: 5px 10px;
+        &--active {
+            color: $color-white;
+            background-color: $color-green;
+        }
+        &--active:hover {
+            color: $color-white;
+            background-color: $color-green;
+        }
+        &:hover {
+            background-color:#a7a5a5;
+        }
+    }
+    // &__overlay {
+    //     position: fixed;
+    //     z-index: 1;
+    //     top: 0;
+    //     left: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     &--active {
+    //         display: block;
+    //         position: absolute;
+    //     }
+    // }
+}

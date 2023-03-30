@@ -8,10 +8,11 @@
     border-radius: 6px;
     background-color: $color-white;
     min-height: 350px;
-    -webkit-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
-    -moz-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
-    box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
     transition: transform 0.3s ease-in-out;
+    z-index: 10;
     @media screen and (max-width: 1050px) {
         text-align: center;
     }

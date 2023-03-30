@@ -95,7 +95,7 @@ svg {
 }
 
 .container {
-  max-width: 1330px;
+  max-width: 1170px;
   padding: 0 15px;
   margin: 0 auto;
   &--proposition {
@@ -109,6 +109,9 @@ svg {
   font-weight: 700;
   margin-bottom: 30px;
   color: $color-black;
+}
+.categories-page {
+  padding-top: 50px;
 }
 
 * {
