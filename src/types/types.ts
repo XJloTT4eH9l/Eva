@@ -5,6 +5,12 @@ export interface IProduct {
     price: number;
 }
 
+export interface ICategory {
+    id: number;
+    name: string;
+    img: string;
+}
+
 type Characteristics = {
     name: string,
     text: string

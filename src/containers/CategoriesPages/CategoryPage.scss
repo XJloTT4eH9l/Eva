@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+
+.categories-page {
+    padding-top: 50px;
+    &__inner {
+        
+    }
+    &__list {
+        margin-right: 30px;
+        margin-bottom: 30px;
+    }
+    &__item {
+        display: block;
+        width: 500px;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-top: 1px solid;
+        border-left: 1px solid;
+        border-right: 1px solid;
+        border-color: $color-green;
+        &:last-child {
+            border-bottom: 1px solid;
+        }
+        &--active {
+            color: $color-white;
+            background-color: $color-green
+        }
+    }
+  }

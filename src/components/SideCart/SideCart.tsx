@@ -54,7 +54,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                                 }
                             </ul>
                             <div className='side-cart__btn-container'>
-                                <button className='side-cart__btn-clean' onClick={onClearCart}>Очистити корзину</button>
+                                <button className='side-cart__btn-clean' onClick={onClearCart}>Очистити кошик</button>
                             </div>
                             </div>
                         )

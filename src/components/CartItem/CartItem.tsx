@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { onClickMinus, onClickPlus, removeItem } from '../../store/cartSlice';
+import trash from  '../../assets/img/trash.svg';
 import './CartItem.scss';
 
 interface CartItemProps {
@@ -29,22 +30,22 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
 
     return (
         <li className="cart-item">
-            <h3 className='cart-item__title'>{title}</h3>
             <div className="cart-item__inner">
-                <div className='cart-item__middle'>
                     <img className='cart-item__img' src={img[0]} alt={title} />
-                    <div>
-                        <div className='cart-item__summ'>
-                            Сумма: {price * quanity} грн
-                        </div>
-                        <div className='cart-item__counter'>
-                            <button className='cart-item__count-btn' onClick={() => onMinus(id)}>-</button>
-                            <span className='cart-item__quanity'>{quanity}</span>
-                            <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
+                    <div className='cart-item__content'>
+                        <h3 className='cart-item__title'>{title}</h3>
+                        <div className="cart-item__bottom">
+                            <div className='cart-item__counter'>
+                                <button className='cart-item__count-btn' onClick={() => onMinus(id)}>-</button>
+                                <span className='cart-item__quanity'>{quanity}</span>
+                                <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
+                            </div>
+                            <div className='cart-item__summ'>{price * quanity} грн</div>
                         </div>
                     </div>
-                </div>
-                <button className='cart-item__delete-btn' onClick={() => onRemove(id)}>x</button>
+                <button className='cart-item__delete-btn' onClick={() => onRemove(id)}>
+                    <svg className='cart-item__trash'><use href='#trash'></use></svg>
+                    </button>
             </div>
         </li>
     )

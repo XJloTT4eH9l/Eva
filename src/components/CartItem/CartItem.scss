@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .cart-item {
+    position: relative;
     padding: 10px;
     background-color: rgba(65, 94, 67, 0.031372549);
     border-color: $color-light-grey;
@@ -25,20 +26,31 @@
         font-size: 18px;
         margin-bottom: 10px;
     }
-    &__middle {
+    &__content {
+        width: 240px;
+    }
+    &__bottom {
         display: flex;
+        justify-content: space-between;
         align-items: center;
     }
-    &__count-btn {
-        padding: 10px 15px;
-        border: 1px solid;
-        font-size: 16px;
-        border-color: $color-green;
+    &__counter {
+        display: flex;
+        align-items: center;
+        color: $color-green;
+        background-color: #bae1b6;
         border-radius: 6px;
-        transition: color 0.3s linear, background-color 0.3s linear;
-        &:hover {
-            background-color: $color-green;
-            color: $color-white;
+        padding: 8px;
+    }
+    &__count-btn {
+        padding: 5px;
+        font-size: 18px;
+        border-radius: 6px;
+        transition: color 0.3s linear;
+        @media screen and (min-width: 900px) {
+            &:hover {
+                color: $color-white;
+            }
         }
     }
     &__quanity {
@@ -46,27 +58,26 @@
         margin: 0 15px;
     }
     &__summ {
-        padding: 8px 16px;
+        font-size: 18px;
+        font-weight: 700;
         text-align: center;
         border-radius: 6px;
-        margin-bottom: 10px;
-        color: $color-white;
-        background-color: $color-green;
-    }
-    &__counter {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        color: $color-green;
     }
     &__delete-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
         font-size: 16px;
-        padding: 5px 10px;
         border-radius: 6px;
-        color: $color-white;
-        background-color: rgba($color-red, 0.8);
-        transition: background-color 0.3s linear;
+    }
+    &__trash {
+        width: 25px;
+        height: 25px;
+        fill: $color-black;
+        transition: fill 0.2s linear;
         &:hover {
-            background-color: $color-red;
+            fill: $color-red;
         }
     }
 }

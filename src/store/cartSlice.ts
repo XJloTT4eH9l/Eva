@@ -5,7 +5,7 @@ type cartState = {
     cartItems: ICartItem[];
 }
 
-const tempCartItems = localStorage.getItem('cartItems');
+const tempCartItems = localStorage.getItem('cartProducts');
 const cartItemsState = tempCartItems ? JSON.parse(tempCartItems) : [];
 
 const initialState: cartState = {
@@ -25,7 +25,7 @@ const cartSlice = createSlice({
                 quanity: action.payload.quanity,
                 minQuanityOrder: action.payload.minQuanityOrder
             })
-            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
         onClickPlus : (state, action: PayloadAction<number>) => {
             const item = state.cartItems.find(item => item.id === action.payload);
@@ -34,7 +34,7 @@ const cartSlice = createSlice({
                 item.quanity++;
             }
 
-            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
         onClickMinus : (state, action: PayloadAction<number>) => {
             const item = state.cartItems.find(item => item.id === action.payload);
@@ -46,15 +46,15 @@ const cartSlice = createSlice({
                 }
             }
 
-            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
         removeItem : (state, action: PayloadAction<number>) => {
             state.cartItems = state.cartItems.filter(item => item.id !== action.payload);
-            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
         clearCart : (state) => {
             state.cartItems = [];
-            localStorage.setItem('cartItems', JSON.stringify(state.cartItems));
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         }
     }
 })

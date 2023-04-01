@@ -5,12 +5,11 @@ import Spinner from '../Spinner/Spinner';
 import './Catalog.scss';
 
 interface CatalogProps {
-    link: string;
+    products?: IProduct[];
+    setProducts: (products: IProduct[]) => void;
 }
 
-const Catalog:FC<CatalogProps> = ({ link }) => {
-    const [products, setProducts] = useState<IProduct[]>();
-    const [loading, setLoading] = useState<boolean>(false);
+const Catalog:FC<CatalogProps> = ({ products, setProducts}) => {
     const [sort, setSort] = useState<string>('title');
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
 
@@ -26,33 +25,31 @@ const Catalog:FC<CatalogProps> = ({ link }) => {
     }
 
     useEffect(() => {
-        const getProducts = (link: string) => {
-            setLoading(true);
-            setProducts([
-                {id: 45, title: 'Зброджений яблучний сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']},
-                {id: 46, title: 'Зброджений яблучний сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']},
-                {id: 47, title: 'Зброджений апельсиновий сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']}
-            ])
-            setLoading(false);
-        }
+        // const getProducts = (link: string) => {
+        //     setLoading(true);
+        //     setProducts([
+        //         {id: 45, title: 'Зброджений яблучний сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']},
+        //         {id: 46, title: 'Зброджений яблучний сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']},
+        //         {id: 47, title: 'Зброджений апельсиновий сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']}
+        //     ])
+        //     setLoading(false);
+        // }
 
-        getProducts('link');
+        // getProducts('link');
     }, [])
     return (
         <div className='catalog'>
             <ul className="catalog__list">
             {
-                loading ? <Spinner /> : (
-                    products?.map(product => (
-                        <Product
-                            key={product.id} 
-                            id={product.id}
-                            title={product.title}
-                            img={product.img}
-                            price={product.price}
-                        />
-                    ))
-                )
+                products?.map(product => (
+                    <Product
+                        key={product.id} 
+                        id={product.id}
+                        title={product.title}
+                        img={product.img}
+                        price={product.price}
+                    />
+                ))
             }
             </ul>
             <div className={sortingOpen ? 'sorting sorting--active' : 'sorting'}>

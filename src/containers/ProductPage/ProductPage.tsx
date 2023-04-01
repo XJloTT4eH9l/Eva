@@ -24,7 +24,7 @@ const ProductPage:FC = () => {
         id: Number(id),
         title: 'Концентрований абрикосовий сік',
         img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712230/1-500x500.jpg', 
-        'https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-500x500.jpg'],
+        'https://healthapple.info/wp-content/uploads/2020/01/apelsynovyy-sik.jpg'],
         price: 88,
         minQuanityOrder: 13,
         availability: true,
@@ -63,16 +63,17 @@ const ProductPage:FC = () => {
 
     useEffect(() => {
         const getProductInfo = () => {
+            //request
+
             setLoading(true);
             const product: IProductDetail = {
                 id: Number(id),
-                title: 'Виноградний сік',
-                img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712230/1-500x500.jpg', 
-                'https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-500x500.jpg'],
-                price: 99,
+                title: 'Апельсиновий сік',
+                img: ['https://cbo.org.ua/wp-content/uploads/apelsinoviy-sok2.jpg', 'https://healthapple.info/wp-content/uploads/2020/01/apelsynovyy-sik.jpg'],
+                price: 20,
                 minQuanityOrder: 13,
                 availability: true,
-                description: 'Концентрований освітлений абрикосовий сік виготовляється із стиглих, свіжих плодів абрикосу різних сортів. Сік має характерний насичений смак і запахУ абрикосах містяться такі мінерали як кальцій, залізо, магній та фосфор. Фахівці з ароматерапії переконують, що аромат абрикосів здатний діяти як антидепресант. Ці фрукти сприяють покращення діяльності мозку, пам’яті, підвищують концентрацію уваги. Абрикосовий сік корисно пити дітям та вагітним жінкам, а також людям зі зниженим гемоглобіном',
+                description: 'Концентрований освітлений апельсиновий сік виготовляється із стиглих, свіжих плодів апельсину різних сортів. Сік має характерний насичений смак і запаху апельсинів містяться такі мінерали як кальцій, залізо, магній та фосфор. Фахівці з ароматерапії переконують, що аромат апельсинів здатний діяти як антидепресант. Ці фрукти сприяють покращення діяльності мозку, пам’яті, підвищують концентрацію уваги. Апельсиновий сік корисно пити дітям та вагітним жінкам, а також людям зі зниженим гемоглобіном',
                 characteristics: [
                     {name: 'Додатковий сервіс', text: 'Відправка протягом 1-3 днів з моменту оплати. Великі партії товару ( від 1 тони) протягом 4-6 днів'},
                     {name: 'Колір', text: 'Продукт має темно-оранжевий колір (в результаті термічної обробки), після відновлення - жовтий'},
@@ -128,13 +129,16 @@ const ProductPage:FC = () => {
                                     {productInfo.availability &&
                                         cartItemsSelector.find(item => item.id === productInfo.id)
                                             ? (
-                                                <div>
-                                                    <button className='product-page__btn-cart' onClick={() => onMinus(productInfo.id)}>-</button>
-                                                        <span className='product-page__qunity'>{productQuanuty}</span>
-                                                    <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
-                                                </div> 
+                                                <>
+                                                    <div className='product-page__quanity'>
+                                                        <button className='product-page__btn-cart' onClick={() => onMinus(productInfo.id)}>-</button>
+                                                            <span className='product-page__num'>{productQuanuty}</span>
+                                                        <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
+                                                    </div> 
+                                                <p className='product-page__min-quanity'>* мінімальна кількість замовлення - {productInfo.minQuanityOrder}</p>
+                                                </>
                                             )
-                                            : <button onClick={onCart} className='product-page__btn'>Додати в корзину</button>
+                                            : <button onClick={onCart} className='product-page__btn--cart'>Додати в корзину</button>
                                     }
                                 </div>
                             </div>
