@@ -73,7 +73,13 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                 </div>
                 {cartItems.length > 0 && (
                     <div className='side-cart__btn-container'>
-                        <Link to={'/order-page'} className='side-cart__confirm'>Оформити замовлення</Link>
+                        <Link 
+                            to={'/order'} 
+                            className='side-cart__confirm'
+                            onClick={() => setCartOpen(false)}
+                        >
+                            Оформити замовлення
+                        </Link>
                     </div>
                 )}
             </div>

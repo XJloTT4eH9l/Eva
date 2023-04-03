@@ -37,7 +37,8 @@
         background-color: $color-green;
         display: none;
         left: 0;
-        padding-top: 80px;
+        padding-top: 90px;
+        padding-bottom: 40px;
         position: fixed;
         top: -100%;
         transition: top .3s ease-in-out;
@@ -49,6 +50,7 @@
         @media screen and (max-width: 900px) {
             display: flex;
             justify-content: center;
+            flex-direction: column;
         }
     }
 }

@@ -5,6 +5,7 @@ import Logo from '../Logo/Logo';
 import Nav from '../Nav/Nav';
 import BurgerIcon from '../BurgerIcon/BurgerIcon';
 import SideCart from '../SideCart/SideCart';
+import LanguageChange from '../LanguageChange/LanguageChange';
 
 import cartIcon from '../../assets/img/cart.svg';
 import './Header.scss';
@@ -31,9 +32,10 @@ const Header:FC = () => {
                     <Logo type='header' />
                     <Nav type='desktop' setMobileMenuOpen={setMobileMenuOpen} />
                     <BurgerIcon mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-
+                    <LanguageChange  setMobileMenuOpen={setMobileMenuOpen}/>
                     <div className={mobileMenuOpen ? 'header__mobile-menu header__mobile-menu--active' : 'header__mobile-menu'}>
                         <Nav type='mobile' setMobileMenuOpen={setMobileMenuOpen} />
+                        <LanguageChange type='mobileChange' setMobileMenuOpen={setMobileMenuOpen} />
                     </div>
                     
                     <div className='header__cart' onClick={() => setCartOpen(true)}>

@@ -35,7 +35,6 @@
     font-size: 16px;
     &__inner {
         display: flex;
-        align-items: center;
         margin-bottom: 30px;
         @media screen and (max-width: 700px) {
             flex-direction: column;
@@ -65,9 +64,9 @@
         padding: 20px;
         max-width: 300px;
         border-radius: 6px;
-        -webkit-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
-        -moz-box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
-        box-shadow: 1px 1px 15px 0px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
+        -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
+        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
         @media screen and (max-width: 700px) {
             margin: 0 auto;
         }
