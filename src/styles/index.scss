@@ -109,6 +109,9 @@ svg {
   font-weight: 700;
   margin-bottom: 30px;
   color: $color-black;
+  @media screen and (max-width: 480px) {
+    font-size: 24px;
+  }
 }
 
 * {

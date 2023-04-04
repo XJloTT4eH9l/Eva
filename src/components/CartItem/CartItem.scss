@@ -68,13 +68,20 @@
         padding: 8px;
     }
     &__count-btn {
-        padding: 5px;
+        padding: 5px 10px;
         font-size: 18px;
         border-radius: 6px;
-        transition: color 0.3s linear;
+        transition: background-color 0.2s linear;
+        &--disable {
+            cursor: default;
+            color: rgba($color-green, 0.7);
+            &:hover {
+                background-color: #bae1b6 !important;
+            }
+        }
         @media screen and (min-width: 900px) {
             &:hover {
-                color: $color-white;
+                background-color: $color-white;
             }
         }
     }

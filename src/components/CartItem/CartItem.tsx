@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC, useState, memo } from 'react';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { onClickMinus, onClickPlus, removeItem } from '../../store/cartSlice';
 import './CartItem.scss';
@@ -15,13 +15,20 @@ interface CartItemProps {
 
 const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanityOrder, type }) => {
     const dispatch = useAppDispatch();
+    const [disable, setDisable] = useState<boolean>(false); 
 
-    const onMinus = (id: number) => {
-        dispatch(onClickMinus(id))
+    const onMinus = (id: number, quanity: number) => {
+        if(quanity !== minQuanityOrder) {
+            dispatch(onClickMinus(id));
+            setDisable(false);
+        } else {
+            setDisable(true);
+        }
     }
     
     const onPlus = (id: number) => {
-        dispatch(onClickPlus(id))
+        dispatch(onClickPlus(id));
+        setDisable(false);
     }
 
     const onRemove = (id: number) => {
@@ -39,7 +46,12 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                             </div>
                             <div className='cart-item__right'>
                                 <div className='cart-item__counter'>
-                                    <button className='cart-item__count-btn' onClick={() => onMinus(id)}>-</button>
+                                    <button 
+                                        className={disable ?  'cart-item__count-btn cart-item__count-btn--disable' : 'cart-item__count-btn'} 
+                                        onClick={() => onMinus(id, quanity)}
+                                    >
+                                        -
+                                    </button>
                                     <span className='cart-item__quanity'>{quanity}</span>
                                     <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                 </div>
@@ -53,7 +65,12 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                 <h3 className='cart-item__title'>{title}</h3>
                                 <div className="cart-item__bottom">
                                     <div className='cart-item__counter'>
-                                        <button className='cart-item__count-btn' onClick={() => onMinus(id)}>-</button>
+                                    <button 
+                                        className={disable ?  'cart-item__count-btn cart-item__count-btn--disable' : 'cart-item__count-btn'} 
+                                        onClick={() => onMinus(id, quanity)}
+                                    >
+                                        -
+                                    </button>
                                         <span className='cart-item__quanity'>{quanity}</span>
                                         <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                     </div>

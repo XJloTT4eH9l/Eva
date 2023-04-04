@@ -108,7 +108,7 @@
     }
     &__title {
         font-size: 30px;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         @media screen and (max-width: 1000px) {
             max-width: 300px;
         }
@@ -210,11 +210,11 @@
         margin-bottom: 20px;
         & span:first-child {
             color: $color-light-grey;
-            margin-right: 20px;
+            margin-right: 10px;
         }
         & span:last-child {
             color: $color-black;
-            margin-left: 20px;
+            margin-left: 10px;
         }
     }
 }

@@ -20,7 +20,20 @@ const CategoryPage = () => {
     const { id } = useParams();
     const [products, setProducts] = useState<IProduct[]>();
     const [categories, setCategories] = useState<ICategory[]>();
+    const [sortingOpen, setSortingOpen] = useState<boolean>(false);
+    const [sort, setSort] = useState<string>('title');
     const [loading, setLoading] = useState<boolean>(false);
+
+    const sortOptions = [
+        {id: 'price-low', label: 'По ціні(від меншої до більшої)'},
+        {id: 'price-top', label: 'По ціні(від більшої до меншої)'},
+        {id: 'title', label: 'По назві'}
+    ];
+
+    const onSort = (id: string) => {
+        setSort(id);
+        setSortingOpen(false);
+    }
 
     const getCategories = () => {
         // request
@@ -52,14 +65,6 @@ const CategoryPage = () => {
         getCategories();
         setLoading(false);
     }, [])
-
-    // useEffect(() => {
-    //     window.scrollTo(0, 0);
-    //     setLoading(true);
-    //     getProducts(`${id}`);
-    //     getCategories();
-    //     setLoading(false);
-    // }, [id])
     return (
        <section className="categories-page">
             <div className="container">
@@ -71,8 +76,32 @@ const CategoryPage = () => {
                             <span className='bread-crumbs__item'>{categories?.filter(item => item.id === Number(id))[0].name}</span>
                         </div>
                         <LinkBack />
-                        <h1 className="title">{categories?.filter(item => item.id === Number(id))[0].name}</h1>
-                        <Catalog products={products} setProducts={setProducts} />
+                        <div className='d-flex'>
+                            <h1 className="title">{categories?.filter(item => item.id === Number(id))[0].name}</h1>
+                            <div className={sortingOpen ? 'sorting sorting--active' : 'sorting'}>
+                                <button 
+                                    onClick={() => setSortingOpen(prev => !prev)} 
+                                    className={sortingOpen ? 'sorting__btn sorting__btn--active' : 'sorting__btn'}
+                                >
+                                    Сортування
+                                </button>
+                                <ul className={sortingOpen ? 'sorting__list sorting__list--active' : 'sorting__list'}>
+                                    {sortOptions.map(item => {
+                                        const isActive = item.id === sort;
+                                        return( 
+                                            <li
+                                                key={item.id} 
+                                                className={isActive ? 'sorting__item sorting__item--active' : 'sorting__item'}
+                                                onClick={() => onSort(item.id)}
+                                            >
+                                                {item.label}
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                        <Catalog products={products} />
                     </>
                 )}
             </div>
