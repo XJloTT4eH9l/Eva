@@ -41,8 +41,8 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                     {type === 'orderItem' ? (
                         <>
                             <div className='cart-item__left'>
-                                <img className='cart-item__img' src={img[0]} alt={title} />
-                                <h3 className='cart-item__title'>{title}</h3>
+                                <img className='cart-item__img cart-item__img--order' src={img[0]} alt={title} />
+                                <h3 className='cart-item__title cart-item__title--order'>{title}</h3>
                             </div>
                             <div className='cart-item__right'>
                                 <div className='cart-item__counter'>
@@ -55,7 +55,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                     <span className='cart-item__quanity'>{quanity}</span>
                                     <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                 </div>
-                                <div className='cart-item__summ'>{price * quanity} грн</div>
+                                <div className='cart-item__summ'>{(price * quanity).toFixed(2)} грн</div>
                             </div>
                         </>
                     ) : (
@@ -74,7 +74,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                         <span className='cart-item__quanity'>{quanity}</span>
                                         <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                     </div>
-                                    <div className='cart-item__summ'>{price * quanity} грн</div>
+                                    <div className='cart-item__summ'>{(price * quanity).toFixed(2)} грн</div>
                                 </div>
                             </div>
                         </>

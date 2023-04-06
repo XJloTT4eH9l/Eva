@@ -32,7 +32,7 @@ const OrderPage:FC = () => {
                                     ))
                                 }
                             </ul>
-                            <p className='order-page__summ'>Разом: {sum} грн</p>
+                            <p className='order-page__summ'>Разом: {sum.toFixed(2)} грн</p>
                         </div>
                     </>
                 ) : (

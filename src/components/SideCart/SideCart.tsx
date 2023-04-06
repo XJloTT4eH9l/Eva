@@ -68,7 +68,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
             <div className='side-cart__bottom'>
                 <div className='side-cart__bottom--inner'>
                     <h4 className='side-cart__subtitle'>Разом</h4>
-                    <span>{sum} грн</span>
+                    <span>{sum.toFixed(2)} грн</span>
                 </div>
                 {cartItems.length > 0 && (
                     <div className='side-cart__btn-container'>

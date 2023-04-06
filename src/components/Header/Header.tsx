@@ -40,7 +40,7 @@ const Header:FC = () => {
                     
                     <div className='header__cart' onClick={() => setCartOpen(true)}>
                         <img src={cartIcon} alt='Корзина' className='header__cart-img'/>
-                        <span className='header__cart-text'>{sum} грн</span>
+                        <span className='header__cart-text'>{sum.toFixed(2)} грн</span>
                     </div>
                     <SideCart
                         cartOpen={cartOpen}

@@ -15,17 +15,35 @@ const CategoryPage = () => {
     const [products, setProducts] = useState<IProduct[]>();
     const [categories, setCategories] = useState<ICategory[]>();
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
-    const [sort, setSort] = useState<string>('title');
+    const [sort, setSort] = useState<string>('title-low');
     const [loading, setLoading] = useState<boolean>(false);
 
     const sortOptions = [
         {id: 'price-low', label: 'По ціні(від меншої до більшої)'},
         {id: 'price-top', label: 'По ціні(від більшої до меншої)'},
-        {id: 'title', label: 'По назві'}
+        {id: 'title-low', label: 'По назві(А-Я)'},
+        {id: 'title-up', label: 'По назві(Я-А)'},
     ];
 
-    const onSort = (id: string) => {
-        setSort(id);
+    const onSort = (sort: string) => {
+        setSort(sort);
+        switch(sort) {
+            case 'price-top':
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=price');
+                break
+            case 'prise-low':
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=price');
+                break
+            case 'title-low':
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=title');
+                break
+            case 'title-up':
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=title');   
+                break
+            default:
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1&page_size=24&page=1');
+                break
+        }
         setSortingOpen(false);
     }
 
@@ -39,22 +57,16 @@ const CategoryPage = () => {
     }
 
     const getProducts = async (link: string) => {
-        // request
         try {
             setLoading(true);
             const res = await axios.get(link);
             if(res.status === 200) {
                 setProducts(res.data.products);
             }
+            setLoading(false);
         } catch (error) {
             console.log(error);
         }
-        // setProducts([
-        //     {id: 45, title: 'Яблучний сік', price: 15.00, images: ['https://cdn.segodnya.ua/i/original/media/image/5d5/a50/dce/5d5a50dce8785.jpg.webp']},
-        //     {id: 46, title: 'Апельсиновий сік', price: 18.00, images: ['https://cbo.org.ua/wp-content/uploads/apelsinoviy-sok2.jpg']},
-        //     {id: 47, title: 'Персиковий сік', price: 20.00, images: ['https://zelensad.com/upload/iblock/df0/df0c1cadb14ba8b4e529a8fe0e335d9b.jpg']},
-        //     {id: 48, title: 'Гранатовий Сік', price: 23.00, images: ['https://shuba.life/static/content/thumbs/740x493/f/57/khncn4---c740x493x50px50p-c740x493x50px50p-up--63b2d6bfdeb759b6713d0967ff2b457f.jpg']},
-        // ])
     }
 
     useEffect(() => {
