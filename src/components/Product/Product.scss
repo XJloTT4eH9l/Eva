@@ -14,6 +14,13 @@
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
     transition: transform 0.3s ease-in-out;
     z-index: 10;
+    &--disable {
+        opacity: 0.3;
+        cursor: default;
+        &:hover {
+            transform: translateY(0px);
+        }
+    }
     @media screen and (max-width: 1050px) {
         text-align: center;
     }

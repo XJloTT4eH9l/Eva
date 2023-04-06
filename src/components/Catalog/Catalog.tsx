@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from 'react';
+import { FC } from 'react';
 import { IProduct } from '../../types/types';
 import Product from '../Product/Product';
 import './Catalog.scss';
@@ -9,9 +9,7 @@ interface CatalogProps {
 }
 
 const Catalog:FC<CatalogProps> = ({ products }) => {
-    useEffect(() => {
-        
-    }, [])
+   
     return (
         <div className='catalog'>
             <ul className="catalog__list">
@@ -21,7 +19,7 @@ const Catalog:FC<CatalogProps> = ({ products }) => {
                             key={product.id} 
                             id={product.id}
                             title={product.title}
-                            img={product.img}
+                            img={product.images}
                             price={product.price}
                         />
                     ))

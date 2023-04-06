@@ -24,7 +24,7 @@ const OrderPage:FC = () => {
                                             id={item.id}
                                             title={item.title}
                                             price={item.price}
-                                            img={item.img} 
+                                            img={item.images} 
                                             quanity={item.quanity}
                                             minQuanityOrder={item.minQuanityOrder}
                                             type='orderItem'

@@ -56,7 +56,7 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
                     key={product.id}
                     id={product.id}
                     title={product.title}
-                    img={product.img}
+                    img={product.images}
                     price={product.price} 
                 />
             ))}

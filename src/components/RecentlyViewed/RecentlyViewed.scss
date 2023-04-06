@@ -1,5 +1,9 @@
 .recently-viewed{
     margin-top: 50px;
+    padding-bottom: 20px;
+    &--main {
+        padding: 0 15px;
+    }
 }
 
 .container--recently-viewed {

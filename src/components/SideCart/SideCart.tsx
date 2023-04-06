@@ -18,7 +18,6 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
-    console.log(cartItems);
 
     const onClearCart = () => {
         dispatch(clearCart())
@@ -46,7 +45,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                                             id={item.id}
                                             title={item.title}
                                             price={item.price}
-                                            img={item.img} 
+                                            img={item.images} 
                                             quanity={item.quanity}
                                             minQuanityOrder={item.minQuanityOrder}
                                         />

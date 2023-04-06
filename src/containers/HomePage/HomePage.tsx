@@ -1,3 +1,8 @@
+import { useState, useEffect } from 'react';
+import { API_NEW_PRODUCTS, API_PROMOTIONS } from '../../constants/api';
+import { IProductDetail } from '../../types/types';
+import axios from 'axios';
+
 import Hero from '../../components/Hero/Hero';
 import Categories from '../../components/Categories/Categories';
 import Proposition from '../../components/Proposition/Proposition';
@@ -6,35 +11,49 @@ import RecentlyViewed from '../../components/RecentlyViewed/RecentlyViewed';
 import './HomePage.scss';
 
 const HomePage = () => {
-    const discountList = [
-        {id: 45, title: 'Яблучний сік', price: 15.00, img: ['https://cdn.segodnya.ua/i/original/media/image/5d5/a50/dce/5d5a50dce8785.jpg.webp']},
-        {id: 46, title: 'Апельсиновий сік', price: 18.00, img: ['https://cbo.org.ua/wp-content/uploads/apelsinoviy-sok2.jpg']},
-        {id: 47, title: 'Персиковий сік', price: 20.00, img: ['https://zelensad.com/upload/iblock/df0/df0c1cadb14ba8b4e529a8fe0e335d9b.jpg']},
-        {id: 48, title: 'Гранатовий Сік', price: 23.00, img: ['https://shuba.life/static/content/thumbs/740x493/f/57/khncn4---c740x493x50px50p-c740x493x50px50p-up--63b2d6bfdeb759b6713d0967ff2b457f.jpg']},
-        {id: 49, title: 'Сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']},
-        {id: 50, title: 'Сік', price: 15.00, img: ['https://vitamin2015.com.ua/image/cache/catalog/product/1103712194/1-580x580.jpg']}
-    ];
-    const newList = [
-        {id: 45, title: 'Яблучний сік', price: 15.00, img: ['https://cdn.segodnya.ua/i/original/media/image/5d5/a50/dce/5d5a50dce8785.jpg.webp']},
-        {id: 46, title: 'Апельсиновий сік', price: 18.00, img: ['https://cbo.org.ua/wp-content/uploads/apelsinoviy-sok2.jpg']},
-        {id: 47, title: 'Персиковий сік', price: 20.00, img: ['https://zelensad.com/upload/iblock/df0/df0c1cadb14ba8b4e529a8fe0e335d9b.jpg']},
-        {id: 48, title: 'Гранатовий Сік', price: 23.00, img: ['https://shuba.life/static/content/thumbs/740x493/f/57/khncn4---c740x493x50px50p-c740x493x50px50p-up--63b2d6bfdeb759b6713d0967ff2b457f.jpg']},
-    ];
+    const [newProducts, setNewProducts] = useState<IProductDetail[]>();
+    const [promotions, setPromotions] = useState<IProductDetail[]>();
+
+    const getProducts = async (link: string, type: string) => {
+        try {
+            const res = await axios.get(link + '?lang_id=1&page_size=10');
+            console.log(res.data.products);
+            if(res.status === 200) {
+                switch(type) {
+                    case 'newProducts': setNewProducts(res.data.products); break
+                    case 'promotions': setPromotions(res.data.products); break
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getProducts(API_NEW_PRODUCTS, 'newProducts');
+        getProducts(API_PROMOTIONS, 'promotions');
+    }, [])
     return (
         <>
             <Hero /> 
             <Categories />
-            <Proposition 
+            {promotions && (
+               <Proposition 
+                    title='Акції'
+                    products={promotions}
+                /> 
+            )}
+            {/* <Proposition 
                 title='Акції'
-                link='link'
                 products={discountList}
-            />
-            <Proposition 
-                title='Нові товари'
-                link='link'
-                products={newList}
-            />
-            <RecentlyViewed />
+            /> */}
+            {newProducts && (
+                <Proposition 
+                    title='Нові товари'
+                    products={newProducts}
+                />
+            )}
+            <RecentlyViewed type='main' />
         </>
     )
 }

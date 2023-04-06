@@ -1,19 +1,19 @@
 export interface IProduct {
     id: number;
     title: string;
-    img: string[];
+    images: string[];
     price: number;
 }
 
 export interface ICategory {
     id: number;
-    name: string;
-    img: string;
+    title: string;
+    image: string;
 }
 
-type Characteristics = {
-    name: string,
-    text: string
+export type Characteristics = {
+    name: string;
+    text: string;
 }
 
 export interface IProductDetail extends IProduct {

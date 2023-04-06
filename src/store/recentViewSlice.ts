@@ -20,10 +20,10 @@ const recentlyViewedSlice = createSlice({
             const isRecently = state.recentlyViewed.find(item => item.id === Number(action.payload.id));
 
             if(!isRecently) {
-                state.recentlyViewed.push({
+                state.recentlyViewed.unshift({
                     id: action.payload.id,
                     title: action.payload.title,
-                    img: action.payload.img,
+                    images: action.payload.images,
                     price: action.payload.price,
                     minQuanityOrder: action.payload.minQuanityOrder,
                     availability: action.payload.availability,
@@ -31,7 +31,7 @@ const recentlyViewedSlice = createSlice({
                     characteristics: action.payload.characteristics
                 })
                 if(state.recentlyViewed.length >= 12) {
-                    state.recentlyViewed.shift();
+                    state.recentlyViewed.pop();
                 }
                 localStorage.setItem('recentlyViewed', JSON.stringify(state.recentlyViewed));
             }

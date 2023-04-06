@@ -1,16 +1,15 @@
 import { FC } from 'react';
 import Product from '../Product/Product';
 import ProductSlider from '../ProductSlider/ProductSlider';
-import { IProduct } from '../../types/types';
+import { IProductDetail } from '../../types/types';
 import './Proposition.scss';
 
 interface PropositionProps {
     title: string;
-    link: string;
-    products: IProduct[];
+    products: IProductDetail[];
 }
 
-const Proposition:FC<PropositionProps> = ({ title, link, products }) => {
+const Proposition:FC<PropositionProps> = ({ title, products }) => {
    
     return (
         <section className="proposition">
@@ -27,7 +26,7 @@ const Proposition:FC<PropositionProps> = ({ title, link, products }) => {
                                         key={item.id}
                                         id={item.id}
                                         title={item.title}
-                                        img={item.img}
+                                        img={item.images}
                                         price={item.price} 
                                     />
                                 ))}

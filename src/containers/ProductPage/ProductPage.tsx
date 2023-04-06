@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { IProductDetail } from '../../types/types';
 import { addToCart, onClickPlus, onClickMinus } from '../../store/cartSlice';
 import { addTorecentlyViewed } from '../../store/recentViewSlice';
+import { API_PRODUCT } from '../../constants/api';
+import axios from 'axios';
 
 import LinkBack from '../../components/LinkBack/LinkBack';
 import SliderThumbs from '../../components/SliderThumbs/SliderThumbs';
@@ -33,27 +35,37 @@ const ProductPage:FC = () => {
         dispatch(addTorecentlyViewed(recent))
     }
 
-    const getProductInfo = () => {
-        //request
+    const getProductInfo = async (id: number) => {
+        try {
+            setLoading(true);
 
-        setLoading(true);
-        const product: IProductDetail = {
-            id: Number(id),
-            title: 'Апельсиновий сік',
-            img: ['https://cbo.org.ua/wp-content/uploads/apelsinoviy-sok2.jpg', 'https://healthapple.info/wp-content/uploads/2020/01/apelsynovyy-sik.jpg'],
-            price: 20,
-            minQuanityOrder: 13,
-            availability: true,
-            description: 'Концентрований освітлений апельсиновий сік виготовляється із стиглих, свіжих плодів апельсину різних сортів. Сік має характерний насичений смак і запаху апельсинів містяться такі мінерали як кальцій, залізо, магній та фосфор. Фахівці з ароматерапії переконують, що аромат апельсинів здатний діяти як антидепресант. Ці фрукти сприяють покращення діяльності мозку, пам’яті, підвищують концентрацію уваги. Апельсиновий сік корисно пити дітям та вагітним жінкам, а також людям зі зниженим гемоглобіном',
-            characteristics: [
-                {name: 'Додатковий сервіс', text: 'Відправка протягом 1-3 днів з моменту оплати. Великі партії товару ( від 1 тони) протягом 4-6 днів'},
-                {name: 'Колір', text: 'Продукт має темно-оранжевий колір (в результаті термічної обробки), після відновлення - жовтий'},
-                {name: 'Виробник', text: 'Власне виробництво'}
-            ]
-        };
-        setProductInfo(product);
-        addToRecently(product);
-        setLoading(false);
+            const res = await axios.get(API_PRODUCT + id + '?lang_id=1');
+            const сharacteristicsParsed = Object.entries(res.data.characteristic)
+                .map(item => [String(item[0]), String(item[1])])
+                .map(([name, text]) => ({ name, text }));
+            const product: IProductDetail = {
+                id: res.data.id,
+                title: res.data.title,
+                images: res.data.images,
+                price: res.data.price,
+                minQuanityOrder: res.data.min_count_buy ,
+                availability: res.data.available,
+                description: res.data.description,
+                characteristics: сharacteristicsParsed
+            }
+            console.log(product);
+            setProductInfo(product);
+            const itemQuanity = cartItemsSelector.find(item => item.id === Number(id));
+            if(itemQuanity) {
+                setProductQuanity(itemQuanity.quanity)
+            }
+
+            addToRecently(product);
+
+            setLoading(false);
+        } catch (error) {
+            console.log(error)
+        }
     } 
 
     const onCart = () => {
@@ -61,7 +73,7 @@ const ProductPage:FC = () => {
             dispatch(addToCart({ 
                 id: productInfo.id,
                 title: productInfo.title,
-                img: productInfo.img,
+                images: productInfo.images,
                 price: productInfo.price,
                 quanity: productInfo.minQuanityOrder,
                 minQuanityOrder: productInfo.minQuanityOrder
@@ -79,26 +91,13 @@ const ProductPage:FC = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getProductInfo();
-        const itemQuanity = cartItemsSelector.find(item => item.id === productInfo?.id)?.quanity;
-        if(itemQuanity) {
-            setProductQuanity(itemQuanity)
-        }
-    }, [])
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-        getProductInfo();
-        const itemQuanity = cartItemsSelector.find(item => item.id === productInfo?.id)?.quanity;
-        if(itemQuanity) {
-            setProductQuanity(itemQuanity)
-        }
+        getProductInfo(Number(id));
     }, [id])
 
     useEffect(() => {
-        const itemQuanity = cartItemsSelector.find(item => item.id === productInfo?.id)?.quanity;
+        const itemQuanity = cartItemsSelector.find(item => item.id === Number(id));
         if(itemQuanity) {
-            setProductQuanity(itemQuanity)
+            setProductQuanity(itemQuanity.quanity)
         }
     }, [id, cartItemsSelector])
 
@@ -117,10 +116,10 @@ const ProductPage:FC = () => {
                             <div className="product-page__left">
                                 {
                                     productInfo && (
-                                        productInfo.img.length === 1 ? (
-                                            <img className='product-page__img' src={productInfo.img[0]} alt={productInfo.title} />
+                                        productInfo.images.length === 1 ? (
+                                            <img className='product-page__img' src={productInfo.images[0]} alt={productInfo.title} />
                                         ) : (
-                                            <SliderThumbs imgs={productInfo.img} />
+                                            <SliderThumbs imgs={productInfo.images} />
                                         )
                                     )
                                 }
@@ -184,7 +183,7 @@ const ProductPage:FC = () => {
                     }
                     </>
                 )}
-                {recentlyViewed.length > 0 && <RecentlyViewed />}
+                {recentlyViewed.length > 0 && <RecentlyViewed id={Number(id)} type={'product'} />}
             </div>
         </section>
     )
