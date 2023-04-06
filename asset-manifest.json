@@ -1,16 +1,10 @@
 {
   "files": {
-    "main.css": "/Eva/static/css/main.336b856d.css",
-    "main.js": "/Eva/static/js/main.a6acb3fa.js",
+    "main.css": "/Eva/static/css/main.3351d8c8.css",
+    "main.js": "/Eva/static/js/main.657f1610.js",
     "static/media/hero-bg3.jpg": "/Eva/static/media/hero-bg3.32a18a29d6774930452e.jpg",
     "static/media/hero-bg2.jpg": "/Eva/static/media/hero-bg2.b897b8b0c8da8f7c54ea.jpg",
     "static/media/hero-bg.jpg": "/Eva/static/media/hero-bg.f6b5f0030fe7a7cc4cd7.jpg",
-    "static/media/jam.png": "/Eva/static/media/jam.b799f5684121091f3dc4.png",
-    "static/media/fruit-berry-juice.png": "/Eva/static/media/fruit-berry-juice.fa11ec00fca754df30b3.png",
-    "static/media/juice.png": "/Eva/static/media/juice.abfa5a3e451e33fb76d5.png",
-    "static/media/sauce.png": "/Eva/static/media/sauce.dab4b536fb0660d8ff33.png",
-    "static/media/grape-juice.png": "/Eva/static/media/grape-juice.c298e6d12d57a891eee0.png",
-    "static/media/tea.png": "/Eva/static/media/tea.9ec9eb99d4ec4df53f36.png",
     "static/media/cart-empty.svg": "/Eva/static/media/cart-empty.839afd8054e11f36b945252a27de6185.svg",
     "static/media/logo.svg": "/Eva/static/media/logo.68d7e87fb36daf667959a6519fe0868f.svg",
     "static/media/slick.svg": "/Eva/static/media/slick.2630a3e3eab21c607e21.svg",
@@ -21,11 +15,11 @@
     "index.html": "/Eva/index.html",
     "static/media/spinner.svg": "/Eva/static/media/spinner.b6844ed358a6c90a8c4f797841917e8e.svg",
     "static/media/arrow.svg": "/Eva/static/media/arrow.1552a72b7f4b79661f0a7b2659dcedd5.svg",
-    "main.336b856d.css.map": "/Eva/static/css/main.336b856d.css.map",
-    "main.a6acb3fa.js.map": "/Eva/static/js/main.a6acb3fa.js.map"
+    "main.3351d8c8.css.map": "/Eva/static/css/main.3351d8c8.css.map",
+    "main.657f1610.js.map": "/Eva/static/js/main.657f1610.js.map"
   },
   "entrypoints": [
-    "static/css/main.336b856d.css",
-    "static/js/main.a6acb3fa.js"
+    "static/css/main.3351d8c8.css",
+    "static/js/main.657f1610.js"
   ]
 }
