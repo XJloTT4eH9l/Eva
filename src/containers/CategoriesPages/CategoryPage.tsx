@@ -19,26 +19,34 @@ const CategoryPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const sortOptions = [
-        {id: 'price-low', label: 'По ціні(від меншої до більшої)'},
-        {id: 'price-top', label: 'По ціні(від більшої до меншої)'},
-        {id: 'title-low', label: 'По назві(А-Я)'},
-        {id: 'title-up', label: 'По назві(Я-А)'},
+        {id: 'price-down', label: 'По ціні (від меншої до більшої)'},
+        {id: 'price-up', label: 'По ціні (від більшої до меншої)'},
+        {id: 'title-down', label: 'По назві (А-Я)'},
+        {id: 'title-up', label: 'По назві (Я-А)'},
+        {id: 'date-low', label: 'По даті (Спочатку старі)'},
+        {id: 'date-up', label: 'По даті (Спочатку нові)'},
     ];
 
     const onSort = (sort: string) => {
         setSort(sort);
         switch(sort) {
-            case 'price-top':
+            case 'price-up':
                 getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=price');
                 break
-            case 'prise-low':
+            case 'prise-down':
                 getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=price');
-                break
-            case 'title-low':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=title');
                 break
             case 'title-up':
                 getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=title');   
+                break
+            case 'title-down':
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=title');
+                break
+            case 'date-up':
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=date');   
+                break
+            case 'date-down':
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=date');   
                 break
             default:
                 getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1&page_size=24&page=1');

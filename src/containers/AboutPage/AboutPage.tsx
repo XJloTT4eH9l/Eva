@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Faq from '../../components/Faq/Faq';
 import './AboutPage.scss';
 
-type Link = {
+type LinkObj = {
     href: string;
     title: string;
 }
@@ -12,7 +13,7 @@ interface AboutInfo {
     title: string;
     text: string[];
     img: string;
-    link?: Link;
+    link?: LinkObj;
 }
 
 const AboutPage = () => {
@@ -67,6 +68,7 @@ const AboutPage = () => {
     useEffect(() => {
         getAboutInfo()
     }, [])
+    
     return (
         <section className="about-page">
             <div className="container">
@@ -89,6 +91,7 @@ const AboutPage = () => {
                         </article>
                    ))}
                 </div>
+                <Faq />
             </div>
         </section>
     )

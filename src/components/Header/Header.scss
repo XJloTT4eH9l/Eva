@@ -53,6 +53,28 @@
             flex-direction: column;
         }
     }
+    &__login {
+        margin-right: 10px;
+        color: $color-white;
+        &--comp {
+            @media screen and (max-width: 900px) {
+                display: none;
+            }
+        }
+        &--tel {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+        & p {
+            margin-right: 10px;
+        }
+        & img {
+            width: 30px;
+            height: 30px;
+        }
+    }
 }
 
 .overlay {

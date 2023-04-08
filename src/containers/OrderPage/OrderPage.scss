@@ -1,6 +1,7 @@
 @import '../../styles/variables.scss';
 
 .order-page {
+    min-height: 330px;
     padding-top: 30px;
     &__list {
         max-width: 900px;
