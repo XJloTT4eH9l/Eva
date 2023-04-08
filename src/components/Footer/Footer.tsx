@@ -11,14 +11,20 @@ const Footer:FC = () => {
             <footer className="footer">
             <div className="container">
                 <div className="footer__inner">
-                    <Logo type='footer' />
+                    <div className='footer__logo footer__logo--top'>
+                        <Logo type='footer' />
+                    </div>
                     <div className="footer__column">
                         <h4 className='footer__title'>Інформація</h4>
                         <ul className="footer__list">
                             <li className='footer__item'><NavLink className='footer__link' to='/'>Головна</NavLink></li>
+                            <li className='footer__item'><NavLink className='footer__link' to='/categories'>Категорії</NavLink></li>
                             <li className='footer__item'><NavLink className='footer__link' to='/about'>Про нас</NavLink></li>
                             <li className='footer__item'><NavLink className='footer__link' to='/contacts'>Контакти</NavLink></li>
                         </ul>
+                    </div>
+                    <div className='footer__logo footer__logo--center'>
+                        <Logo type='footer' />
                     </div>
                     <div className="footer__column">
                         <h4 className='footer__title'>Контакти</h4>
@@ -35,7 +41,7 @@ const Footer:FC = () => {
                                     <span>+38 (096) 085-39-34</span>
                                 </a>
                             </li>
-                            <li className='footer__item'>
+                            {/* <li className='footer__item'>
                                 <a className='footer__link footer__link--contact' href='tel:+380686263226'>
                                     <svg className='footer__icon'><use href='#phone'></use></svg>
                                     <span>+38 (068) 626-32-26</span>
@@ -46,7 +52,7 @@ const Footer:FC = () => {
                                     <svg className='footer__icon'><use href='#phone'></use></svg>
                                     <span>+38 (067) 199-01-09</span>
                                 </a>
-                            </li>
+                            </li> */}
                             <li className='footer__item'>
                                 <a className='footer__link footer__link--contact' rel="noreferrer" href='mailto:vitamin.rsv@gmail.com' target='_blank'>
                                     <svg className='footer__icon'><use href='#mail'></use></svg>

@@ -172,9 +172,12 @@ const ProductPage:FC = () => {
                                     {
                                         productInfo?.characteristics.map(char => (
                                             <li key={char.name} className='product-page__char'>
-                                                <span>{char.name}</span>
-                                                —
-                                                <span>{char.text}</span>
+                                                <div className='product-page__lable'>
+                                                    <span>{char.name}</span>
+                                                </div>
+                                                <div className='product-page__value'>
+                                                    <span>{char.text}</span>
+                                                </div>
                                             </li>
                                         ))
                                     }

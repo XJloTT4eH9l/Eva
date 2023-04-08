@@ -55,7 +55,9 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                     <span className='cart-item__quanity'>{quanity}</span>
                                     <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                 </div>
-                                <div className='cart-item__summ'>{(price * quanity).toFixed(2)} грн</div>
+                                <div className='cart-item__summ'>
+                                    {(price * quanity) % 1 !== 0 ? (price * quanity).toFixed(2) : (price * quanity)} грн
+                                </div>
                             </div>
                         </>
                     ) : (
@@ -74,7 +76,9 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                         <span className='cart-item__quanity'>{quanity}</span>
                                         <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                     </div>
-                                    <div className='cart-item__summ'>{(price * quanity).toFixed(2)} грн</div>
+                                    <div className='cart-item__summ'>
+                                        {(price * quanity) % 1 !== 0 ? (price * quanity).toFixed(2) : (price * quanity)} грн
+                                    </div>
                                 </div>
                             </div>
                         </>

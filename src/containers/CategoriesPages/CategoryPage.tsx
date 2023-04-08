@@ -71,10 +71,8 @@ const CategoryPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        setLoading(true);
         getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1&page_size=24&page=1');
         getCategories();
-        setLoading(false);
     }, [])
     return (
        <section className="categories-page">

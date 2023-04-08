@@ -1,24 +1,57 @@
 @import '../../styles/variables.scss';
 
 .hero {
+    position: relative;
+
+    //slider
     .slick-slide > div {
         margin: 0;
     }
     .slick-track {
         padding: 0;
     }
+    .slick-dots {
+        bottom: 30px !important;
+        color: $color-white !important;
+    }
+    .slick-prev {
+        top: 50% !important;
+        left: 20px !important;
+        transform: translateY(-45%) !important;
+        z-index: 30;
+    }
+    .slick-next {
+        top: 50% !important;
+        right: 40px !important;
+        transform: translateY(-45%) !important;
+    }
+    .slick-dots li.slick-active button:before {
+        font-size: 10px !important;
+        color: $color-white !important;
+    }
+    .slick-next::before {
+        font-size: 40px !important;
+        color: $color-white !important;
+    }
+    
+    .slick-prev::before {
+        font-size: 40px !important;
+        color: $color-white !important;
+    }
     width: 100%;
     &__slide {
-        padding: 40px;
+        padding: 40px 100px;
         min-height: 500px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: bottom left;
         @media screen and (max-width: 900px) {
             min-height: 300px;
+            padding: 40px 60px;
         }
         @media screen and (max-width: 500px) {
             background-position: bottom center;
+            padding: 40px;
         }
     }
     &__title {
@@ -26,7 +59,7 @@
         font-weight: 700;
         color: $color-white;
         margin-top: 100px;
-        margin-bottom: 30px;
+        margin-bottom: 15px;
         @media screen and (max-width: 900px) {
             margin-top: 50px;
         }
@@ -37,5 +70,14 @@
     &__text {
         font-size: 24px;
         color: $color-white;
+        margin-bottom: 20px;
+    }
+    &__link {
+        padding: 10px 15px;
+        color: $color-green;
+        background-color: $color-white;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 600;
     }
 }

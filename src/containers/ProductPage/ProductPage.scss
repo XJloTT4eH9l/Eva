@@ -208,16 +208,50 @@
         line-height: 1.5;
     }
     &__char {
-        color: $color-light-grey;
-        line-height: 1.5;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         margin-bottom: 20px;
-        & span:first-child {
-            color: $color-light-grey;
-            margin-right: 10px;
+        word-break: break-word;
+    }
+    &__list {
+        max-width: 800px;
+    }
+    &__lable {
+        position: relative;
+        align-self: flex-start;
+        width: 40%;
+        @media screen and (max-width: 600px) {
+            width: 30%;
         }
-        & span:last-child {
-            color: $color-black;
-            margin-left: 10px;
+        & span {
+            position: relative;
+            display: inline-block;
+            padding-right: 16px;
+            background-color: #f9f9f9;
+        }
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 7px;
+            width: 100%;
+            border-bottom: 2px dotted $color-green;
+            @media screen and (max-width: 600px) {
+                display: none;
+            }
+        }
+    }
+    &__value {
+        width: 60%;
+        padding-left: 15px;
+        & span {
+            max-width: 300px;
+        }
+        @media screen and (max-width: 600px) {
+            width: 70%;
+            text-align: right;
         }
     }
 }

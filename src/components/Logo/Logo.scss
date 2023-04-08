@@ -2,7 +2,9 @@
 
 .logo {
     display: block;
+    max-height: 100px;
     max-width: 160px;
+    vertical-align: middle;
     &--footer {
         @media screen and (max-width: 800px) {
             margin: 0 auto;

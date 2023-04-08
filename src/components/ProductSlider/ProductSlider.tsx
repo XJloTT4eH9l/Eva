@@ -20,6 +20,7 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
         slidesToShow: 4,
         slidesToScroll: 4,
         initialSlide: 0,
+        waitForAnimate: false,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
         responsive: [

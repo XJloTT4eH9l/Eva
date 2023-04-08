@@ -1,12 +1,15 @@
+import { FC } from 'react';
+import { Link } from 'react-router-dom';
+
 import Slider from "react-slick";
 import heroBg from '../../assets/img/hero-bg.jpg';
 import heroBg2 from '../../assets/img/hero-bg2.jpg';
 import heroBg3 from '../../assets/img/hero-bg3.jpg';
 import './Hero.scss';
 
-const Hero = () => {
+const Hero:FC = () => {
     const slides = [
-        {id: 1, title: 'Eva ТОВ "Вітамін2015"', text: 'Натуральні соки для дорослих та дітей', img: heroBg},
+        {id: 1, title: 'Eva ТОВ', text: 'Натуральні соки для дорослих та дітей', img: heroBg},
         {id: 2, title: 'Eva', text: 'Натуральні соки', img: heroBg2},
         {id: 3, title: 'Eva ТОВ ', text: 'Для дорослих та дітей', img: heroBg3}
     ];
@@ -19,7 +22,18 @@ const Hero = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         cssEase: "linear",
-        arrows: false
+        dots: true,
+        waitForAnimate: false,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        responsive: [
+            {
+                breakpoint: 900,
+                settings: {
+                    arrows: false
+                }
+              },
+        ]
     }
     return (
         <section className="hero">
@@ -30,6 +44,7 @@ const Hero = () => {
                             <div className="container">
                                 <h1 className='hero__title'>{slide.title}</h1>
                                 <p className='hero__text'>{slide.text}</p>
+                                <Link className='hero__link' to='/'>Детальніше</Link>
                             </div>
                         </div>
                     </div>
@@ -40,3 +55,29 @@ const Hero = () => {
 }
 
 export default Hero;
+
+const NextArrow:FC = (props: any) => {
+    const { className, style, onClick } = props; 
+    return (
+        <div 
+            className={className}
+            style={{...style, display:'block'}}
+            onClick={onClick}
+        >
+            ›
+        </div>
+    )
+}
+
+const PrevArrow:FC = (props: any) => {
+    const { className, style, onClick } = props; 
+    return (
+        <div 
+            className={className}
+            style={{...style, display:'block'}}
+            onClick={onClick}
+        >
+            ‹
+        </div>
+    )
+}
