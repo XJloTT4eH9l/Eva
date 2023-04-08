@@ -192,16 +192,10 @@
         justify-content: space-between;
         margin-bottom: 30px;
         border-radius: 6px;
-        // & .product-page__btn:not(:last-child) {
-        //     margin-right: 10px;
-        // }
-        // @media screen and (max-width: 700px) {
-            // display: flex;
-            // justify-content: space-between;
-        //     margin-left: auto;
-        //     margin-right: auto;
-           
-        // }
+    }
+    &__text-container {
+        max-width: 800px;
+        margin: 0 auto;
     }
     &__text {
         font-size: 16px;
@@ -215,14 +209,24 @@
         word-break: break-word;
     }
     &__list {
-        max-width: 800px;
+        margin-left: 20%;
+        @media screen and (max-width: 1000px) {
+            margin-left: 18%;
+        }
+        @media screen and (max-width: 1000px) {
+            max-width: 900px;
+            margin-left: 0;
+        }
     }
     &__lable {
         position: relative;
         align-self: flex-start;
         width: 40%;
+        @media screen and (max-width: 1000px) {
+            width: 60%;
+        }
         @media screen and (max-width: 600px) {
-            width: 30%;
+            width: 46%;
         }
         & span {
             position: relative;
@@ -235,23 +239,23 @@
             display: block;
             position: absolute;
             left: 0;
-            bottom: 7px;
+            bottom: 4px;
             width: 100%;
-            border-bottom: 2px dotted $color-green;
-            @media screen and (max-width: 600px) {
-                display: none;
-            }
+            border-bottom: 1px dotted $color-green;
+            // @media screen and (max-width: 600px) {
+            //     display: none;
+            // }
         }
     }
     &__value {
         width: 60%;
         padding-left: 15px;
-        & span {
-            max-width: 300px;
+        max-width: 400px;
+        @media screen and (max-width: 1000px) {
+            width: 40%;
         }
         @media screen and (max-width: 600px) {
-            width: 70%;
-            text-align: right;
+            width: 54%;
         }
     }
 }

@@ -24,6 +24,7 @@ const ProductPage:FC = () => {
     const dispatch = useAppDispatch();
 
     const [productInfo, setProductInfo] = useState<IProductDetail>();
+    const [productId, setProductId] = useState<number>();
     const [productQuanuty, setProductQuanity] = useState<number>(0);
     const [textType, setTextType] = useState<string>('description');
     const [loading, setLoading] = useState<boolean>(false);
@@ -92,6 +93,7 @@ const ProductPage:FC = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         getProductInfo(Number(id));
+        setProductId(Number(id));
     }, [id])
 
     useEffect(() => {
@@ -166,27 +168,29 @@ const ProductPage:FC = () => {
                         </div>
                     {
                         textType === 'description' 
-                            ?   <p className='product-page__text'>{productInfo?.description}</p>
+                            ?   (<div className='product-page__text-container'>
+                                    <p className='product-page__text'>{productInfo?.description}</p>
+                                </div>)
                             :  (
-                                <ul className='product-page__list'>
-                                    {
-                                        productInfo?.characteristics.map(char => (
-                                            <li key={char.name} className='product-page__char'>
-                                                <div className='product-page__lable'>
-                                                    <span>{char.name}</span>
-                                                </div>
-                                                <div className='product-page__value'>
-                                                    <span>{char.text}</span>
-                                                </div>
-                                            </li>
-                                        ))
-                                    }
-                                </ul>
+                                    <ul className='product-page__list'>
+                                        {
+                                            productInfo?.characteristics.map(char => (
+                                                <li key={char.name} className='product-page__char'>
+                                                    <div className='product-page__lable'>
+                                                        <span>{char.name}</span>
+                                                    </div>
+                                                    <div className='product-page__value'>
+                                                        <span>Відправка протягом 1-3 днів з моменту оплати. Великі партії товару ( від 1 тони) протягом 4-6 днів</span>
+                                                    </div>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
                             )
                     }
                     </>
                 )}
-                {recentlyViewed.length > 0 && <RecentlyViewed id={Number(id)} type={'product'} />}
+                {recentlyViewed.length > 0 && <RecentlyViewed id={productId} type='product' />}
             </div>
         </section>
     )

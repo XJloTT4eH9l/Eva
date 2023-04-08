@@ -1,4 +1,4 @@
-export const BASE_API = 'https://xo1.palyanica.online/api/';
+export const BASE_API = 'https://xo1.palyanica.online/api';
 export const API_CATEGORIES = BASE_API + '/categories/list/';
 export const API_CATEGORIES_PRODUCTS = BASE_API + '/categories/';
 export const API_PRODUCT = BASE_API + '/products/id=';

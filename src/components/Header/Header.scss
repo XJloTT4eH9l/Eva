@@ -10,8 +10,10 @@
         align-items: center;
     }
     &__cart {
+        width: 158px;
         padding: 10px 15px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         background-color: $color-white;
         border-radius: 6px;
@@ -21,13 +23,23 @@
             transform: translateX(-10px);
         }
         @media screen and (max-width: 600px) {
-            padding: 8px 10px;
+           font-size: 12px;
+           width: 130px;
+           padding: 10px;
         }
     }
     &__cart-img {
         width: 30px;
         height: 30px;
         margin-right: 10px;
+        @media screen and (max-width: 600px) {
+            width: 25px;
+            height: 25px;
+        }
+        @media screen and (max-width: 400px) {
+            width: 20px;
+            height: 20px;
+        }
     }
     &__cart-text {
         color: $color-green;

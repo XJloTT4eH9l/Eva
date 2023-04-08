@@ -15,7 +15,7 @@ const CategoryPage = () => {
     const [products, setProducts] = useState<IProduct[]>();
     const [categories, setCategories] = useState<ICategory[]>();
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
-    const [sort, setSort] = useState<string>('title-low');
+    const [sort, setSort] = useState<string>('title-down');
     const [loading, setLoading] = useState<boolean>(false);
 
     const sortOptions = [
