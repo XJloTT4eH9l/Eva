@@ -29,23 +29,24 @@ const Categories = () => {
         <section className="categories">
             <div className="container">
                 <h2 className="title">Категорії</h2>
-                <ul className="categories__list">
                     {loading ? <Spinner /> : (
-                        categoriesList?.map((category, i) => (
-                            <Link 
-                                key={category.id} 
-                                className={`categories__item categories__item--${i+1}`} 
-                                to={`/categories/${category.id}`}
-                            >
-                                <div className='categories__block'>
-                                    <img className='categories__img' src={category.image} alt={category.title} />
-                                    <h3 className='categories__name'>{category.title}</h3>
-                                </div>
-                            </Link>
-                        ))
-                    )
+                        <ul className="categories__list">
+                            {
+                                categoriesList?.map((category, i) => (
+                                    <Link 
+                                        key={category.id} 
+                                        className={`categories__item categories__item--${i+1}`} 
+                                        to={`/categories/${category.id}`}
+                                    >
+                                        <div className='categories__block'>
+                                            <img className='categories__img' src={category.image} alt={category.title} />
+                                            <h3 className='categories__name'>{category.title}</h3>
+                                        </div>
+                                    </Link>
+                                ))
+                            }
+                        </ul>)
                     }
-                </ul>
             </div>
         </section>
     )
