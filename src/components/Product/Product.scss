@@ -16,7 +16,7 @@
     z-index: 10;
     &--catalog {
         @media screen and (max-width: 500px) {
-            height: 250px;
+            height: 280px;
             padding: 10px;
         }
     }
@@ -30,9 +30,9 @@
     @media screen and (max-width: 1050px) {
         text-align: center;
     }
-    @media screen and (max-width: 550px) {
-        min-height: 300px;
-    }
+    // @media screen and (max-width: 550px) {
+    //     min-height: 300px;
+    // }
     &:hover {
         transform: translateY(-10px);
         @media screen and (max-width: 1050px) {

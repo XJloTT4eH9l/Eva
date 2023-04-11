@@ -22,7 +22,7 @@ const Product:FC<ProductProps> = ({ id, title, img, price, type }) => {
                 <h3 className='product__title'>{title}</h3>
             </div>
             <div className='product__bottom'>
-                <p className='product__price'>{price} грн</p>
+                <p className={`product__price product__price--${type && type}`}>{price} грн</p>
             </div>
         </Link>
     )

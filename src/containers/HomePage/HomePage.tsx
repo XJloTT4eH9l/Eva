@@ -43,16 +43,14 @@ const HomePage = () => {
                     products={promotions}
                 /> 
             )}
-            {/* <Proposition 
-                title='Акції'
-                products={discountList}
-            /> */}
+
             {newProducts && (
                 <Proposition 
                     title='Нові товари'
                     products={newProducts}
                 />
             )}
+            
             <RecentlyViewed type='main' />
         </>
     )

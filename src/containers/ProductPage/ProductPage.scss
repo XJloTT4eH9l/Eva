@@ -88,7 +88,7 @@
         margin-bottom: 10px;
         &--true {
             color: $color-green;
-            max-width: 125px;
+            max-width: 135px;
             &::before {
                 content: '';
                 position: absolute;
@@ -208,6 +208,11 @@
         margin-left: 20px;
         font-size: 16px;
         font-weight: 700;
+        @media screen and (max-width: 750px) {
+            width: 100%;
+            margin-left: 0;
+            margin-top: 10px;
+        }
     }
     &__min-quanity {
         margin-top: 10px;
