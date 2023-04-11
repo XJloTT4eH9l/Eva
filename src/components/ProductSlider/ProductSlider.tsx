@@ -45,7 +45,6 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
             settings: {
               slidesToShow: 1.4,
               slidesToScroll: 1,
-              arrows: false
             }
           }
         ]

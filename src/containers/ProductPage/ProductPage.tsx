@@ -14,12 +14,16 @@ import LinkBack from '../../components/LinkBack/LinkBack';
 import SliderThumbs from '../../components/SliderThumbs/SliderThumbs';
 import RecentlyViewed from '../../components/RecentlyViewed/RecentlyViewed';
 import Spinner from '../../components/Spinner/Spinner';
+import Notification from '../../components/Notification/Notification';
+import mark from '../../assets/img/mark.svg';
 
 import './ProductPage.scss';
 
+interface ProductPageProps {
+    setCartOpen: (open: boolean) => void;
+}
 
-
-const ProductPage:FC = () => {
+const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
 
@@ -27,6 +31,7 @@ const ProductPage:FC = () => {
     const [productId, setProductId] = useState<number>();
     const [productQuanuty, setProductQuanity] = useState<number>(0);
     const [textType, setTextType] = useState<string>('description');
+    const [productAdded, setProductAdded] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
 
     const cartItemsSelector = useAppSelector(state => state.cartItems.cartItems);
@@ -71,6 +76,7 @@ const ProductPage:FC = () => {
 
     const onCart = () => {
         if(productInfo) {
+            setProductAdded(true);
             dispatch(addToCart({ 
                 id: productInfo.id,
                 title: productInfo.title,
@@ -79,6 +85,7 @@ const ProductPage:FC = () => {
                 quanity: productInfo.minQuanityOrder,
                 minQuanityOrder: productInfo.minQuanityOrder
             }));
+            window.setTimeout(() => setProductAdded(false), 2000);
         }
     }
 
@@ -111,6 +118,7 @@ const ProductPage:FC = () => {
                     <Link className='bread-crumbs__item' to='/categories'>Категорії</Link>
                     <span className='bread-crumbs__item'>{productInfo?.title}</span>
                 </div>
+                <Notification text={`"${productInfo?.title}" - додано до кошика`} productAdded={productAdded} />
                 <LinkBack />
                 {loading ? <Spinner /> : (
                     <>
@@ -135,16 +143,23 @@ const ProductPage:FC = () => {
                                             ?  <div className='product-page__availability product-page__availability--true'>Є в наявності</div>
                                             :  <div className='product-page__availability product-page__availability--false'>Немає в наявності</div>
                                     }
+                                    <p className='product-page__min-quanity'>* мінімальна кількість замовлення - {productInfo?.minQuanityOrder}</p>
                                     {productInfo?.availability &&
                                         cartItemsSelector.find(item => item.id === productInfo?.id)
                                             ? (
                                                 <>
                                                     <div className='product-page__quanity'>
-                                                        <button className='product-page__btn-cart' onClick={() => onMinus(productInfo.id)}>-</button>
-                                                            <span className='product-page__num'>{productQuanuty}</span>
-                                                        <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
-                                                    </div> 
-                                                <p className='product-page__min-quanity'>* мінімальна кількість замовлення - {productInfo.minQuanityOrder}</p>
+                                                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                                                            <button className='product-page__btn-cart' onClick={() => onMinus(productInfo.id)}>-</button>
+                                                                <span className='product-page__num'>{productQuanuty}</span>
+                                                            <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
+                                                        </div>
+                                                        <p className='product-page__summary'>Разом: {Math.round(productQuanuty * productInfo.price)} грн</p>
+                                                    </div>
+                                                    <button onClick={() => (setCartOpen(true))} className='product-page__btn--cart--active'>
+                                                        <img src={mark} alt='Додано в кошик' />
+                                                        Товар в кошику
+                                                    </button>
                                                 </>
                                             )
                                             : <button onClick={onCart} className='product-page__btn--cart'>Додати в корзину</button>

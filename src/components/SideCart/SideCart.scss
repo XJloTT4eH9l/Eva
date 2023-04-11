@@ -46,7 +46,9 @@
             align-items: center;
         }
         & span {
-            font-size: 20px;
+            width: 150px;
+            text-align: center;
+            font-size: 18px;
             padding: 10px 15px;
             border-radius: 6px;
             color: $color-white;

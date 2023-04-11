@@ -11,9 +11,13 @@ import cartIcon from '../../assets/img/cart.svg';
 import loginIcon from '../../assets/img/login.svg';
 import './Header.scss';
 
-const Header:FC = () => {
+interface HeaderProps {
+    cartOpen: boolean;
+    setCartOpen: (open: boolean) => void;
+}
+
+const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen}) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-    const [cartOpen, setCartOpen] = useState<boolean>(false);
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
 
@@ -47,7 +51,10 @@ const Header:FC = () => {
                     
                     <div className='header__cart' onClick={() => setCartOpen(true)}>
                         <img src={cartIcon} alt='Корзина' className='header__cart-img'/>
-                        <span className='header__cart-text'>{sum % 1 !== 0 ? sum.toFixed(2) : sum} грн</span>
+                        <span className='header__cart-text'>{sum % 1 !== 0 ? Math.round(sum) : sum} грн</span>
+                        <span className='header__count'>
+                            <p>{cartItems.length}</p>
+                        </span>
                     </div>
                     <SideCart
                         cartOpen={cartOpen}

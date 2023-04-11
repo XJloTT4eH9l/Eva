@@ -1,20 +1,28 @@
 @import '../../styles/variables.scss';
 
 .header {
+    // position: relative;
     padding: 16px 0;
     z-index: 5;
     background-color: $color-green;
+    @media screen and (max-width: 900px) {
+        padding: 25px 0;
+        padding-top: 38px;
+    }
     &__inner {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
     &__cart {
-        width: 158px;
+        position: relative;
+        width: 100%;
+        max-width: 145px;
         padding: 10px 15px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
+        text-align: center;
         background-color: $color-white;
         border-radius: 6px;
         transition: transform 0.2s ease-in-out;
@@ -22,42 +30,61 @@
         &:hover {
             transform: translateX(-10px);
         }
-        @media screen and (max-width: 600px) {
-           font-size: 12px;
-           width: 130px;
-           padding: 10px;
+        @media screen and (max-width: 900px) {
+            max-width: 40px;
+            justify-content: center;
+            padding: 8px;
         }
+        // @media screen and (max-width: 600px) {
+        //     width: 130px;
+        //     padding: 10px;
+        // }
     }
     &__cart-img {
         width: 30px;
         height: 30px;
         margin-right: 10px;
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 900px) {
             width: 25px;
             height: 25px;
-        }
-        @media screen and (max-width: 400px) {
-            width: 20px;
-            height: 20px;
+            margin-right: 0;
         }
     }
     &__cart-text {
         color: $color-green;
         font-weight: 600;
+        @media screen and (max-width: 900px) {
+            display: none;
+        }
+    }
+    &__count {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: -10px;
+        right: -10px;
+        background-color: $color-light-grey;
+        color: $color-white;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 14px;
     }
     &__mobile-menu {
         background-color: $color-green;
         display: none;
-        left: 0;
+        left: -100%;
         padding-top: 90px;
         padding-bottom: 40px;
         position: fixed;
-        top: -100%;
-        transition: top .3s ease-in-out;
+        top: 0;
+        transition: left .3s ease-in-out;
         width: 100%;
         z-index: 46;
         &--active {
-            top: 0;
+            left: 0;
         }
         @media screen and (max-width: 900px) {
             display: flex;

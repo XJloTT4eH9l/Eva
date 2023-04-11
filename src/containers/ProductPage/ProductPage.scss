@@ -31,6 +31,7 @@
 }
 
 .product-page {
+    position: relative;
     padding: 50px 0;
     font-size: 16px;
     &__inner {
@@ -51,8 +52,13 @@
         }
     }
     &__right {
+        width: 50%;
         @media screen and (max-width: 700px) {
+            width: 80%;
             margin: 0 auto;
+        }
+        @media screen and (max-width: 500px) {
+            width: 100%;
         }
     }
     &__img {
@@ -65,8 +71,8 @@
     }
     &__cart {
         padding: 20px;
-        max-width: 300px;
         border-radius: 6px;
+        text-align: center;
         -webkit-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
         -moz-box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
         box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.2);
@@ -78,8 +84,11 @@
         position: relative;
         padding-left: 20px;
         margin-bottom: 10px;
+        margin: 0 auto;
+        margin-bottom: 10px;
         &--true {
             color: $color-green;
+            max-width: 125px;
             &::before {
                 content: '';
                 position: absolute;
@@ -95,6 +104,7 @@
         }
         &--false {
             color: $color-red;
+            max-width: 170px;
             &::before {
                 content: '';
                 position: absolute;
@@ -111,10 +121,8 @@
     }
     &__title {
         font-size: 30px;
+        text-align: center;
         margin-bottom: 20px;
-        @media screen and (max-width: 1000px) {
-            max-width: 300px;
-        }
         @media screen and (max-width: 700px) {
             max-width: 100%;
             text-align: center;
@@ -143,6 +151,24 @@
             border-color: $color-green;
             background-color: $color-white;
             transition: background-color 0.3s, color 0.5s linear;
+            &--active {
+                display: flex;
+                margin: 0 auto;
+                padding: 10px 15px;
+                font-size: 16px;
+                border-radius: 6px;
+                background-color: $color-green;
+                color: $color-white; 
+                transition: background-color 0.2s linear;
+                & img {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 10px;
+                }
+                &:hover {
+                    background-color: rgba($color-green, 0.8);
+                }
+            }
             &:hover {
                 background-color: $color-green;
                 color: $color-white;
@@ -173,10 +199,19 @@
     }
     &__quanity {
         display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         align-items: center;
+        margin-bottom: 20px;
+    }
+    &__summary {
+        margin-left: 20px;
+        font-size: 16px;
+        font-weight: 700;
     }
     &__min-quanity {
         margin-top: 10px;
+        margin-bottom: 10px;
         font-size: 12px;
         color: rgba($color-black, 0.6);
     }
@@ -194,8 +229,11 @@
         border-radius: 6px;
     }
     &__text-container {
-        max-width: 800px;
+        width: 85%;
         margin: 0 auto;
+        @media screen and (max-width: 800px) {
+            width: 100%;
+        }
     }
     &__text {
         font-size: 16px;
@@ -209,11 +247,14 @@
         word-break: break-word;
     }
     &__list {
-        margin-left: 20%;
-        @media screen and (max-width: 1000px) {
-            margin-left: 18%;
+        margin-left: 16%;
+        @media screen and (max-width: 950px) {
+            margin-left: 5%;
         }
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 800px) {
+            margin-left: 0;
+        }
+        @media screen and (max-width: 600px) {
             max-width: 900px;
             margin-left: 0;
         }
@@ -223,7 +264,7 @@
         align-self: flex-start;
         width: 40%;
         @media screen and (max-width: 1000px) {
-            width: 60%;
+            width: 50%;
         }
         @media screen and (max-width: 600px) {
             width: 46%;
@@ -233,6 +274,9 @@
             display: inline-block;
             padding-right: 16px;
             background-color: #f9f9f9;
+            // @media screen and (max-width: 550px) {
+            //     max-width: 100px;
+            // }
         }
         &::before {
             content: "";
@@ -242,9 +286,9 @@
             bottom: 4px;
             width: 100%;
             border-bottom: 1px dotted $color-green;
-            // @media screen and (max-width: 600px) {
-            //     display: none;
-            // }
+            @media screen and (max-width: 550px) {
+                display: none;
+            }
         }
     }
     &__value {
@@ -252,7 +296,7 @@
         padding-left: 15px;
         max-width: 400px;
         @media screen and (max-width: 1000px) {
-            width: 40%;
+            width: 50%;
         }
         @media screen and (max-width: 600px) {
             width: 54%;

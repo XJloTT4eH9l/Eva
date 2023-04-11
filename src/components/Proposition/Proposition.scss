@@ -5,6 +5,9 @@
     margin-top: 50px;
     &__title {
         padding-left: 15px;
+        @media screen and (max-width: 500px) {
+            margin-bottom: 40px !important;
+        }
     }
     &__shadow {
         position: absolute;

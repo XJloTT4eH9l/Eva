@@ -7,18 +7,18 @@ interface ProductProps {
     title: string;
     img: string[];
     price: number;
-    disable?: boolean;
+    type?: string;
 }
 
-const Product:FC<ProductProps> = ({ id, title, img, price, disable }) => {
+const Product:FC<ProductProps> = ({ id, title, img, price, type }) => {
     return (
         <Link 
             key={id}
-            className={disable ? 'product product--disable' : 'product'} 
+            className={`product product--${type && type}`}
             to={`/product/${id}`}
         >
             <div className='product__top'>
-                <img className='product__img' src={img && img[0]} alt={title} />
+                <img className={`product__img product__img--${type && type}`} src={img && img[0]} alt={title} />
                 <h3 className='product__title'>{title}</h3>
             </div>
             <div className='product__bottom'>

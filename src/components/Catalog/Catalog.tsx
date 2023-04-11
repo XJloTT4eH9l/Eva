@@ -21,6 +21,7 @@ const Catalog:FC<CatalogProps> = ({ products }) => {
                             title={product.title}
                             img={product.images}
                             price={product.price}
+                            type='catalog'
                         />
                     ))
                 }
