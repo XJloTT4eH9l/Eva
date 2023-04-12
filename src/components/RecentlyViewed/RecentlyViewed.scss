@@ -1,11 +1,20 @@
 .recently-viewed{
-    margin-top: 50px;
+    margin-top: 20px;
     &--main {
+        margin-top: 50px;
         padding: 0 15px;
-        padding-bottom: 50px;
+        padding-bottom: 30px;
+    }
+    &--product {
+        margin-bottom: 30px;
     }
 }
 
 .container--recently-viewed {
     padding: 0;
+}
+
+.recents-product__title {
+    padding: 0;
+    margin-bottom: 40px !important;
 }

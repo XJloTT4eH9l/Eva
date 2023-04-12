@@ -19,20 +19,18 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
     }, [id])
 
     return (
-        <section className={type === 'main' ? "recently-viewed recently-viewed--main" : "recently-viewed"}>
+        <section className={type === 'main' ? "recently-viewed recently-viewed--main" : "recently-viewed recently-viewed--product"}>
             {recents.length > 0 && (
-                <div className="container container--recently-viewed">
-                {/* <h2 className="title proposition__title">Нещодавно переглянуті</h2> */}
-                        
+                <div className="container container--recently-viewed">    
                 { type === 'product' ? (
                     recently && recently.length >= 1  ? (
                         <>
-                            <h2 className="title proposition__title">Нещодавно переглянуті</h2>
+                            <h2 className="title recents-product__title">Нещодавно переглянуті</h2>
                             <ProductSlider products={recently} />
                         </>
                     ) : (
                         <>
-                            {recently && recently?.length >= 1 && <h2 className="title proposition__title">Нещодавно переглянуті</h2>} 
+                            {recently && recently?.length >= 1 && <h2 className="title recents-product__title">Нещодавно переглянуті</h2>} 
                             <ul className='proposition__list'>
                             {
                                 recently?.map((item) => { 
