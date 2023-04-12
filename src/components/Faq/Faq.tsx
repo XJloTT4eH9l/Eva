@@ -36,7 +36,7 @@ const Faq = () => {
         const questions = faqQuestions?.map(item => {
             if(id === item.id) {
                 return (
-                    {...item, active: true}
+                    {...item, active: !item.active}
                 )
             } else {
                 return (

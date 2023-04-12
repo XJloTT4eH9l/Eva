@@ -64,6 +64,7 @@ const ContactPage = () => {
                 console.log(error);
             }
         }
+        window.scrollTo(0, 0);
         getContactInfo();
     }, [])
     return (

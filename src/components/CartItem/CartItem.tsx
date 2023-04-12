@@ -1,5 +1,6 @@
 import { FC, useState, memo } from 'react';
 import { useAppDispatch } from '../../hooks/reduxHooks';
+import { NewPrice } from '../../types/types';
 import { onClickMinus, onClickPlus, removeItem } from '../../store/cartSlice';
 import './CartItem.scss';
 
@@ -11,9 +12,10 @@ interface CartItemProps {
     quanity: number;
     minQuanityOrder: number;
     type?: string;
+    promo?: NewPrice;
 }
 
-const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanityOrder, type }) => {
+const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanityOrder, type, promo }) => {
     const dispatch = useAppDispatch();
     const [disable, setDisable] = useState<boolean>(false); 
 
@@ -56,7 +58,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                     <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                 </div>
                                 <div className='cart-item__summ'>
-                                    {(price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)} грн
+                                    <span>{(price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)} грн</span>
                                 </div>
                             </div>
                         </>
@@ -77,7 +79,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                         <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                     </div>
                                     <div className='cart-item__summ'>
-                                        {(price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)} грн
+                                        <span>{(price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)} грн</span>
                                     </div>
                                 </div>
                             </div>

@@ -57,7 +57,8 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 minQuanityOrder: res.data.min_count_buy ,
                 availability: res.data.available,
                 description: res.data.description,
-                characteristics: сharacteristicsParsed
+                characteristics: сharacteristicsParsed,
+                promo: res.data.promo
             }
             console.log(product);
             setProductInfo(product);
@@ -83,7 +84,8 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 images: productInfo.images,
                 price: productInfo.price,
                 quanity: productInfo.minQuanityOrder,
-                minQuanityOrder: productInfo.minQuanityOrder
+                minQuanityOrder: productInfo.minQuanityOrder,
+                promo: productInfo.promo
             }));
             window.setTimeout(() => setProductAdded(false), 2000);
         }
@@ -137,7 +139,14 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                             <div className="product-page__right">
                                 <h1 className='product-page__title'>{productInfo?.title}</h1>
                                 <div className='product-page__cart'>
-                                    <div className='product-page__price'><span>Ціна: </span> {productInfo?.price} грн</div>
+                                    <div className='product-page__price'>
+                                        {productInfo?.promo ? (
+                                            <p className='product-page__new-price'>
+                                                Ціна: <strong>{productInfo?.promo.new_price} грн </strong> 
+                                                <span>{productInfo?.price} грн</span>
+                                            </p> 
+                                        ) : <span>Ціна: {productInfo?.price} грн</span> }
+                                    </div>
                                     {
                                         productInfo?.availability === true 
                                             ?  <div className='product-page__availability product-page__availability--true'>Є в наявності</div>
@@ -154,7 +163,14 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                                                 <span className='product-page__num'>{productQuanuty}</span>
                                                             <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
                                                         </div>
-                                                        <p className='product-page__summary'>Разом: {Math.round(productQuanuty * productInfo.price)} грн</p>
+                                                        <p className='product-page__summary'>
+                                                            Разом: 
+                                                            {
+                                                               productInfo.promo?.new_price 
+                                                                ? Math.round(productQuanuty * productInfo.promo.new_price)
+                                                                : Math.round(productQuanuty * productInfo.price)
+                                                            } грн
+                                                        </p>
                                                     </div>
                                                     <button onClick={() => (setCartOpen(true))} className='product-page__btn--cart--active'>
                                                         <img src={mark} alt='Додано в кошик' />

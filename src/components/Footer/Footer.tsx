@@ -16,7 +16,7 @@ const Footer:FC = () => {
                     </div>
                     <div className="footer__column">
                         <h4 className='footer__title'>Інформація</h4>
-                        <ul className="footer__list">
+                        <ul className="footer__list footer__list--nav">
                             <li className='footer__item'><NavLink className='footer__link' to='/'>Головна</NavLink></li>
                             <li className='footer__item'><NavLink className='footer__link' to='/categories'>Категорії</NavLink></li>
                             <li className='footer__item'><NavLink className='footer__link' to='/about'>Про нас</NavLink></li>

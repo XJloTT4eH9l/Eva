@@ -66,6 +66,7 @@ const AboutPage = () => {
     } 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getAboutInfo()
     }, [])
     

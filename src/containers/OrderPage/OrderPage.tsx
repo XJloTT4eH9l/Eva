@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/CartItem/CartItem';
@@ -9,6 +9,10 @@ const OrderPage:FC = () => {
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        console.log(cartItems);
+    }, [])
     return (
         <section className="order-page">
             <div className="container">

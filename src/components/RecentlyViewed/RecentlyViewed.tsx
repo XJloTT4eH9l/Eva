@@ -43,6 +43,7 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
                                             title={item.title}
                                             img={item.images}
                                             price={item.price} 
+                                            promo={item.promo}
                                         />
                                     )
                                 })
@@ -65,7 +66,8 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
                                                 id={item.id}
                                                 title={item.title}
                                                 img={item.images}
-                                                price={item.price} 
+                                                price={item.price}
+                                                promo={item.promo} 
                                             />
                                         )
                                     })

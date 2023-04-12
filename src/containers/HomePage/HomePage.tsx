@@ -30,6 +30,7 @@ const HomePage = () => {
     }
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         getProducts(API_NEW_PRODUCTS, 'newProducts');
         getProducts(API_PROMOTIONS, 'promotions');
     }, [])
@@ -50,7 +51,7 @@ const HomePage = () => {
                     products={newProducts}
                 />
             )}
-            
+
             <RecentlyViewed type='main' />
         </>
     )

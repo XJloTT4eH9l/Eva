@@ -27,7 +27,8 @@ const Proposition:FC<PropositionProps> = ({ title, products }) => {
                                         id={item.id}
                                         title={item.title}
                                         img={item.images}
-                                        price={item.price} 
+                                        price={item.price}
+                                        promo={item.promo}
                                     />
                                 ))}
                             </ul>

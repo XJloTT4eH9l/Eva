@@ -28,7 +28,8 @@ const recentlyViewedSlice = createSlice({
                     minQuanityOrder: action.payload.minQuanityOrder,
                     availability: action.payload.availability,
                     description: action.payload.description,
-                    characteristics: action.payload.characteristics
+                    characteristics: action.payload.characteristics,
+                    promo: action.payload.promo
                 })
                 if(state.recentlyViewed.length >= 12) {
                     state.recentlyViewed.pop();

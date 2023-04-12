@@ -1,9 +1,14 @@
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Categories from '../../components/Categories/Categories';
 import './CatalogPage.scss';
 
-const CatalogPage = () => {
+
+const CatalogPage:FC = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
     return (
         <section className="catalog-page">
             <div className="container">

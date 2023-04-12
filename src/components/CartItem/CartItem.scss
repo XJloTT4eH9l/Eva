@@ -15,7 +15,7 @@
     }
     &__inner {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         @media screen and (max-width: 470px) {
             flex-direction: column;
@@ -116,6 +116,9 @@
         text-align: center;
         border-radius: 6px;
         color: $color-green;
+        & strong {
+            color: $color-red;
+        }
     }
     &__delete-btn {
         position: absolute;

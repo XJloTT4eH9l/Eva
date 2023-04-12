@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import { IProduct } from '../../types/types';
+import { IProductDetail } from '../../types/types';
 import Product from '../Product/Product';
 import './Catalog.scss';
 
 interface CatalogProps {
-    products?: IProduct[];
+    products?: IProductDetail[];
     // setProducts: (products: IProduct[]) => void;
 }
 
@@ -22,6 +22,7 @@ const Catalog:FC<CatalogProps> = ({ products }) => {
                             img={product.images}
                             price={product.price}
                             type='catalog'
+                            promo={product.promo}
                         />
                     ))
                 }

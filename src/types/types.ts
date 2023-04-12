@@ -16,14 +16,20 @@ export type Characteristics = {
     text: string;
 }
 
+export type NewPrice = {
+    new_price: number;
+}
+
 export interface IProductDetail extends IProduct {
     minQuanityOrder: number;
     characteristics: Characteristics[];
     description: string;
     availability: boolean;
+    promo?: NewPrice;
 }
 
 export interface ICartItem extends IProduct {
     quanity: number;
     minQuanityOrder: number;
+    promo?: NewPrice
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { IProduct, ICategory } from '../../types/types';
+import { IProductDetail, ICategory } from '../../types/types';
 import { API_CATEGORIES, API_CATEGORIES_PRODUCTS } from '../../constants/api';
 import axios from 'axios';
 
@@ -12,7 +12,7 @@ import './CategoryPage.scss';
 
 const CategoryPage = () => {
     const { id } = useParams();
-    const [products, setProducts] = useState<IProduct[]>();
+    const [products, setProducts] = useState<IProductDetail[]>();
     const [categories, setCategories] = useState<ICategory[]>();
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
     const [sort, setSort] = useState<string>('title-down');
@@ -72,6 +72,7 @@ const CategoryPage = () => {
                 setProducts(res.data.products);
             }
             setLoading(false);
+            console.log(res.data);
         } catch (error) {
             console.log(error);
         }

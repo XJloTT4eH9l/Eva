@@ -21,9 +21,10 @@ const cartSlice = createSlice({
                 id: action.payload.id,
                 title: action.payload.title,
                 images: action.payload.images,
-                price: action.payload.price,
+                price: action.payload.promo?.new_price ? action.payload.promo.new_price : action.payload.price,
                 quanity: action.payload.quanity,
-                minQuanityOrder: action.payload.minQuanityOrder
+                minQuanityOrder: action.payload.minQuanityOrder,
+                promo: action.payload.promo
             })
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },

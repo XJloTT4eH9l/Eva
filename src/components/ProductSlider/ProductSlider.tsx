@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IProduct } from '../../types/types';
+import { IProductDetail } from '../../types/types';
 import Product from '../Product/Product';
 import Slider from 'react-slick';
 
@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface ProductSliderProps {
-    products: IProduct[];
+    products: IProductDetail[];
 }
 
 const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
@@ -57,7 +57,8 @@ const ProductSlider:FC<ProductSliderProps> = ({ products }) => {
                     id={product.id}
                     title={product.title}
                     img={product.images}
-                    price={product.price} 
+                    price={product.price}
+                    promo={product.promo} 
                 />
             ))}
         </Slider>
