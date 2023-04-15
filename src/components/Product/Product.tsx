@@ -24,10 +24,10 @@ const Product:FC<ProductProps> = ({ id, title, img, price, type, promo }) => {
                 <h3 className='product__title'>{title}</h3>
             </div>
             <div className='product__bottom'>
-                {promo?.new_price ? (
+                {promo?.promo_price ? (
                     <div>
                         <p className='product__old-price'>{price} грн</p>
-                        <p className='product__new-price'>{promo.new_price} грн</p>
+                        <p className='product__new-price'>{promo.promo_price} грн</p>
                     </div>
                 ) : (<p className={`product__price product__price--${type && type}`}>{price} грн</p>)}
             </div>

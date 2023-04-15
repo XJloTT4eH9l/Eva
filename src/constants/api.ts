@@ -5,4 +5,11 @@ export const API_PRODUCT = BASE_API + '/products/id=';
 export const API_NEW_PRODUCTS = BASE_API + '/categories/new_products/';
 export const API_PROMOTIONS = BASE_API + '/categories/promotions/';
 
-//http://135.125.239.173:8001
+export const MEEST_BASE = 'https://publicapi.meest.com';
+export const MEEST_SEARCH_CITY = MEEST_BASE + '/geo_localities?search_beginning=';
+export const MEEST_SEARCH_BRANCHES = MEEST_BASE + '/locator/';
+
+export const NOVA_POST_BASE = 'https://api.novaposhta.ua/v2.0/json/';
+export const NOVA_POST_KEY:string = '7c010193ce1ef6611a98dd38d91e0c5a';
+
+//http://135.125.239.173:8001 /branches?city=

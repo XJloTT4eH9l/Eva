@@ -17,7 +17,7 @@ export type Characteristics = {
 }
 
 export type NewPrice = {
-    new_price: number;
+    promo_price: number;
 }
 
 export interface IProductDetail extends IProduct {

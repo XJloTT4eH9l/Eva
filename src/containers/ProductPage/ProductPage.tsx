@@ -142,7 +142,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                     <div className='product-page__price'>
                                         {productInfo?.promo ? (
                                             <p className='product-page__new-price'>
-                                                Ціна: <strong>{productInfo?.promo.new_price} грн </strong> 
+                                                Ціна: <strong>{productInfo?.promo.promo_price} грн </strong> 
                                                 <span>{productInfo?.price} грн</span>
                                             </p> 
                                         ) : <span>Ціна: {productInfo?.price} грн</span> }
@@ -166,8 +166,8 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                                         <p className='product-page__summary'>
                                                             Разом: 
                                                             {
-                                                               productInfo.promo?.new_price 
-                                                                ? Math.round(productQuanuty * productInfo.promo.new_price)
+                                                               productInfo.promo?.promo_price 
+                                                                ? Math.round(productQuanuty * productInfo.promo.promo_price)
                                                                 : Math.round(productQuanuty * productInfo.price)
                                                             } грн
                                                         </p>
@@ -200,7 +200,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                     {
                         textType === 'description' 
                             ?   (<div className='product-page__text-container'>
-                                    <p className='product-page__text'>{productInfo?.description}</p>
+                                    <p style={{ whiteSpace: "pre-wrap" }} className='product-page__text'>{productInfo?.description}</p>
                                 </div>)
                             :  (
                                     <ul className='product-page__list'>
@@ -211,7 +211,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                                         <span>{char.name}</span>
                                                     </div>
                                                     <div className='product-page__value'>
-                                                        <span>Відправка протягом 1-3 днів з моменту оплати. Великі партії товару ( від 1 тони) протягом 4-6 днів</span>
+                                                        <span>{char.text}</span>
                                                     </div>
                                                 </li>
                                             ))

@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/CartItem/CartItem';
 import emptyCart from '../../assets/img/cart-empty.svg';
+import OrderForm from '../../components/OrderForm/OrderForm';
 import './OrderPage.scss';
 
 const OrderPage:FC = () => {
@@ -37,6 +38,7 @@ const OrderPage:FC = () => {
                                 }
                             </ul>
                             <p className='order-page__summ'>Разом: {sum.toFixed(2)} грн</p>
+                            <OrderForm />
                         </div>
                     </>
                 ) : (

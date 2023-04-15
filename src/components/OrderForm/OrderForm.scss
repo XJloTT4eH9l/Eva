@@ -1,0 +1,102 @@
+@import '../../styles/variables.scss';
+
+.order-form {
+    max-width: 500px;
+    margin: 0 auto;
+    &__title {
+        margin: 30px 0;
+    }
+    &__field {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+        & label {
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+    }
+    &__input-text {
+        padding: 10px 15px;
+        border: 2px solid;
+        border-color: transparent;
+        border-radius: 6px;
+        background-color: rgba(65, 94, 67, 0.031372549);
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+        outline: none;
+        transition: all 0.2s linear;
+        &--custom {
+            width: 100%;
+            // margin-bottom: 20px;
+        }
+        &:focus {
+            border-color: #bae1b6;
+        }
+    }
+    &__error {
+        padding-top: 5px;
+        font-size: 16px;
+        color: $color-red;
+    }
+    &__order-btn {
+        padding: 10px 15px;
+        background-color: $color-green;
+        border-radius: 6px;
+        font-size: 16px;
+        color: $color-white;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    &__select {
+        & option {
+            &:hover {
+                background-color: $color-green;
+            }
+        }
+    }
+    &__text {
+        font-size: 16px;
+        margin-bottom: 30px;
+        & a {
+            color: blue;
+            transition: color 0.2s linear;
+            &:hover {
+                color: $color-green;
+            }
+        }
+    }
+    &__list {
+        border-color: $color-black;
+        border-radius: 6px;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+        max-height: 200px;
+        &--scroll {
+            overflow-y: scroll;
+        }
+        & li {
+            font-size: 16px;
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s linear;
+            &:hover {
+                background-color:rgba(0, 0, 0, 0.3);
+            }
+        }
+    }
+    &__custom-select {
+        width: 100%;
+        min-height: 40px;
+        padding: 10px 15px;
+        border-radius: 6px;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+    }
+    &__select-fields {
+        display: none;
+        &--active {
+            display: block;
+        }
+    }
+}
