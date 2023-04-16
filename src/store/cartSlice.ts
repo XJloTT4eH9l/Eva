@@ -3,13 +3,15 @@ import { ICartItem } from '../types/types';
 
 type cartState = {
     cartItems: ICartItem[];
+    orderDone: boolean;
 }
 
 const tempCartItems = localStorage.getItem('cartProducts');
 const cartItemsState = tempCartItems ? JSON.parse(tempCartItems) : [];
 
 const initialState: cartState = {
-    cartItems: cartItemsState
+    cartItems: cartItemsState,
+    orderDone: false
 }
 
 const cartSlice = createSlice({
@@ -26,6 +28,7 @@ const cartSlice = createSlice({
                 minQuanityOrder: action.payload.minQuanityOrder,
                 promo: action.payload.promo
             })
+            state.orderDone = false;
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
         onClickPlus : (state, action: PayloadAction<number>) => {
@@ -56,10 +59,13 @@ const cartSlice = createSlice({
         clearCart : (state) => {
             state.cartItems = [];
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
+        },
+        setOrderDone : (state) => {
+            state.orderDone = true;
         }
     }
 })
 
-export const { addToCart, onClickPlus, onClickMinus, removeItem, clearCart } = cartSlice.actions;
+export const { addToCart, onClickPlus, onClickMinus, removeItem, clearCart, setOrderDone } = cartSlice.actions;
 
 export default cartSlice.reducer;

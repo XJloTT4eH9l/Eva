@@ -3,11 +3,13 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/CartItem/CartItem';
 import emptyCart from '../../assets/img/cart-empty.svg';
+import orderCompleted from '../../assets/img/order-completed.svg';
 import OrderForm from '../../components/OrderForm/OrderForm';
 import './OrderPage.scss';
 
 const OrderPage:FC = () => {
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
+    const orderDone = useAppSelector(state => state.cartItems.orderDone);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
 
     useEffect(() => {
@@ -17,7 +19,20 @@ const OrderPage:FC = () => {
     return (
         <section className="order-page">
             <div className="container">
-                {cartItems.length > 0 ? (
+                {orderDone ? (
+                    <div className='order-page__empty'>
+                        <img className='order-page__empty-img' src={orderCompleted} alt='Кошик порожній' />
+                        <h1 className='title order-page__title'>Замовлення оформлено</h1>
+                        <p className='order-page__text'>Замовлення успішно оформлено. Чекайте поки наш менеджер зв'яжеться з вами для підтвердження замовлення</p>
+                        <Link 
+                            to='/'
+                            className='order-page__categories-link'
+                        >
+                            На головну
+                        </Link>
+                    </div>
+                ) : (
+                   cartItems.length > 0 ? (
                     <>
                         <h1 className="title">Ваше замовлення</h1>
                         <div className="order-page__inner">
@@ -44,7 +59,7 @@ const OrderPage:FC = () => {
                 ) : (
                     <div className='order-page__empty'>
                         <img className='order-page__empty-img' src={emptyCart} alt='Кошик порожній' />
-                        <h1 className='title'>Кошик порожній</h1>
+                        <h1 className='title order-page__title'>Кошик порожній</h1>
                         <p className='order-page__text'>На даний момент кошик пустий. Щоб зробити замовлення перейдіть до каталогу товарів та додайте щось в кошик</p>
                         <Link 
                             to='/categories'
@@ -53,6 +68,7 @@ const OrderPage:FC = () => {
                             До каталогу
                         </Link>
                     </div>
+                )
                 )}
             </div>
         </section>

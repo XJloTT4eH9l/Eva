@@ -26,10 +26,11 @@ export interface IProductDetail extends IProduct {
     description: string;
     availability: boolean;
     promo?: NewPrice;
+    barcode?: string;
 }
 
 export interface ICartItem extends IProduct {
     quanity: number;
     minQuanityOrder: number;
-    promo?: NewPrice
+    promo?: NewPrice;
 }

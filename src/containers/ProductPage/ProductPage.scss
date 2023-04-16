@@ -41,6 +41,15 @@
             flex-direction: column;
         }
     }
+    &__d-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: $color-light-grey;
+        & p {
+            margin-bottom: 30px;
+        }
+    }
     &__left {
         margin-right: 100px;
         @media screen and (max-width: 1000px) {

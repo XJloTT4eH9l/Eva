@@ -17,7 +17,6 @@ const HomePage = () => {
     const getProducts = async (link: string, type: string) => {
         try {
             const res = await axios.get(link + '?lang_id=1&page_size=8');
-            console.log(res.data.products);
             if(res.status === 200) {
                 switch(type) {
                     case 'newProducts': setNewProducts(res.data.products); break

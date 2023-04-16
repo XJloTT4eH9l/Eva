@@ -3,6 +3,10 @@
 .order-page {
     min-height: 330px;
     padding-top: 30px;
+    &__title {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
     &__list {
         max-width: 900px;
         margin: 0 auto;
@@ -19,9 +23,13 @@
         margin: 0 auto;
         text-align: center;
         & img {
-            width: 240px;
-            height: 240px;
+            width: 200px;
+            height: 200px;
             margin: 0 auto;
+            @media screen and (max-width: 600px) {
+                width: 150px;
+                height: 150px;
+            }
         }
         & a {
             max-width: 200px;

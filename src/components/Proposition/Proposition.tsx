@@ -10,7 +10,6 @@ interface PropositionProps {
 }
 
 const Proposition:FC<PropositionProps> = ({ title, products }) => {
-   console.log(products);
     return (
         <section className="proposition">
             {products.length > 0 && (

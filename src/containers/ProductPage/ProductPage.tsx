@@ -46,6 +46,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
             setLoading(true);
 
             const res = await axios.get(API_PRODUCT + id + '?lang_id=1');
+            console.log(res);
             const сharacteristicsParsed = Object.entries(res.data.characteristic)
                 .map(item => [String(item[0]), String(item[1])])
                 .map(([name, text]) => ({ name, text }));
@@ -58,13 +59,14 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 availability: res.data.available,
                 description: res.data.description,
                 characteristics: сharacteristicsParsed,
-                promo: res.data.promo
+                promo: res.data.promo,
+                barcode: res.data.barcode
             }
             console.log(product);
             setProductInfo(product);
             const itemQuanity = cartItemsSelector.find(item => item.id === Number(id));
             if(itemQuanity) {
-                setProductQuanity(itemQuanity.quanity)
+                setProductQuanity(itemQuanity.quanity);
             }
 
             addToRecently(product);
@@ -120,8 +122,12 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                     <Link className='bread-crumbs__item' to='/categories'>Категорії</Link>
                     <span className='bread-crumbs__item'>{productInfo?.title}</span>
                 </div>
+                
                 <Notification text={`"${productInfo?.title}" - додано до кошика`} productAdded={productAdded} />
-                <LinkBack />
+                <div className='product-page__d-flex'>
+                    <LinkBack />
+                    <p>Артикль: {productInfo?.barcode}</p>
+                </div>
                 {loading ? <Spinner /> : (
                     <>
                         <div className='product-page__inner'>
