@@ -1,0 +1,183 @@
+@import '../../styles/variables.scss';
+
+.search {
+    position: relative;
+    width: 550px;
+    &--desktop {
+        @media screen and (max-width: 900px) {
+            display: none;
+        }
+    }
+    &--mobile {
+        width: 500px;
+        margin: 0 auto;
+        @media screen and (max-width: 530px) {
+            width: 80%;
+        }
+        .search__input {
+            position: static;
+        }
+        .search__inner {
+            top: 50px;
+            z-index: 20;
+        }
+        .search__search-icon {
+            top: 9px;
+        }
+        .search__delete {
+            top: 11px;
+        }
+        @media screen and (max-width: 420px) {
+            width: 90%;
+        } 
+    }
+    &__input {
+        position: absolute;
+        top: 22px;
+        padding: 10px 15px;
+        padding-left: 45px;
+        margin-bottom: 20px;
+        width: 100%;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+    &__search-icon {
+        position: absolute;
+        top: 30px;
+        left: 15px;
+        width: 20px;
+        height: 20px;
+    }
+    &__delete {
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        top: 33px;
+        right: 10px;
+        cursor: pointer;
+    }
+    &__inner {
+        position: absolute;
+        width: 100%;
+        top: 80px;
+        border-radius: 6px;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+        background-color: $color-white;
+        overflow: hidden;
+    }
+    &__text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        text-align: center;
+        min-height: 50px;
+    }
+    &__item {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        transition: background-color 0.2s linear;
+        @media screen and (max-width: 450px) {
+            padding: 15px 10px;
+        }
+        &:hover {
+            background-color: #bae1b6;
+        }
+        &:not(:last-child) {
+            border-bottom: 1px solid $color-light-grey;
+        }
+        & img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            @media screen and (max-width: 450px) {
+                width: 40px;
+                height: 40px;
+            }
+        }
+        & h2 {
+            margin-top: -25px;
+            font-size: 16px;
+            @media screen and (max-width: 530px) {
+                font-size: 14px;
+                max-width: 200px;
+                text-align: center;
+            }
+            @media screen and (max-width: 380px) {
+                max-width: 150px;
+            }
+        }
+        & span {
+            position: absolute;
+            left: 50%;
+            bottom: 13px;
+            transform: translateX(-50%);
+            font-size: 16px;
+            color: $color-light-grey;
+            @media screen and (max-width: 530px) {
+                font-size: 14px;
+            }
+        }
+    }
+    &__price {
+        font-size: 16px;
+        @media screen and (max-width: 530px) {
+            font-size: 14px;
+        }
+        &--promo {
+            font-size: 16px;
+            color: $color-red;
+            @media screen and (max-width: 530px) {
+                font-size: 14px;
+            }
+        }
+        &--old {
+            font-size: 14px;
+            @media screen and (max-width: 530px) {
+                font-size: 12px;
+            }
+            color: $color-light-grey;
+            text-decoration: line-through;
+            text-align: center;
+        }
+    }
+    &__summary {
+        position: absolute;
+        bottom: -545px;
+        left: 0;
+        width: 100%;
+        padding: 10px 15px;
+        padding-bottom: 20px;
+        font-size: 16px;
+        text-align: center;
+        background-color: $color-white;
+        border-radius: 6px;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+        @media screen and (max-width: 900px) {
+            bottom: -450px;
+        }
+        @media screen and (max-width: 530px) {
+            font-size: 14px;
+            bottom: -445px;
+        }
+        & p {
+            margin-bottom: 20px;
+        }
+    }
+    &__btn {
+        padding: 10px 15px;
+        color: $color-white;
+        background-color: $color-green;
+        border-radius: 6px;
+        transition: color 0.2s linear, background-color 0.2s linear;
+        &:hover {
+            color: $color-black;
+            background-color: #bae1b6;
+        }
+    }
+}

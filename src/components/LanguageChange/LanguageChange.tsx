@@ -9,7 +9,7 @@ interface LanguageChangeProps {
 const LanguageChange:FC<LanguageChangeProps> = ({ type, setMobileMenuOpen }) => {
     const languages = [
         {id: 1, language: 'Ua'},
-        {id: 2, language: 'Eng'}
+        {id: 2, language: 'Eng'},
     ];
     return (
         <div className={type === 'mobileChange' ?  "language language--mobile" : 'language'}>

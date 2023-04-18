@@ -126,7 +126,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 <Notification text={`"${productInfo?.title}" - додано до кошика`} productAdded={productAdded} />
                 <div className='product-page__d-flex'>
                     <LinkBack />
-                    <p>Артикль: {productInfo?.barcode}</p>
+                    <p>Артикул: {productInfo?.barcode}</p>
                 </div>
                 {loading ? <Spinner /> : (
                     <>

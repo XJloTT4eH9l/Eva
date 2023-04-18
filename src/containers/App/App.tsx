@@ -12,11 +12,20 @@ import OrderPage from '../OrderPage/OrderPage';
 import AboutPage from "../AboutPage/AboutPage";
 import ContactPage from "../ContactPage/ContactPage";
 
+import { IProductDetail } from "../../types/types";
+
 function App() {
   const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const [searchList, setSearchList] = useState<IProductDetail[]>([]);
+
   return (
     <>
-      <Header cartOpen={cartOpen} setCartOpen={setCartOpen}/>
+      <Header 
+        cartOpen={cartOpen} 
+        setCartOpen={setCartOpen}
+        searchList={searchList}
+        setSearchList={setSearchList}
+      />
       <Routes>
         <Route path="/" element={ <HomePage /> } />
         <Route path='/categories' element={ <CatalogPage /> } />

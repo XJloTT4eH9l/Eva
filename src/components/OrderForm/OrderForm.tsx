@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../hooks/reduxHooks';
+import { useDebounce } from '../../hooks/useDebounce';
 import { setOrderDone, clearCart } from '../../store/cartSlice';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { MEEST_SEARCH_CITY, MEEST_SEARCH_BRANCHES, NOVA_POST_BASE, NOVA_POST_KEY } from '../../constants/api';
@@ -80,6 +81,7 @@ const OrderForm = () => {
     
     const curentDeliveryType = watch('deliveryType');
     const curentCity = watch('city');
+    const debouncedCity = useDebounce(curentCity, 500);
     const cartProducts = useAppSelector(state => state.cartItems.cartItems);
     const dispatch = useAppDispatch();
 
@@ -156,9 +158,12 @@ const OrderForm = () => {
     }, [])
 
     useEffect(() => {
-        getCity();
-        getDepartmant();
-    }, [curentCity])
+        if(debouncedCity) {
+            getCity();
+            getDepartmant();
+            console.log(debouncedCity);
+        }
+    }, [debouncedCity])
 
     useEffect(() => {
         setValue('city', '');
