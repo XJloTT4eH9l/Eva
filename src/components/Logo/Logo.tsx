@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/img/logo.svg';
 import './Logo.scss';
@@ -17,4 +18,4 @@ const Logo:FC<LogoProps> = ({ type }) => {
     )
 }
 
-export default Logo;
+export default memo(Logo);

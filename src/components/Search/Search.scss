@@ -34,14 +34,18 @@
     &__input {
         position: absolute;
         top: 22px;
+        border: 2px solid;
+        border-color: transparent;
         padding: 10px 15px;
         padding-left: 45px;
         margin-bottom: 20px;
         width: 100%;
         border-radius: 6px;
-        border: none;
         outline: none;
         box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+        &:focus {
+            border-color: #bae1b6;
+        }
     }
     &__search-icon {
         position: absolute;

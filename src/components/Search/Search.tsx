@@ -1,5 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDebounce } from '../../hooks/useDebounce';
 import { API_SEARCH, API_SEARCH_CATEGORY } from '../../constants/api';
 import { IProductDetail } from '../../types/types';
@@ -10,17 +11,21 @@ import remove from '../../assets/img/close.png';
 import './Search.scss';
 
 interface SearchProps {
+    searchValue: string;
+    setSearchValue: (value: string) => void;
     searchList: IProductDetail[] | [];
     setSearchList: (list: IProductDetail[]) => void;
     setMobileMenuOpen: (open: boolean) => void;
     type: string;
 }
 
-const Search:FC<SearchProps> = ({ type, searchList, setSearchList, setMobileMenuOpen }) => {
-    const [searchValue, setSearchValue] = useState<string>('');
+const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue, setSearchList, setMobileMenuOpen }) => {
     const [searchQuanity, setSearchQuanity] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     const debouncedSearch = useDebounce(searchValue, 500);
+
+    const location = useLocation();
+    const currentPath = location.pathname;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
@@ -30,15 +35,14 @@ const Search:FC<SearchProps> = ({ type, searchList, setSearchList, setMobileMenu
         const getSearchProducts = async () => {
             try {
                 setLoading(true);
+
                 if(debouncedSearch === '') {
                     setSearchList([]);
                 } else {
                     const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + '?lang_id=1&page_size=24&page=1');
-                    console.log(res.data.products);
                     if(res.data.products === null) {
                         setSearchList([]);
                     } else {
-                        console.log(res);
                         setSearchList(res.data.products);
                         setSearchQuanity(res.data.quantity_products);
                     }
@@ -46,14 +50,16 @@ const Search:FC<SearchProps> = ({ type, searchList, setSearchList, setMobileMenu
 
                 setLoading(false);
             } catch (error) {
-                
+                alert('Виникли проблеми, спробуйте пізніше');
             }
         }
         getSearchProducts();
     }, [debouncedSearch]);
 
     return (
-        <div className={type === 'desktop' ? 'search search--desktop' : 'search search--mobile'}>
+        <>
+        {currentPath !== '/search' && (
+            <div className={type === 'desktop' ? 'search search--desktop' : 'search search--mobile'}>
             <input 
                 type='text'
                 className='search__input' 
@@ -113,10 +119,18 @@ const Search:FC<SearchProps> = ({ type, searchList, setSearchList, setMobileMenu
             {searchQuanity > 5 && searchValue.length > 0 &&  (
                 <div className='search__summary'>
                     <p>Всього знайдено {searchQuanity} товарів</p>
-                    <Link to='/' className='search__btn'>Переглянути всі</Link>
+                    <Link 
+                        to='/search' 
+                        className='search__btn' 
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        Переглянути всі
+                    </Link>
                 </div>
             )}
         </div>
+        )}
+        </>
     )
 }
 

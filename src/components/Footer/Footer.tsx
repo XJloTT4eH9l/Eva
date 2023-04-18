@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import Svg from '../Svg/Svg';
@@ -74,4 +75,4 @@ const Footer:FC = () => {
     )
 }
 
-export default Footer;
+export default memo(Footer);

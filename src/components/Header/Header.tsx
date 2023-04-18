@@ -1,6 +1,7 @@
 import { FC, useState, useEffect } from 'react';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { IProductDetail } from '../../types/types';
+import { memo } from 'react';
 
 import Logo from '../Logo/Logo';
 import Nav from '../Nav/Nav';
@@ -16,11 +17,13 @@ import './Header.scss';
 interface HeaderProps {
     cartOpen: boolean;
     setCartOpen: (open: boolean) => void;
+    searchValue: string;
+    setSearchValue: (value: string) => void;
     searchList: IProductDetail[];
     setSearchList: (list: IProductDetail[]) => void;
 }
 
-const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchList, setSearchList }) => {
+const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchValue, searchList, setSearchList }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
@@ -51,6 +54,8 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchList, setSearchLi
                             <div className={mobileMenuOpen ? 'header__mobile-menu header__mobile-menu--active' : 'header__mobile-menu'}>
                                 <Search 
                                     type='mobile' 
+                                    searchValue={searchValue}
+                                    setSearchValue={setSearchValue}
                                     searchList={searchList} 
                                     setSearchList={setSearchList} 
                                     setMobileMenuOpen={setMobileMenuOpen}
@@ -63,7 +68,9 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchList, setSearchLi
                             </div>
                         </div>
                         <Search 
-                            type='desktop' 
+                            type='desktop'
+                            searchValue={searchValue}
+                            setSearchValue={setSearchValue} 
                             searchList={searchList} 
                             setSearchList={setSearchList} 
                             setMobileMenuOpen={setMobileMenuOpen}
@@ -91,4 +98,4 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchList, setSearchLi
     )
 }
 
-export default Header;
+export default memo(Header);
