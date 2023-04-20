@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -22,6 +23,7 @@ function App() {
 
   return (
     <>
+    <Suspense fallback='loading...'>
       <Header 
         cartOpen={cartOpen} 
         setCartOpen={setCartOpen}
@@ -48,6 +50,7 @@ function App() {
         } />
       </Routes>
       <Footer />
+      </Suspense>
     </>
   )
 }

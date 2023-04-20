@@ -65,7 +65,7 @@
     &__inner {
         position: absolute;
         width: 100%;
-        top: 80px;
+        top: 75px;
         border-radius: 6px;
         box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
         background-color: $color-white;
@@ -121,7 +121,7 @@
             left: 50%;
             bottom: 13px;
             transform: translateX(-50%);
-            font-size: 16px;
+            font-size: 14px;
             color: $color-light-grey;
             @media screen and (max-width: 530px) {
                 font-size: 14px;
@@ -152,7 +152,7 @@
     }
     &__summary {
         position: absolute;
-        bottom: -545px;
+        bottom: -530px;
         left: 0;
         width: 100%;
         padding: 10px 15px;
@@ -163,11 +163,11 @@
         border-radius: 6px;
         box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
         @media screen and (max-width: 900px) {
-            bottom: -450px;
+            bottom: -440px;
         }
         @media screen and (max-width: 530px) {
             font-size: 14px;
-            bottom: -445px;
+            bottom: -435px;
         }
         & p {
             margin-bottom: 20px;

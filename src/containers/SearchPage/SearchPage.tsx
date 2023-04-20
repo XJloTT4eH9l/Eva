@@ -6,8 +6,8 @@ import { useDebounce } from '../../hooks/useDebounce';
 import axios from 'axios';
 import Catalog from '../../components/Catalog/Catalog';
 import searchIcon from '../../assets/img/search-icon.png';
-import './SearchPage.scss';
 import Spinner from '../../components/Spinner/Spinner';
+import './SearchPage.scss';
 
 interface SearchPageProps {
     searchValue: string;
@@ -104,6 +104,9 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                     <span className='bread-crumbs__item'>Пошук</span>
                 </div>
                 <h1 className='title'>{searchValue.length > 0 ? (`Пошук по запиту: "${searchValue}"`) : 'Пошук'}</h1>
+                {searchList.length > 0 && (
+                    <p className='search-page__count'>Знайдено {searchQuanity} продуктів</p>
+                )}
                 <div className='search-page__inner'>
                     <div className='search-page__input-container'>
                         <input 

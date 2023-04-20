@@ -58,7 +58,9 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
 
     return (
         <>
-        {currentPath !== '/search' && (
+        {currentPath !== '/search' &&
+         currentPath !== '/about' &&
+         currentPath !== '/contacts' && (
             <div className={type === 'desktop' ? 'search search--desktop' : 'search search--mobile'}>
             <input 
                 type='text'
@@ -101,8 +103,8 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
                                 }}
                             >
                                <img src={item.images[0]} alt={item.title} />
-                               <h2>{item.title}</h2>
-                               <span className='search__barcode'>Артикул: {item.barcode}</span>
+                                <h2>{item.title}</h2>
+                                <span className='search__barcode'>Артикул: {item.barcode}</span>
                                {item.promo?.promo_price ? (
                                 <div>
                                     <p className='search__price search__price--promo'>{item.promo.promo_price} грн</p>

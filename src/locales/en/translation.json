@@ -1,0 +1,11 @@
+{
+    "hello": "hello",
+    "header": {
+        "nav": {
+            "main": "Main",
+            "category": "Categories",
+            "about": "About us",
+            "contacts": "Contacts"
+        }
+    }
+}
