@@ -14,16 +14,16 @@ const Nav:FC<NavProps> = ({ type, setMobileMenuOpen }) => {
         <nav className={type === 'desktop' ? "nav" : "nav--mobile"}>
             <ul className={type === 'desktop' ? "nav__list" : "nav__list--mobile"}>
                 <li className={type === 'desktop' ? "nav__item" : "nav__item--mobile"}>
-                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/'>{t("header.nav.main")}</NavLink>
+                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/'>{t("nav.main")}</NavLink>
                 </li>
                 <li className={type === 'desktop' ? "nav__item" : "nav__item--mobile"}>
-                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/categories'>{t("header.nav.category")}</NavLink>
+                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/categories'>{t("nav.categories")}</NavLink>
                 </li>
                 <li className={type === 'desktop' ? "nav__item" : "nav__item--mobile"}>
-                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/about'>{t("header.nav.about")}</NavLink>
+                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/about'>{t("nav.about")}</NavLink>
                 </li>
                 <li className={type === 'desktop' ? "nav__item" : "nav__item--mobile"}>
-                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/contacts'>{t("header.nav.contacts")}</NavLink>
+                    <NavLink onClick={() => setMobileMenuOpen(false)} className='nav__link' to='/contacts'>{t("nav.contacts")}</NavLink>
                 </li>
             </ul>
         </nav>

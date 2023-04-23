@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { IProductDetail, ICategory } from '../../types/types';
 import { API_CATEGORIES, API_CATEGORIES_PRODUCTS } from '../../constants/api';
 import axios from 'axios';
@@ -12,6 +13,7 @@ import './CategoryPage.scss';
 
 const CategoryPage = () => {
     const { id } = useParams();
+    const { t } = useTranslation();
     const [products, setProducts] = useState<IProductDetail[]>();
     const [categories, setCategories] = useState<ICategory[]>();
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
@@ -19,12 +21,12 @@ const CategoryPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const sortOptions = [
-        {id: 'price-down', label: 'По ціні (від меншої до більшої)'},
-        {id: 'price-up', label: 'По ціні (від більшої до меншої)'},
-        {id: 'title-down', label: 'По назві (А-Я)'},
-        {id: 'title-up', label: 'По назві (Я-А)'},
-        {id: 'date-low', label: 'По даті (Спочатку старі)'},
-        {id: 'date-up', label: 'По даті (Спочатку нові)'},
+        {id: 'price-down', label: t("sorting.price_down")},
+        {id: 'price-up', label: t("sorting.price_up")},
+        {id: 'title-down', label: t("sorting.title_down")},
+        {id: 'title-up', label: t("sorting.title_up")},
+        {id: 'date-down', label: t("sorting.date_down")},
+        {id: 'date-up', label: t("sorting.date_up")},
     ];
 
     const onSort = (sort: string) => {
@@ -89,8 +91,8 @@ const CategoryPage = () => {
                 {loading ? <Spinner /> : (
                     <>
                         <div className="bread-crumbs">
-                            <Link className='bread-crumbs__item' to='/'>Головна</Link>
-                            <Link className='bread-crumbs__item' to='/categories'>Категорії</Link>
+                            <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                            <Link className='bread-crumbs__item' to='/categories'>{t("nav.categories")}</Link>
                             <span className='bread-crumbs__item'>{categories?.filter(item => item.id === Number(id))[0].title}</span>
                         </div>
                         <LinkBack />
@@ -100,7 +102,7 @@ const CategoryPage = () => {
                                     onClick={() => setSortingOpen(prev => !prev)} 
                                     className={sortingOpen ? 'sorting__btn sorting__btn--active' : 'sorting__btn'}
                                 >
-                                    Сортування
+                                    {t("sorting.title")}
                                 </button>
                                 <ul className={sortingOpen ? 'sorting__list sorting__list--active' : 'sorting__list'}>
                                     {sortOptions.map(item => {

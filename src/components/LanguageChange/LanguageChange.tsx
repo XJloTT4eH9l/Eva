@@ -1,18 +1,15 @@
 import { FC, useState, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
-import { setLanguage } from '../../store/languageSlice';
+import { setLanguage, setAllLanguages } from '../../store/languageSlice';
 import { useTranslation } from "react-i18next";
+import { Lang } from '../../types/types';
+import { API_LANGS } from '../../constants/api';
+import axios from 'axios';
 import './LanguageChange.scss';
 
 interface LanguageChangeProps {
     type?: string;
     setMobileMenuOpen: (open: boolean) => void;
-}
-
-interface Lang {
-    id: number;
-    code: string;
-    title: string;
 }
 
 const LanguageChange:FC<LanguageChangeProps> = ({ type, setMobileMenuOpen }) => {
@@ -21,12 +18,27 @@ const LanguageChange:FC<LanguageChangeProps> = ({ type, setMobileMenuOpen }) => 
     const dispatch = useAppDispatch();
     const { i18n } = useTranslation();
 
+    const getLangs = async () => {
+        try {
+            const res = await axios.get(API_LANGS);
+            if(res.status === 200) {
+                dispatch(setAllLanguages(res.data));
+            }
+            
+        } catch (error) {
+           alert('Something went wrong, please reload the page');
+        }
+    }
+
     const onLanguage = (language: Lang) => {
         dispatch(setLanguage(language));
         i18n.changeLanguage(language.code);
-        setMobileMenuOpen(false);
     }
     
+    useEffect(() => {
+        getLangs();
+    }, [])
+
     return (
         <div className={type === 'mobileChange' ?  "language language--mobile" : 'language'}>
             {langs?.map(item => {

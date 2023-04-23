@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { clearCart } from '../../store/cartSlice';
 
@@ -18,6 +19,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+    const { t } = useTranslation();
 
     const onClearCart = () => {
         dispatch(clearCart())
@@ -27,9 +29,9 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
         <div className={cartOpen ? "side-cart side-cart--active" : 'side-cart'}>
             <div className='side-cart__header'>
                 <div className='side-cart__top'>
-                    <h2 className='side-cart__title'>Кошик</h2>
+                    <h2 className='side-cart__title'>{t("cart.cart")}</h2>
                     <button className='side-cart__close-btn' onClick={() => setCartOpen(false)}>
-                        <img src={close} alt='Закрити корзину'/>
+                        <img src={close} alt={t("cart.close_cart") || 'close'}/>
                     </button>
                 </div>
             </div>
@@ -48,27 +50,28 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                                             img={item.images} 
                                             quanity={item.quanity}
                                             minQuanityOrder={item.minQuanityOrder}
+                                            barcode={item.barcode}
                                         />
                                     ))
                                 }
                             </ul>
                             <div className='side-cart__btn-container'>
-                                <button className='side-cart__btn-clean' onClick={onClearCart}>Очистити кошик</button>
+                                <button className='side-cart__btn-clean' onClick={onClearCart}>{t("cart.clear_cart")}</button>
                             </div>
                             </div>
                         )
                         : (
                             <div className='side-cart__empty'>
-                                <img className='side-cart__empty-img' src={cartEmpty} alt='Кошик порожній' />
-                                <h3 className='side-cart__heading'>Кошик порожній</h3>
+                                <img className='side-cart__empty-img' src={cartEmpty} alt={t("cart.empty_cart") || 'empty'} />
+                                <h3 className='side-cart__heading'>{t("cart.empty_cart")}</h3>
                             </div>
                         )
             )
             }
             <div className='side-cart__bottom'>
                 <div className='side-cart__bottom--inner'>
-                    <h4 className='side-cart__subtitle'>Разом</h4>
-                    <span>{sum % 1 !== 0 ? sum.toFixed(2) : sum} грн</span>
+                    <h4 className='side-cart__subtitle'>{t("buy_info.sum")}</h4>
+                    <span>{sum % 1 !== 0 ? sum.toFixed(2) : sum} {t("buy_info.uah")}</span>
                 </div>
                 {cartItems.length > 0 && (
                     <div className='side-cart__btn-container'>
@@ -77,7 +80,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                             className='side-cart__confirm'
                             onClick={() => setCartOpen(false)}
                         >
-                            Оформити замовлення
+                            {t("cart.order")}
                         </Link>
                     </div>
                 )}

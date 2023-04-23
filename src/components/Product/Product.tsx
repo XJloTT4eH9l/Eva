@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { NewPrice } from '../../types/types';
+import { useTranslation } from 'react-i18next';
 import './Product.scss';
 
 interface ProductProps {
@@ -13,6 +14,7 @@ interface ProductProps {
 }
 
 const Product:FC<ProductProps> = ({ id, title, img, price, type, promo }) => {
+    const { t } = useTranslation();
     return (
         <Link 
             key={id}
@@ -26,10 +28,10 @@ const Product:FC<ProductProps> = ({ id, title, img, price, type, promo }) => {
             <div className='product__bottom'>
                 {promo?.promo_price ? (
                     <div>
-                        <p className='product__old-price'>{price} грн</p>
-                        <p className='product__new-price'>{promo.promo_price} грн</p>
+                        <p className='product__old-price'>{price} {t("buy_info.uah")}</p>
+                        <p className='product__new-price'>{promo.promo_price} {t("buy_info.uah")}</p>
                     </div>
-                ) : (<p className={`product__price product__price--${type && type}`}>{price} грн</p>)}
+                ) : (<p className={`product__price product__price--${type && type}`}>{price} {t("buy_info.uah")}</p>)}
             </div>
         </Link>
     )

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Faq from '../../components/Faq/Faq';
 import './AboutPage.scss';
 
@@ -18,6 +19,7 @@ interface AboutInfo {
 
 const AboutPage = () => {
     const [aboutInfo, setAboutInfo] = useState<AboutInfo[]>();
+    const { t } = useTranslation();
 
     const about = [
         {
@@ -74,10 +76,10 @@ const AboutPage = () => {
         <section className="about-page">
             <div className="container">
                 <div className="bread-crumbs">
-                    <Link className='bread-crumbs__item' to='/'>Головна</Link>
-                    <span className='bread-crumbs__item'>Про нас</span>
+                    <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                    <span className='bread-crumbs__item'>{t("nav.about")}</span>
                 </div>
-                <h1 className='title'>Про компанію</h1>
+                <h1 className='title'>{t("nav.about")}</h1>
                 <div className="about-page__inner">
                    {aboutInfo?.map(item => (
                         <article key={item.id} className='about-page__item'>

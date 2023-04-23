@@ -3,39 +3,31 @@ import Backend from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 
-import translationUa from './locales/ua/translation.json';
-import translationEn from './locales/en/translation.json';
+import translationUa from './locales/UA/translation.json';
+import translationEn from './locales/EN/translation.json';
 
 const resources = {
-  en: {
+  EN: {
     translation: translationEn
   },
-  ua: {
+  UA: {
     translation: translationUa
   }
 }
 
+
 i18n
   .use(Backend)
   .use(LanguageDetector)
-  .use (initReactI18next)
+  .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: "ua",
+    fallbackLng: "UA",
     debug: true,
-    lng: "ua",
+    lng: "UA",
     interpolation: {
       escapeValue: false
     }
-    // fallbackLng: 'ua',
-    // debug: true,
-    // detection: {
-    //   order: ['queryString', 'cookie'],
-    //   cache: ['cookie']
-    // },
-    // interpolation: {
-    //   escapeValue: false
-    // }
   })
 
 export default i18n;

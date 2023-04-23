@@ -26,7 +26,8 @@ const cartSlice = createSlice({
                 price: action.payload.promo?.promo_price ? action.payload.promo.promo_price : action.payload.price,
                 quanity: action.payload.quanity,
                 minQuanityOrder: action.payload.minQuanityOrder,
-                promo: action.payload.promo
+                promo: action.payload.promo,
+                barcode: action.payload.barcode
             })
             state.orderDone = false;
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));

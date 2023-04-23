@@ -2,6 +2,7 @@ import { useState, useEffect, FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
 import { IProductDetail } from '../../types/types';
@@ -25,6 +26,7 @@ interface ProductPageProps {
 
 const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
     const { id } = useParams();
+    const { t } = useTranslation();
     const dispatch = useAppDispatch();
 
     const [productInfo, setProductInfo] = useState<IProductDetail>();
@@ -87,7 +89,8 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 price: productInfo.price,
                 quanity: productInfo.minQuanityOrder,
                 minQuanityOrder: productInfo.minQuanityOrder,
-                promo: productInfo.promo
+                promo: productInfo.promo,
+                barcode: productInfo.barcode
             }));
             window.setTimeout(() => setProductAdded(false), 2000);
         }
@@ -118,15 +121,15 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
         <section className="product-page">
             <div className="container">
                 <div className="bread-crumbs">
-                    <Link className='bread-crumbs__item' to='/'>Головна</Link>
-                    <Link className='bread-crumbs__item' to='/categories'>Категорії</Link>
+                    <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                    <Link className='bread-crumbs__item' to='/categories'>{t("nav.categories")}</Link>
                     <span className='bread-crumbs__item'>{productInfo?.title}</span>
                 </div>
                 
-                <Notification text={`"${productInfo?.title}" - додано до кошика`} productAdded={productAdded} />
+                <Notification text={`"${productInfo?.title}" - ${t("buy_info.added_to_cart")}`} productAdded={productAdded} />
                 <div className='product-page__d-flex'>
                     <LinkBack />
-                    <p>Артикул: {productInfo?.barcode}</p>
+                    <p>{t("buy_info.barcode")} {productInfo?.barcode}</p>
                 </div>
                 {loading ? <Spinner /> : (
                     <>
@@ -148,17 +151,17 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                     <div className='product-page__price'>
                                         {productInfo?.promo ? (
                                             <p className='product-page__new-price'>
-                                                Ціна: <strong>{productInfo?.promo.promo_price} грн </strong> 
-                                                <span>{productInfo?.price} грн</span>
+                                                {t("buy_info.price")} <strong>{productInfo?.promo.promo_price} {t("buy_info.uah")} </strong> 
+                                                <span>{productInfo?.price} {t("buy_info.uah")}</span>
                                             </p> 
-                                        ) : <span>Ціна: {productInfo?.price} грн</span> }
+                                        ) : <span>{t("buy_info.price")} {productInfo?.price} {t("buy_info.uah")}</span> }
                                     </div>
                                     {
                                         productInfo?.availability === true 
-                                            ?  <div className='product-page__availability product-page__availability--true'>Є в наявності</div>
-                                            :  <div className='product-page__availability product-page__availability--false'>Немає в наявності</div>
+                                            ?  <div className='product-page__availability product-page__availability--true'>{t("buy_info.in_stock")}</div>
+                                            :  <div className='product-page__availability product-page__availability--false'>{t("buy_info.out_of_stock")}</div>
                                     }
-                                    <p className='product-page__min-quanity'>* мінімальна кількість замовлення - {productInfo?.minQuanityOrder}</p>
+                                    <p className='product-page__min-quanity'>{t("buy_info.min_count_buy")} {productInfo?.minQuanityOrder}</p>
                                     {productInfo?.availability &&
                                         cartItemsSelector.find(item => item.id === productInfo?.id)
                                             ? (
@@ -170,21 +173,21 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                                             <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
                                                         </div>
                                                         <p className='product-page__summary'>
-                                                            Разом: 
+                                                           {t("buy_info.sum")} 
                                                             {
                                                                productInfo.promo?.promo_price 
                                                                 ? Math.round(productQuanuty * productInfo.promo.promo_price)
                                                                 : Math.round(productQuanuty * productInfo.price)
-                                                            } грн
+                                                            } {t("buy_info.uah")}
                                                         </p>
                                                     </div>
                                                     <button onClick={() => (setCartOpen(true))} className='product-page__btn--cart--active'>
                                                         <img src={mark} alt='Додано в кошик' />
-                                                        Товар в кошику
+                                                        {t("buy_info.in_cart")}
                                                     </button>
                                                 </>
                                             )
-                                            : <button onClick={onCart} className='product-page__btn--cart'>Додати в корзину</button>
+                                            : <button onClick={onCart} className='product-page__btn--cart'>{t("buy_info.add_to_cart")}</button>
                                     }
                                 </div>
                             </div>
@@ -194,13 +197,13 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                 className={textType === 'description' ? 'product-page__btn product-page__btn--active' : 'product-page__btn'}
                                 onClick={() => setTextType('description')}
                             >
-                                Опис
+                                {t("product_page.characteristics")}
                             </button>
                             <button 
                                 className={textType === 'characteristics' ? 'product-page__btn product-page__btn--active' : 'product-page__btn'}
                                 onClick={() => setTextType('characteristics')}
                             >
-                                Характеристики
+                               {t("product_page.description")}
                             </button>
                         </div>
                     {

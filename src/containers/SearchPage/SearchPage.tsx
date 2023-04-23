@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IProductDetail } from '../../types/types';
 import { API_SEARCH_CATEGORY } from '../../constants/api';
 import { useDebounce } from '../../hooks/useDebounce';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import Catalog from '../../components/Catalog/Catalog';
 import searchIcon from '../../assets/img/search-icon.png';
@@ -22,14 +23,15 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
     const [sort, setSort] = useState<string>('title-down');
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
     const debouncedSearch = useDebounce(searchValue, 500);
+    const { t } = useTranslation();
 
     const sortOptions = [
-        {id: 'price-down', label: 'По ціні (від меншої до більшої)'},
-        {id: 'price-up', label: 'По ціні (від більшої до меншої)'},
-        {id: 'title-down', label: 'По назві (А-Я)'},
-        {id: 'title-up', label: 'По назві (Я-А)'},
-        {id: 'date-low', label: 'По даті (Спочатку старі)'},
-        {id: 'date-up', label: 'По даті (Спочатку нові)'},
+        {id: 'price-down', label: t("sorting.price_down")},
+        {id: 'price-up', label: t("sorting.price_up")},
+        {id: 'title-down', label: t("sorting.title_down")},
+        {id: 'title-up', label: t("sorting.title_up")},
+        {id: 'date-down', label: t("sorting.date_down")},
+        {id: 'date-up', label: t("sorting.date_up")},
     ];
 
     const onSort = (sort: string) => {
@@ -100,12 +102,12 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
         <section className='search-page'>
             <div className="container">
                 <div className="bread-crumbs">
-                    <Link className='bread-crumbs__item' to='/'>Головна</Link>
-                    <span className='bread-crumbs__item'>Пошук</span>
+                    <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                    <span className='bread-crumbs__item'>{t("nav.search")}</span>
                 </div>
-                <h1 className='title'>{searchValue.length > 0 ? (`Пошук по запиту: "${searchValue}"`) : 'Пошук'}</h1>
+                <h1 className='title'>{searchValue.length > 0 ? (`${t("search_page.search_by_request")} "${searchValue}"`) : t("nav.search")}</h1>
                 {searchList.length > 0 && (
-                    <p className='search-page__count'>Знайдено {searchQuanity} продуктів</p>
+                    <p className='search-page__count'>{t("search_page.found")} {searchQuanity} {t("search_page.products")}</p>
                 )}
                 <div className='search-page__inner'>
                     <div className='search-page__input-container'>
@@ -114,7 +116,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                             type='text' 
                             value={searchValue}
                             onChange={handleChange}
-                            placeholder='Пошук: ведіть артикул або назву товару'
+                            placeholder={t("search_page.placeholder") || ''}
                         />
                         <img src={searchIcon} alt='Пошук' />
                     </div>
@@ -123,7 +125,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                             onClick={() => setSortingOpen(prev => !prev)} 
                             className={sortingOpen ? 'sorting__btn sorting__btn--active' : 'sorting__btn'}
                         >
-                            Сортування
+                           {t("sorting.title")}
                         </button>
                         <ul className={sortingOpen ? 'sorting__list sorting__list--active search-page__sorting' : 'sorting__list search-page__sorting'}>
                             {sortOptions.map(item => {
@@ -145,7 +147,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                     <>
                         <Catalog products={searchList} />
                         {searchList.length === 0 && searchValue.length > 0 && (
-                            <h2>Нічого не знайдено</h2>
+                            <h2>{t("search_page.nothing_found")}</h2>
                         )}
                     </>
                 )}

@@ -1,6 +1,7 @@
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import axios from "axios";
+import { API_LANGS } from "../../constants/api";
 
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -14,12 +15,27 @@ import AboutPage from "../AboutPage/AboutPage";
 import ContactPage from "../ContactPage/ContactPage";
 import SearchPage from "../SearchPage/SearchPage";
 
-import { IProductDetail } from "../../types/types";
+import { IProductDetail, Lang } from "../../types/types";
 
 function App() {
   const [cartOpen, setCartOpen] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchList, setSearchList] = useState<IProductDetail[]>([]);
+
+  const [langs, setLangs] = useState<Lang[]>();
+
+  useEffect(() => {
+    const getLangs = async () => {
+      const res = await axios.get(API_LANGS);
+      console.log(res.data);
+      setLangs(res.data);
+    }
+    getLangs();
+  }, [])
+
+  useEffect(() => {
+    console.log(langs);
+  }, [langs])
 
   return (
     <>
@@ -35,7 +51,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <HomePage /> } />
         <Route path='/categories' element={ <CatalogPage /> } />
-        <Route path="/product/:id" element={ <ProductPage setCartOpen={setCartOpen}/>} />
+        <Route path="/product/:id" element={ <ProductPage setCartOpen={setCartOpen} />} />
         <Route path="/categories/:id" element={ <CategoryPage /> } />
         <Route path="/order" element={ <OrderPage /> } />
         <Route path="/about" element={ <AboutPage /> } />

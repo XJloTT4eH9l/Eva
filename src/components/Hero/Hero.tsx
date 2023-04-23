@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Slider from "react-slick";
 import heroBg from '../../assets/img/hero-bg.jpg';
@@ -8,6 +9,7 @@ import heroBg3 from '../../assets/img/hero-bg3.jpg';
 import './Hero.scss';
 
 const Hero:FC = () => {
+    const { t } = useTranslation();
     const slides = [
         {id: 1, title: 'Eva ТОВ', text: 'Натуральні соки для дорослих та дітей', img: heroBg},
         {id: 2, title: 'Eva', text: 'Натуральні соки', img: heroBg2},
@@ -44,7 +46,7 @@ const Hero:FC = () => {
                             <div className="container">
                                 <h1 className='hero__title'>{slide.title}</h1>
                                 <p className='hero__text'>{slide.text}</p>
-                                <Link className='hero__link' to='/'>Детальніше</Link>
+                                <Link className='hero__link' to='/'>{t("proposition.detail")}</Link>
                             </div>
                         </div>
                     </div>

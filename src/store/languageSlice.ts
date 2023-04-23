@@ -15,12 +15,12 @@ const initialState: LangState = {
     langs: [
         {
             "id": 1,
-            "code": "ua",
+            "code": "UA",
             "title": "Ukraine"
         },
         {
             "id": 2,
-            "code": "en",
+            "code": "EN",
             "title": "England"
         }
     ],
@@ -37,10 +37,13 @@ const languageSlice = createSlice({
     reducers: {
         setLanguage: (state, action: PayloadAction<LangType>) => {
             state.curentLang = action.payload;
+        },
+        setAllLanguages: (state, action: PayloadAction<LangType[]>) => {
+            state.langs = action.payload;
         }
     }
 })
 
-export const { setLanguage } = languageSlice.actions;
+export const { setLanguage, setAllLanguages } = languageSlice.actions;
 
 export default languageSlice.reducer;

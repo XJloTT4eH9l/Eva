@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Spinner from '../../components/Spinner/Spinner';
 import './ContactPage.scss';
 
@@ -35,6 +36,7 @@ interface ContactInfo {
 const ContactPage = () => {
     const [contactInfo, setContactInfo] = useState<ContactInfo>();
     const [loading, setLoading] = useState<boolean>();
+    const { t } = useTranslation(); 
     
     const infoData = {
         titleCompany: {name: 'Назва компанії', info: ['ТОВ "Вітамін2015"']},
@@ -71,10 +73,10 @@ const ContactPage = () => {
         <section className="contact-page">
             <div className="container">
             <div className="bread-crumbs">
-                <Link className='bread-crumbs__item' to='/'>Головна</Link>
-                <span className='bread-crumbs__item'>Категорії</span>
+                <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                <span className='bread-crumbs__item'>{t("nav.contacts")}</span>
             </div>
-                <h1 className="title">Контакти</h1>
+                <h1 className="title">{t("nav.contacts")}</h1>
                 <div className="contact-page__inner">
                     {loading ? <Spinner /> : (
                         <div className="contact-page__content">
@@ -136,7 +138,7 @@ const ContactPage = () => {
                                 </div>
                             </div>
                             <div className="contact-page__map">
-                                <h2 className='contact-page__title contact-page__title--location'>Місцезнаходження</h2>
+                                <h2 className='contact-page__title contact-page__title--location'>{t("contact_page.location")}</h2>
                             <iframe 
                                 src={contactInfo?.location}
                                 title='Eva location'

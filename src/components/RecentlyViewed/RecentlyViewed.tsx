@@ -3,6 +3,7 @@ import Product from '../Product/Product';
 import ProductSlider from '../ProductSlider/ProductSlider';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { IProductDetail } from '../../types/types';
+import { useTranslation } from 'react-i18next';
 import './RecentlyViewed.scss';
 
 interface RecentlyViewedProps {
@@ -13,6 +14,7 @@ interface RecentlyViewedProps {
 const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
     const [recently, setRecently] = useState<IProductDetail[]>();
     const recents = useAppSelector(state => state.recentlyViewed.recentlyViewed);
+    const { t } = useTranslation();
 
     useEffect(() => {
         setRecently(recents.filter(item => item.id !== id));
@@ -25,12 +27,12 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
                 { type === 'product' ? (
                     recently && recently.length >= 1  ? (
                         <>
-                            <h2 className="title recents-product__title">Нещодавно переглянуті</h2>
+                            <h2 className="title recents-product__title">{t("proposition.recently_viewed")}</h2>
                             <ProductSlider products={recently} />
                         </>
                     ) : (
                         <>
-                            {recently && recently?.length >= 1 && <h2 className="title recents-product__title">Нещодавно переглянуті</h2>} 
+                            {recently && recently?.length >= 1 && <h2 className="title recents-product__title">{t("proposition.recently_viewed")}</h2>} 
                             <ul className='proposition__list'>
                             {
                                 recently?.map((item) => { 
@@ -51,7 +53,7 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
                     )
                     ) : (
                         <>
-                            <h2 className="title proposition__title">Нещодавно переглянуті</h2>
+                            <h2 className="title proposition__title">{t("proposition.recently_viewed")}</h2>
                             {recents.length > 1 ? (
                                 <ProductSlider products={recents} />
                             ) : (

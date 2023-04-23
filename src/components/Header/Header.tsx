@@ -1,6 +1,7 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useTransition } from 'react';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { IProductDetail } from '../../types/types';
+import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 
 import Logo from '../Logo/Logo';
@@ -27,6 +28,7 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+    const { t } = useTranslation();
 
     const close = () => {
         setMobileMenuOpen(false);
@@ -79,7 +81,7 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
 
                     <div className='header__cart' onClick={() => setCartOpen(true)}>
                         <img src={cartIcon} alt='Корзина' className='header__cart-img'/>
-                        <span className='header__cart-text'>{sum % 1 !== 0 ? Math.round(sum) : sum} грн</span>
+                        <span className='header__cart-text'>{sum % 1 !== 0 ? Math.round(sum) : sum} {t("buy_info.uah")}</span>
                         <span className='header__count'>
                             <p>{cartItems.length}</p>
                         </span>

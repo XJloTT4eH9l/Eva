@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { API_NEW_PRODUCTS, API_PROMOTIONS } from '../../constants/api';
 import { IProductDetail } from '../../types/types';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import Hero from '../../components/Hero/Hero';
@@ -13,6 +14,7 @@ import './HomePage.scss';
 const HomePage = () => {
     const [newProducts, setNewProducts] = useState<IProductDetail[]>();
     const [promotions, setPromotions] = useState<IProductDetail[]>();
+    const { t } = useTranslation();
 
     const getProducts = async (link: string, type: string) => {
         try {
@@ -39,14 +41,14 @@ const HomePage = () => {
             <Categories />
             {promotions && (
                <Proposition 
-                    title='Акції'
+                    title={t("proposition.promo")}
                     products={promotions}
                 /> 
             )}
 
             {newProducts && (
                 <Proposition 
-                    title='Нові товари'
+                title={t("proposition.new_products")}
                     products={newProducts}
                 />
             )}

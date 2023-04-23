@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ICategory } from '../../types/types';
 import { API_CATEGORIES } from '../../constants/api';
+import { useTranslation } from 'react-i18next';
 import Spinner from '../Spinner/Spinner';
 import axios from 'axios';
 
@@ -10,6 +11,7 @@ import './Categories.scss';
 const Categories = () => {
     const [categoriesList, setCategoriesList] = useState<ICategory[]>();
     const [loading, setLoading] = useState<boolean>(false);
+    const { t } = useTranslation();
 
     const getCategories = async () => {
         try {
@@ -28,7 +30,7 @@ const Categories = () => {
     return (
         <section className="categories">
             <div className="container">
-                <h2 className="title">Категорії</h2>
+                <h2 className="title">{t("nav.categories")}</h2>
                     {loading ? <Spinner /> : (
                         <ul className="categories__list">
                             {

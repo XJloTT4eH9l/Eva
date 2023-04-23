@@ -1,11 +1,13 @@
 import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import Categories from '../../components/Categories/Categories';
 import './CatalogPage.scss';
 
 
 const CatalogPage:FC = () => {
+    const { t } = useTranslation();
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [])
@@ -13,8 +15,8 @@ const CatalogPage:FC = () => {
         <section className="catalog-page">
             <div className="container">
                 <div className="bread-crumbs">
-                    <Link className='bread-crumbs__item' to='/'>Головна</Link>
-                    <span className='bread-crumbs__item'>Категорії</span>
+                    <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                    <span className='bread-crumbs__item'>{t("nav.categories")}</span>
                 </div>
             </div>
             <Categories />

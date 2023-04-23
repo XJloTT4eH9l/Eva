@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import CartItem from '../../components/CartItem/CartItem';
 import emptyCart from '../../assets/img/cart-empty.svg';
@@ -11,6 +12,7 @@ const OrderPage:FC = () => {
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const orderDone = useAppSelector(state => state.cartItems.orderDone);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+    const { t } = useTranslation();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -22,19 +24,19 @@ const OrderPage:FC = () => {
                 {orderDone ? (
                     <div className='order-page__empty'>
                         <img className='order-page__empty-img' src={orderCompleted} alt='Кошик порожній' />
-                        <h1 className='title order-page__title'>Замовлення оформлено</h1>
-                        <p className='order-page__text'>Замовлення успішно оформлено. Чекайте поки наш менеджер зв'яжеться з вами для підтвердження замовлення</p>
+                        <h1 className='title order-page__title'>{t("order_page.order_complete")}</h1>
+                        <p className='order-page__text'>{t("order_page.order_complete_descr")}</p>
                         <Link 
                             to='/'
                             className='order-page__categories-link'
                         >
-                            На головну
+                            {t("nav.to_main")}
                         </Link>
                     </div>
                 ) : (
                    cartItems.length > 0 ? (
                     <>
-                        <h1 className="title">Ваше замовлення</h1>
+                        <h1 className="title">{t("order_page.order")}</h1>
                         <div className="order-page__inner">
                             <ul className='order-page__list'>
                                 {
@@ -52,20 +54,20 @@ const OrderPage:FC = () => {
                                     ))
                                 }
                             </ul>
-                            <p className='order-page__summ'>Разом: {sum.toFixed(2)} грн</p>
+                            <p className='order-page__summ'>{t("buy_info.sum")} {sum.toFixed(2)} {t("buy_info.uah")}</p>
                             <OrderForm />
                         </div>
                     </>
                 ) : (
                     <div className='order-page__empty'>
-                        <img className='order-page__empty-img' src={emptyCart} alt='Кошик порожній' />
-                        <h1 className='title order-page__title'>Кошик порожній</h1>
-                        <p className='order-page__text'>На даний момент кошик пустий. Щоб зробити замовлення перейдіть до каталогу товарів та додайте щось в кошик</p>
+                        <img className='order-page__empty-img' src={emptyCart} alt={t("cart.empty_cart") || 'empty'} />
+                        <h1 className='title order-page__title'>{t("cart.empty_cart")}</h1>
+                        <p className='order-page__text'>{t("cart.empty_cart_descr")}</p>
                         <Link 
                             to='/categories'
                             className='order-page__categories-link'
                         >
-                            До каталогу
+                           {t("nav.to_catalog")}
                         </Link>
                     </div>
                 )

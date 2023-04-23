@@ -1,8 +1,9 @@
 import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useDebounce } from '../../hooks/useDebounce';
-import { API_SEARCH, API_SEARCH_CATEGORY } from '../../constants/api';
+import { API_SEARCH_CATEGORY } from '../../constants/api';
 import { IProductDetail } from '../../types/types';
 import axios from 'axios';
 import Spinner from '../Spinner/Spinner';
@@ -23,6 +24,7 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
     const [searchQuanity, setSearchQuanity] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     const debouncedSearch = useDebounce(searchValue, 500);
+    const { t } = useTranslation();
 
     const location = useLocation();
     const currentPath = location.pathname;
@@ -65,11 +67,11 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
             <input 
                 type='text'
                 className='search__input' 
-                placeholder='Пошук: ведіть артикул або назву товару'
+                placeholder={t("search_page.placeholder") || ''}
                 value={searchValue}
                 onChange={handleChange}
             />
-           <img className='search__search-icon' src={searchIcon} alt='Пошук...'/>
+           <img className='search__search-icon' src={searchIcon} alt={t("nav.search") || 'Пошук'}/>
            {searchValue.length > 0 && (
                 <img 
                     className='search__delete' 
@@ -87,7 +89,7 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
                 ) : (
                     <>
                     {debouncedSearch.length > 0 && searchList.length === 0 && (
-                        <p className='search__text'>Нічого не знайдено</p>
+                        <p className='search__text'>{t("search_page.nothing_found")}</p>
                     )}
 
                     {searchList.length > 0 && (
@@ -104,13 +106,13 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
                             >
                                <img src={item.images[0]} alt={item.title} />
                                 <h2>{item.title}</h2>
-                                <span className='search__barcode'>Артикул: {item.barcode}</span>
+                                <span className='search__barcode'>{t("buy_info.barcode")} {item.barcode}</span>
                                {item.promo?.promo_price ? (
                                 <div>
-                                    <p className='search__price search__price--promo'>{item.promo.promo_price} грн</p>
-                                    <p className='search__price search__price--old'>{item.price} грн</p>
+                                    <p className='search__price search__price--promo'>{item.promo.promo_price} {t("buy_info.uah")}</p>
+                                    <p className='search__price search__price--old'>{item.price} {t("buy_info.uah")}</p>
                                 </div>
-                               ) : (<p className='search__price'>{item.price} грн</p>)}
+                               ) : (<p className='search__price'>{item.price} {t("buy_info.uah")}</p>)}
                             </Link>
                         ))}
                         </ul>
@@ -120,13 +122,13 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
             </div>
             {searchQuanity > 5 && searchValue.length > 0 &&  (
                 <div className='search__summary'>
-                    <p>Всього знайдено {searchQuanity} товарів</p>
+                    <p>{t("search_page.found")} {searchQuanity} {t("search_page.products")}</p>
                     <Link 
                         to='/search' 
                         className='search__btn' 
                         onClick={() => setMobileMenuOpen(false)}
                     >
-                        Переглянути всі
+                        {t("search_page.view_all")}
                     </Link>
                 </div>
             )}

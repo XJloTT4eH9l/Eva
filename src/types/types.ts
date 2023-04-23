@@ -33,4 +33,11 @@ export interface ICartItem extends IProduct {
     quanity: number;
     minQuanityOrder: number;
     promo?: NewPrice;
+    barcode?: string;
+}
+
+export interface Lang {
+    id: number;
+    code: string;
+    title: string;
 }

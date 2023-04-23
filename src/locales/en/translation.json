@@ -1,11 +1,93 @@
 {
-    "hello": "hello",
-    "header": {
-        "nav": {
-            "main": "Main",
-            "category": "Categories",
-            "about": "About us",
-            "contacts": "Contacts"
+    "nav": {
+        "main": "Main",
+        "categories": "Categories",
+        "about": "About us",
+        "contacts": "Contacts",
+        "info": "Information",
+        "search": "Search",
+        "back": "Back",
+        "to_catalog": "To catalog",
+        "to_main": "To main"
+    },
+    "proposition": {
+        "promo": "Promo",
+        "new_products": "New Products",
+        "recently_viewed": "Recently Viewed",
+        "detail": "More details"
+    },
+    "contact_page": {
+        "location": "Location"
+    },
+    "search_page": {
+        "title": "Search",
+        "search_by_request": "Search by request:",
+        "placeholder": "Search: enter article number or product name",
+        "nothing_found": "Nothing found",
+        "found": "Found in total",
+        "products": "products",
+        "view_all": "View all"
+    },
+    "sorting": {
+        "title": "Sorting",
+        "price_down": "By price (low to high)",
+        "price_up": "By price (high to low)",
+        "title_down": "By name (A-Z)",
+        "title_up": "By name (Z-A)",
+        "date_down": "By date (Old first)",
+        "date_up": "By date (New first)"
+    },
+    "buy_info": {
+        "price": "Price:",
+        "uah": "uah",
+        "in_stock": "In stock",
+        "out_of_stock": "Out of stock",
+        "barcode": "Barcode:",
+        "min_count_buy": "* minimum order quantity -",
+        "add_to_cart": "Add to cart",
+        "in_cart": "Product in the cart",
+        "sum": "Sum:",
+        "added_to_cart": "added to your cart" 
+    },
+    "product_page": {
+        "characteristics": "Characteristics",
+        "description": "Description"
+    },
+    "cart": {
+        "cart": "Cart",
+        "clear_cart": "Clear cart",
+        "empty_cart": "Cart is empty",
+        "empty_cart_descr": "Your cart is currently empty. To place an order, go to the product catalog and add something to the cart",
+        "close_cart": "Close cart",
+        "order": "Place an order"
+    },
+    "order_page": {
+        "order": "Your order",
+        "order_complete": "The order has been placed",
+        "order_complete_descr": "The order has been successfully placed. Wait for our manager to contact you to confirm the order",
+        "order_pick_up": "You can pick up your order at our address:",
+        "our_address": "st. Pryvokzalna 9, Slavuta, Khmelnytsky region, 30000",
+        "our_address_short": "Khmelnytsky region, Privokzalnaya Street 9",
+        "order_form": {
+            "title": "Information about you",
+            "name": "Name:",
+            "surname": "Surname:",
+            "by_father": "By father:",
+            "email": "Email:",
+            "wrong_email": "Email address entered incorrectly",
+            "phone": "Phone number:",
+            "wrong_phone": "Input format: +380*********",
+            "delivery": "Choosing a delivery:",
+            "city": "City:",
+            "region": "region",
+            "branch": "Branch:",
+            "branch_num": "branch #",
+            "required_field": "This field is required",
+            "min_symbols": "Minimum 3 characters",
+            "max_symbols": "Maximum 15 characters",
+            "nova_poshta": "Nova Poshta",
+            "meest_express": "Meest Express",
+            "self_deliver": "Self deliver"
         }
     }
 }
