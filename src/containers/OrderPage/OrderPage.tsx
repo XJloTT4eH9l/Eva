@@ -1,7 +1,11 @@
 import { FC, useEffect } from 'react';
-import { useAppSelector } from '../../hooks/reduxHooks';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { setCart } from '../../store/cartSlice';
+import { API_PRODUCTS } from '../../constants/api';
+import { IProductDetail } from '../../types/types';
+import axios from 'axios';
 import CartItem from '../../components/CartItem/CartItem';
 import emptyCart from '../../assets/img/cart-empty.svg';
 import orderCompleted from '../../assets/img/order-completed.svg';
@@ -11,13 +15,42 @@ import './OrderPage.scss';
 const OrderPage:FC = () => {
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const orderDone = useAppSelector(state => state.cartItems.orderDone);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+    const cartItemsIds = cartItems.map(item => item.id);
+    const dispatch = useAppDispatch();
     const { t } = useTranslation();
+
+    const translateCartItems = async () => {
+        try {
+            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            if(res.data.length > 0 && cartItems.length > 0) {
+                const cartItemsNew = cartItems.map(item => {
+    
+                    for(let i = 0; i < res.data.length; i++) {
+                        if(item.id === res.data[i].id) {
+                            return (
+                                {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                            )
+                        }
+                    }
+                    return item
+                });
+                dispatch(setCart(cartItemsNew));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         window.scrollTo(0, 0);
         console.log(cartItems);
     }, [])
+
+    useEffect(() => {
+        translateCartItems();
+    }, [currentLanguage])
     return (
         <section className="order-page">
             <div className="container">

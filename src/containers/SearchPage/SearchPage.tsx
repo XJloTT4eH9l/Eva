@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IProductDetail } from '../../types/types';
 import { API_SEARCH_CATEGORY } from '../../constants/api';
 import { useDebounce } from '../../hooks/useDebounce';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import Catalog from '../../components/Catalog/Catalog';
@@ -22,6 +23,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
     const [loading, setLoading] = useState<boolean>(false);
     const [sort, setSort] = useState<string>('title-down');
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const debouncedSearch = useDebounce(searchValue, 500);
     const { t } = useTranslation();
 
@@ -38,25 +40,25 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
         setSort(sort);
         switch(sort) {
             case 'price-up':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + '?lang_id=1' + '&sort_param=down&sort_field=price');
+                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=price');
                 break
             case 'prise-down':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + '?lang_id=1' + '&sort_param=up&sort_field=price');
+                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=price');
                 break
             case 'title-up':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + '?lang_id=1' + '&sort_param=down&sort_field=title');   
+                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=title');   
                 break
             case 'title-down':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + '?lang_id=1' + '&sort_param=up&sort_field=title');
+                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=title');
                 break
             case 'date-up':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + '?lang_id=1' + '&sort_param=down&sort_field=date');   
+                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=date');   
                 break
             case 'date-down':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + '?lang_id=1' + '&sort_param=up&sort_field=date');   
+                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=date');   
                 break
             default:
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + '?lang_id=1&page_size=24&page=1');
+                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
                 break
         }
         setSortingOpen(false);
@@ -69,7 +71,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
             if(debouncedSearch === '') {
                 setSearchList([]);
             } else {
-                const res = await axios.get(link === 'base' ? API_SEARCH_CATEGORY + debouncedSearch + '?lang_id=1&page_size=24&page=1' : link);
+                const res = await axios.get(link === 'base' ? API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&page_size=24&page=1` : link);
                 if(res.data.products === null) {
                     setSearchList([]);
                 } else {
@@ -90,7 +92,8 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
 
     useEffect(() => {
         getSearchProducts();
-    }, [debouncedSearch]);
+    }, [debouncedSearch, currentLanguage]);
+
 
     useEffect(() => {
         return () => {

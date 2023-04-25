@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { API_NEW_PRODUCTS, API_PROMOTIONS } from '../../constants/api';
 import { IProductDetail } from '../../types/types';
 import { useTranslation } from 'react-i18next';
@@ -14,11 +15,12 @@ import './HomePage.scss';
 const HomePage = () => {
     const [newProducts, setNewProducts] = useState<IProductDetail[]>();
     const [promotions, setPromotions] = useState<IProductDetail[]>();
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const { t } = useTranslation();
 
     const getProducts = async (link: string, type: string) => {
         try {
-            const res = await axios.get(link + '?lang_id=1&page_size=8');
+            const res = await axios.get(link + `?lang_id=${currentLanguage.id}&page_size=8`);
             if(res.status === 200) {
                 switch(type) {
                     case 'newProducts': setNewProducts(res.data.products); break
@@ -35,6 +37,11 @@ const HomePage = () => {
         getProducts(API_NEW_PRODUCTS, 'newProducts');
         getProducts(API_PROMOTIONS, 'promotions');
     }, [])
+
+    useEffect(() => {
+        getProducts(API_NEW_PRODUCTS, 'newProducts');
+        getProducts(API_PROMOTIONS, 'promotions');
+    }, [currentLanguage])
     return (
         <>
             <Hero /> 

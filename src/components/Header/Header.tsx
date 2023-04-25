@@ -1,8 +1,11 @@
-import { FC, useState, useEffect, useTransition } from 'react';
-import { useAppSelector } from '../../hooks/reduxHooks';
+import { FC, useState, useEffect } from 'react';
+import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { IProductDetail } from '../../types/types';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
+import { API_PRODUCTS } from '../../constants/api';
+import { setCart } from '../../store/cartSlice';
+import axios from 'axios';
 
 import Logo from '../Logo/Logo';
 import Nav from '../Nav/Nav';
@@ -27,8 +30,34 @@ interface HeaderProps {
 const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchValue, searchList, setSearchList }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
+    const cartItemsIds = cartItems.map(item => item.id);
     const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
     const { t } = useTranslation();
+    const dispatch = useAppDispatch();
+
+    const onCart = async () => {
+        setCartOpen(true);
+        try {
+            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            if(res.data.length > 0 && cartItems.length > 0) {
+                const cartItemsNew = cartItems.map(item => {
+
+                    for(let i = 0; i < res.data.length; i++) {
+                        if(item.id === res.data[i].id) {
+                            return (
+                                {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                            )
+                        }
+                    }
+                    return item
+                });
+                dispatch(setCart(cartItemsNew));
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const close = () => {
         setMobileMenuOpen(false);
@@ -79,7 +108,7 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
                         />
                     </div>
 
-                    <div className='header__cart' onClick={() => setCartOpen(true)}>
+                    <div className='header__cart' onClick={onCart}>
                         <img src={cartIcon} alt='Корзина' className='header__cart-img'/>
                         <span className='header__cart-text'>{sum % 1 !== 0 ? Math.round(sum) : sum} {t("buy_info.uah")}</span>
                         <span className='header__count'>

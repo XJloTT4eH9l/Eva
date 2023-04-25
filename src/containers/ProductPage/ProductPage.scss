@@ -275,7 +275,7 @@
     &__list {
         margin-left: 16%;
         @media screen and (max-width: 950px) {
-            margin-left: 5%;
+            margin-left: 0;
         }
         @media screen and (max-width: 800px) {
             margin-left: 0;
@@ -289,11 +289,11 @@
         position: relative;
         align-self: flex-start;
         width: 40%;
-        @media screen and (max-width: 1000px) {
-            width: 50%;
+        @media screen and (max-width: 950px) {
+            width: 60%;
         }
-        @media screen and (max-width: 600px) {
-            width: 46%;
+        @media screen and (max-width: 550px) {
+            width: 50%;
         }
         & span {
             position: relative;
@@ -321,11 +321,11 @@
         width: 60%;
         padding-left: 15px;
         max-width: 400px;
-        @media screen and (max-width: 1000px) {
-            width: 50%;
+        @media screen and (max-width: 950px) {
+            width: 40%;
         }
-        @media screen and (max-width: 600px) {
-            width: 54%;
+        @media screen and (max-width: 550px) {
+            width: 50%;
         }
     }
 }

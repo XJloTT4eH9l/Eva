@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 import { IProductDetail, ICategory } from '../../types/types';
 import { API_CATEGORIES, API_CATEGORIES_PRODUCTS } from '../../constants/api';
@@ -19,6 +20,7 @@ const CategoryPage = () => {
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
     const [sort, setSort] = useState<string>('title-down');
     const [loading, setLoading] = useState<boolean>(false);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
 
     const sortOptions = [
         {id: 'price-down', label: t("sorting.price_down")},
@@ -33,22 +35,22 @@ const CategoryPage = () => {
         setSort(sort);
         switch(sort) {
             case 'price-up':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=price');
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=price');
                 break
             case 'prise-down':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=price');
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=price');
                 break
             case 'title-up':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=title');   
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=title');   
                 break
             case 'title-down':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=title');
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=title');
                 break
             case 'date-up':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=down&sort_field=date');   
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=date');   
                 break
             case 'date-down':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1' + '&sort_param=up&sort_field=date');   
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=date');   
                 break
             default:
                 getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1&page_size=24&page=1');
@@ -59,7 +61,7 @@ const CategoryPage = () => {
 
     const getCategories = async () => {
         try {
-            const res = await axios.get(API_CATEGORIES + '?lang_id=1');
+            const res = await axios.get(API_CATEGORIES + `?lang_id=1`);
             setCategories(res.data);
         } catch (error) {
             console.log(error);
@@ -82,9 +84,13 @@ const CategoryPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1&page_size=24&page=1');
+        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
         getCategories();
     }, [])
+
+    useEffect(() => {
+        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
+    }, [currentLanguage])
     return (
        <section className="categories-page">
             <div className="container">

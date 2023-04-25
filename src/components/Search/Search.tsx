@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useDebounce } from '../../hooks/useDebounce';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { API_SEARCH_CATEGORY } from '../../constants/api';
 import { IProductDetail } from '../../types/types';
 import axios from 'axios';
@@ -23,6 +24,7 @@ interface SearchProps {
 const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue, setSearchList, setMobileMenuOpen }) => {
     const [searchQuanity, setSearchQuanity] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const debouncedSearch = useDebounce(searchValue, 500);
     const { t } = useTranslation();
 
@@ -33,36 +35,39 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
         setSearchValue(e.target.value);
     };
 
-    useEffect(() => {
-        const getSearchProducts = async () => {
-            try {
-                setLoading(true);
+    const getSearchProducts = async () => {
+        try {
+            setLoading(true);
 
-                if(debouncedSearch === '') {
+            if(debouncedSearch === '') {
+                setSearchList([]);
+            } else {
+                const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
+                if(res.data.products === null) {
                     setSearchList([]);
                 } else {
-                    const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + '?lang_id=1&page_size=24&page=1');
-                    if(res.data.products === null) {
-                        setSearchList([]);
-                    } else {
-                        setSearchList(res.data.products);
-                        setSearchQuanity(res.data.quantity_products);
-                    }
+                    setSearchList(res.data.products);
+                    setSearchQuanity(res.data.quantity_products);
                 }
-
-                setLoading(false);
-            } catch (error) {
-                alert('Виникли проблеми, спробуйте пізніше');
             }
+
+            setLoading(false);
+        } catch (error) {
+            alert('Виникли проблеми, спробуйте пізніше');
         }
+    }
+
+    useEffect(() => {
         getSearchProducts();
     }, [debouncedSearch]);
 
+    useEffect(() => {
+        getSearchProducts();
+    }, [currentLanguage])
+
     return (
         <>
-        {currentPath !== '/search' &&
-         currentPath !== '/about' &&
-         currentPath !== '/contacts' && (
+        {currentPath !== '/search' && (
             <div className={type === 'desktop' ? 'search search--desktop' : 'search search--mobile'}>
             <input 
                 type='text'

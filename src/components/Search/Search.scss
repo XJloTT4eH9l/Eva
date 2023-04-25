@@ -22,7 +22,7 @@
             z-index: 20;
         }
         .search__search-icon {
-            top: 9px;
+            top: 15px;
         }
         .search__delete {
             top: 11px;
@@ -33,13 +33,14 @@
     }
     &__input {
         position: absolute;
-        top: 22px;
+        top: 15px;
         border: 2px solid;
         border-color: transparent;
-        padding: 10px 15px;
+        padding: 13px 15px;
         padding-left: 45px;
         margin-bottom: 20px;
         width: 100%;
+        font-size: 16px;
         border-radius: 6px;
         outline: none;
         box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);

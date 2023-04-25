@@ -17,4 +17,7 @@
 .recents-product__title {
     padding: 0;
     margin-bottom: 40px !important;
+    @media screen and (max-width: 550px) {
+        margin-bottom: 55px !important;
+    }
 }

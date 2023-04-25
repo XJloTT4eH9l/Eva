@@ -38,6 +38,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
 
     const cartItemsSelector = useAppSelector(state => state.cartItems.cartItems);
     const recentlyViewed = useAppSelector(state => state.recentlyViewed.recentlyViewed);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
 
     const addToRecently = (recent: IProductDetail) => {
         dispatch(addTorecentlyViewed(recent))
@@ -47,8 +48,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
         try {
             setLoading(true);
 
-            const res = await axios.get(API_PRODUCT + id + '?lang_id=1');
-            console.log(res);
+            const res = await axios.get(API_PRODUCT + id + `?lang_id=${currentLanguage.id}`);
             const сharacteristicsParsed = Object.entries(res.data.characteristic)
                 .map(item => [String(item[0]), String(item[1])])
                 .map(([name, text]) => ({ name, text }));
@@ -64,7 +64,6 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 promo: res.data.promo,
                 barcode: res.data.barcode
             }
-            console.log(product);
             setProductInfo(product);
             const itemQuanity = cartItemsSelector.find(item => item.id === Number(id));
             if(itemQuanity) {
@@ -108,7 +107,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
         window.scrollTo(0, 0);
         getProductInfo(Number(id));
         setProductId(Number(id));
-    }, [id])
+    }, [id, currentLanguage])
 
     useEffect(() => {
         const itemQuanity = cartItemsSelector.find(item => item.id === Number(id));

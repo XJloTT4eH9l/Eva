@@ -27,15 +27,10 @@ function App() {
   useEffect(() => {
     const getLangs = async () => {
       const res = await axios.get(API_LANGS);
-      console.log(res.data);
       setLangs(res.data);
     }
     getLangs();
   }, [])
-
-  useEffect(() => {
-    console.log(langs);
-  }, [langs])
 
   return (
     <>

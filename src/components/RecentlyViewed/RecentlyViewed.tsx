@@ -1,9 +1,11 @@
 import { FC, useEffect, useState } from 'react';
 import Product from '../Product/Product';
 import ProductSlider from '../ProductSlider/ProductSlider';
+import { API_PRODUCTS } from '../../constants/api';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { IProductDetail } from '../../types/types';
 import { useTranslation } from 'react-i18next';
+import axios, {AxiosResponse} from 'axios';
 import './RecentlyViewed.scss';
 
 interface RecentlyViewedProps {
@@ -12,13 +14,32 @@ interface RecentlyViewedProps {
 }
 
 const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
-    const [recently, setRecently] = useState<IProductDetail[]>();
     const recents = useAppSelector(state => state.recentlyViewed.recentlyViewed);
+    const [recentlyMain, setRecentlyMain] = useState<IProductDetail[]>(recents);
+    const [recently, setRecently] = useState<IProductDetail[]>();
+    const recentsIds = recents.map(item => item.id);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const { t } = useTranslation();
 
+    const getProductsById = async () => {
+        try {
+            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + recentsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            setRecentlyMain(res.data);
+            setRecently(res.data.filter(item => item.id !== id));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
-        setRecently(recents.filter(item => item.id !== id));
+        getProductsById();
     }, [id])
+
+    useEffect(() => {
+        if(recents.length > 0) {
+            getProductsById();
+        }
+    }, [currentLanguage])
 
     return (
         <section className={type === 'main' ? "recently-viewed recently-viewed--main" : "recently-viewed recently-viewed--product"}>
@@ -55,11 +76,11 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
                         <>
                             <h2 className="title proposition__title">{t("proposition.recently_viewed")}</h2>
                             {recents.length > 1 ? (
-                                <ProductSlider products={recents} />
+                                <ProductSlider products={recentlyMain} />
                             ) : (
                             <ul className='proposition__list'>
                                 {
-                                    recents.map((item) => {
+                                    recentlyMain.map((item) => {
                                         return (
                                             <Product
                                                 key={item.id}
