@@ -15,7 +15,7 @@ const initialState: LangState = {
     langs: [
         {
             "id": 1,
-            "code": "UA",
+            "code": "UK",
             "title": "Ukraine"
         },
         {

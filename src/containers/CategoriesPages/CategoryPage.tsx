@@ -9,6 +9,7 @@ import axios from 'axios';
 import LinkBack from "../../components/LinkBack/LinkBack";
 import Catalog from "../../components/Catalog/Catalog";
 import Spinner from '../../components/Spinner/Spinner';
+import arrow from '../../assets/img/arrow.svg';
 
 import './CategoryPage.scss';
 
@@ -17,8 +18,16 @@ const CategoryPage = () => {
     const { t } = useTranslation();
     const [products, setProducts] = useState<IProductDetail[]>();
     const [categories, setCategories] = useState<ICategory[]>();
+
+    const [pageNum, setPageNum] = useState<number>(1);
+    const [pages, setPages] = useState<number[]>([]);
+    const [lastPage, setLastPage] = useState<number>(0);
+
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
     const [sort, setSort] = useState<string>('title-down');
+    const [sortParam, setSortParam] = useState<string>('up');
+    const [sortField, setSortField] = useState<string>('title');
+
     const [loading, setLoading] = useState<boolean>(false);
     const currentLanguage = useAppSelector(state => state.languages.curentLang);
 
@@ -35,25 +44,43 @@ const CategoryPage = () => {
         setSort(sort);
         switch(sort) {
             case 'price-up':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=price');
+                setSortField('price');
+                setSortParam('down');
+                setPageNum(1);
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=price' + '&page_size=2&page=1');
                 break
             case 'prise-down':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=price');
+                setSortField('price');
+                setSortParam('up');
+                setPageNum(1);
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=price' + '&page_size=2&page=1');
                 break
             case 'title-up':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=title');   
+                setSortField('title');
+                setSortParam('down');
+                setPageNum(1);
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=title' + '&page_size=2&page=1');   
                 break
             case 'title-down':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=title');
+                setSortField('title');
+                setSortParam('up');
+                setPageNum(1);
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=title' + '&page_size=2&page=1');
                 break
             case 'date-up':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=date');   
+                setSortField('date');
+                setSortParam('down');
+                setPageNum(1);
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=date' + '&page_size=2&page=1');   
                 break
             case 'date-down':
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=date');   
+                setSortField('date');
+                setSortParam('down');
+                setPageNum(1);
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=date' + '&page_size=2&page=1');   
                 break
             default:
-                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + '?lang_id=1&page_size=24&page=1');
+                getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&page_size=2&page=${pageNum}`);
                 break
         }
         setSortingOpen(false);
@@ -74,23 +101,37 @@ const CategoryPage = () => {
             const res = await axios.get(link);
             if(res.status === 200) {
                 setProducts(res.data.products);
+                const pags = Math.ceil(res.data.quantity_products / 2);
+                const pagsArray = [];
+
+                for(let i = 1; i <= pags; i++) {
+                    pagsArray.push(i);
+                }
+                setPages(pagsArray);
+                setLastPage(pagsArray.length);
+
             }
             setLoading(false);
-            console.log(res.data);
         } catch (error) {
             console.log(error);
         }
     }
 
+    const onNav = (page: number) => {
+        setPageNum(page);
+        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=2&page=${page}`);
+    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
-        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
+        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=2&page=1`);
         getCategories();
     }, [])
 
     useEffect(() => {
-        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
+        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=2&page=1`);
     }, [currentLanguage])
+
     return (
        <section className="categories-page">
             <div className="container">
@@ -127,6 +168,25 @@ const CategoryPage = () => {
                             </div>
                         </div>
                         <Catalog products={products} />
+
+                        <>
+                        {pages.length > 1 && (
+                            <ul className='categories-page__nav'>
+                                {pages.map(page => {
+                                    const isActive = page === pageNum;
+                                    return (
+                                        <li 
+                                            key={page} 
+                                            className={isActive ?  'categories-page__page-num categories-page__page-num--active': 'categories-page__page-num'} 
+                                            onClick={() => onNav(page)}
+                                        >
+                                            {page}
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        )}
+                        </>
                     </>
                 )}
             </div>
