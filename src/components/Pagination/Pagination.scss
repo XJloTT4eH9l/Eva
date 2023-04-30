@@ -1,0 +1,43 @@
+.pagination {
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    &__arrow {
+        padding: 8px;
+        border-radius: 50%;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.2s linear;
+        cursor: pointer;
+        &:disabled {
+            opacity: 0.6;
+            cursor: default;
+            &:hover {
+                background-color: #ffff;
+            }
+        }
+        &:hover {
+            background-color: #bae1b6;
+        }
+        &--prev {
+            & img {
+                top: 0;
+                left: -2px;
+                transform: rotate(90deg);
+            }
+        }
+        &--next {
+            & img {
+                top: 0;
+                left: 2px;
+                transform: rotate(-90deg);
+            }
+        }
+    }
+    &__img {
+        position: relative;
+        width: 25px;
+        height: 25px;
+    }
+}

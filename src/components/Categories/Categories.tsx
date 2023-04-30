@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { ICategory } from '../../types/types';
 import { API_CATEGORIES } from '../../constants/api';
 import { useTranslation } from 'react-i18next';
@@ -11,12 +12,13 @@ import './Categories.scss';
 const Categories = () => {
     const [categoriesList, setCategoriesList] = useState<ICategory[]>();
     const [loading, setLoading] = useState<boolean>(false);
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const { t } = useTranslation();
 
     const getCategories = async () => {
         try {
             setLoading(true);
-            const res = await axios.get(API_CATEGORIES + '?lang_id=1');
+            const res = await axios.get(API_CATEGORIES + `?lang_id=${currentLanguage.id}`);
             setCategoriesList(res.data);
             setLoading(false)
         } catch (error) {
@@ -26,6 +28,10 @@ const Categories = () => {
     useEffect(() => {
         getCategories();
     }, [])
+
+    useEffect(() => {
+        getCategories();
+    }, [currentLanguage])
 
     return (
         <section className="categories">

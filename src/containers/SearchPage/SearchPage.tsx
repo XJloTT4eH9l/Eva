@@ -7,8 +7,9 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import Catalog from '../../components/Catalog/Catalog';
-import searchIcon from '../../assets/img/search-icon.png';
 import Spinner from '../../components/Spinner/Spinner';
+import Pagination from '../../components/Pagination/Pagination';
+import searchIcon from '../../assets/img/search-icon.png';
 import './SearchPage.scss';
 
 interface SearchPageProps {
@@ -21,8 +22,15 @@ interface SearchPageProps {
 const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearchList, searchList }) => {
     const [searchQuanity, setSearchQuanity] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
+
     const [sort, setSort] = useState<string>('title-down');
     const [sortingOpen, setSortingOpen] = useState<boolean>(false);
+    const [sortField, setSortField] = useState<string>('title');
+    const [sortParam, setSortParam] = useState<string>('up');
+
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [pages, setPages] = useState<number[]>([]);
+
     const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const debouncedSearch = useDebounce(searchValue, 500);
     const { t } = useTranslation();
@@ -37,46 +45,66 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
     ];
 
     const onSort = (sort: string) => {
+        setCurrentPage(1);
         setSort(sort);
         switch(sort) {
             case 'price-up':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=price');
+                setSortField('price');
+                setSortParam('down');
                 break
-            case 'prise-down':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=price');
+            case 'price-down':
+                setSortField('price');
+                setSortParam('up');
                 break
             case 'title-up':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=title');   
+                setSortField('title');
+                setSortParam('down');
                 break
             case 'title-down':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=title');
+                setSortField('title');
+                setSortParam('up');
                 break
             case 'date-up':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=down&sort_field=date');   
+                setSortField('date');
+                setSortParam('down');
                 break
             case 'date-down':
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}` + '&sort_param=up&sort_field=date');   
+                setSortField('date');
+                setSortParam('up');
                 break
             default:
-                getSearchProducts(API_SEARCH_CATEGORY + debouncedSearch  + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
+                setSortField('title');
+                setSortParam('up');
+                console.log('title');
                 break
         }
         setSortingOpen(false);
     }
 
-    const getSearchProducts = async (link = 'base') => {
+    const getSearchProducts = async () => {
         try {
             setLoading(true);
 
             if(debouncedSearch === '') {
                 setSearchList([]);
+                setPages([]);
             } else {
-                const res = await axios.get(link === 'base' ? API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&page_size=24&page=1` : link);
-                if(res.data.products === null) {
-                    setSearchList([]);
-                } else {
+                const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=5&page=${currentPage}`);
+
+                if(res.status === 200) {
                     setSearchList(res.data.products);
                     setSearchQuanity(res.data.quantity_products);
+                    
+                    const pagesItems = Math.ceil(res.data.quantity_products / 5);
+                    const pagesArray = [];
+
+                    for(let i = 1; i <= pagesItems; i++) {
+                        pagesArray.push(i);
+                    }
+
+                    setPages(pagesArray);
+                } else {
+                    setSearchList([]);
                 }
             }
 
@@ -90,9 +118,13 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
         setSearchValue(e.target.value);
     };
 
+    const onNav = (page: number) => {
+        setCurrentPage(page);
+    }
+
     useEffect(() => {
         getSearchProducts();
-    }, [debouncedSearch, currentLanguage]);
+    }, [debouncedSearch, currentLanguage, currentPage, sort]);
 
 
     useEffect(() => {
@@ -151,6 +183,15 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                         <Catalog products={searchList} />
                         {searchList.length === 0 && searchValue.length > 0 && (
                             <h2>{t("search_page.nothing_found")}</h2>
+                        )}
+
+                        {pages.length > 1 && (
+                            <Pagination
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                                pages={pages}
+                                onNav={onNav} 
+                            />
                         )}
                     </>
                 )}

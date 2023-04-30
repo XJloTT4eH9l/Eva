@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import { IProductDetail } from '../../types/types';
 import { addToCart, onClickPlus, onClickMinus } from '../../store/cartSlice';
 import { addTorecentlyViewed } from '../../store/recentViewSlice';
-import { API_PRODUCT } from '../../constants/api';
+import { API_PRODUCT, API_PRODUCTS } from '../../constants/api';
+import { setCart } from '../../store/cartSlice';
 import axios from 'axios';
 
 import LinkBack from '../../components/LinkBack/LinkBack';
@@ -37,6 +38,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const cartItemsSelector = useAppSelector(state => state.cartItems.cartItems);
+    const cartItemsIds = cartItemsSelector.map(item => item.id);
     const recentlyViewed = useAppSelector(state => state.recentlyViewed.recentlyViewed);
     const currentLanguage = useAppSelector(state => state.languages.curentLang);
 
@@ -92,6 +94,29 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 barcode: productInfo.barcode
             }));
             window.setTimeout(() => setProductAdded(false), 2000);
+        }
+    }
+
+    const onCartOpen = async () => {
+        setCartOpen(true);
+        try {
+            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            if(res.data.length > 0 && cartItemsSelector.length > 0) {
+                const cartItemsNew = cartItemsSelector.map(item => {
+
+                    for(let i = 0; i < res.data.length; i++) {
+                        if(item.id === res.data[i].id) {
+                            return (
+                                {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                            )
+                        }
+                    }
+                    return item
+                });
+                dispatch(setCart(cartItemsNew));
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -180,7 +205,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                                             } {t("buy_info.uah")}
                                                         </p>
                                                     </div>
-                                                    <button onClick={() => (setCartOpen(true))} className='product-page__btn--cart--active'>
+                                                    <button onClick={onCartOpen} className='product-page__btn--cart--active'>
                                                         <img src={mark} alt='Додано в кошик' />
                                                         {t("buy_info.in_cart")}
                                                     </button>
