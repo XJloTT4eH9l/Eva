@@ -32,7 +32,7 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const currentLanguage = useAppSelector(state => state.languages.curentLang);
     const cartItemsIds = cartItems.map(item => item.id);
-    const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+    const sum = cartItems.reduce((sum, item) => item.promo?.promo_price ? sum + item.promo.promo_price * item.quanity : sum + item.price * item.quanity, 0);
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
 
@@ -40,6 +40,7 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
         setCartOpen(true);
         try {
             const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            console.log(res);
             if(res.data.length > 0 && cartItems.length > 0) {
                 const cartItemsNew = cartItems.map(item => {
 

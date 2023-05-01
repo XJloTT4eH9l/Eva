@@ -16,7 +16,7 @@ const OrderPage:FC = () => {
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const orderDone = useAppSelector(state => state.cartItems.orderDone);
     const currentLanguage = useAppSelector(state => state.languages.curentLang);
-    const sum = cartItems.reduce((sum, item) => sum + item.price * item.quanity, 0);
+    const sum = cartItems.reduce((sum, item) => item.promo?.promo_price ? sum + item.promo.promo_price * item.quanity : sum + item.price * item.quanity, 0);
     const cartItemsIds = cartItems.map(item => item.id);
     const dispatch = useAppDispatch();
     const { t } = useTranslation();
@@ -79,6 +79,7 @@ const OrderPage:FC = () => {
                                             id={item.id}
                                             title={item.title}
                                             price={item.price}
+                                            promo={item.promo}
                                             img={item.images} 
                                             quanity={item.quanity}
                                             minQuanityOrder={item.minQuanityOrder}

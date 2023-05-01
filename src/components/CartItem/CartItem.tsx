@@ -21,6 +21,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
     const dispatch = useAppDispatch();
     const [disable, setDisable] = useState<boolean>(false); 
     const { t } = useTranslation();
+    console.log(promo);
 
     const onMinus = (id: number, quanity: number) => {
         if(quanity !== minQuanityOrder) {
@@ -61,7 +62,13 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                     <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                 </div>
                                 <div className='cart-item__summ'>
-                                    <span>{(price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)} {t("buy_info.uah")}</span>
+                                    <span>
+                                        {promo 
+                                            ? (promo.promo_price * quanity) % 1 !== 0 ? Math.round(promo.promo_price * quanity) : (promo.promo_price * quanity)
+                                            : (price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)
+                                        } 
+                                        {t("buy_info.uah")}
+                                    </span>
                                 </div>
                             </div>
                         </>
@@ -82,7 +89,13 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                         <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                     </div>
                                     <div className='cart-item__summ'>
-                                        <span>{(price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)} {t("buy_info.uah")}</span>
+                                        <span>
+                                        {promo 
+                                            ? (promo.promo_price * quanity) % 1 !== 0 ? Math.round(promo.promo_price * quanity) : (promo.promo_price * quanity)
+                                            : (price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)
+                                        } 
+                                        {t("buy_info.uah")}
+                                        </span>
                                     </div>
                                 </div>
                             </div>

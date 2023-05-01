@@ -107,6 +107,7 @@ const CategoryPage = () => {
     }
 
     const onNav = (page: number) => {
+        window.scrollTo(0, 0);
         setPageNum(page);
     }
 
@@ -157,9 +158,13 @@ const CategoryPage = () => {
                                             </li>
                                         )
                                     })}
-                                </ul>
+                                </ul>  
                             </div>
                         </div>
+                        <div 
+                            className={sortingOpen ? 'categories-page__overlay categories-page__overlay--active' : 'categories-page__overlay'}
+                            onClick={() => setSortingOpen(false)}
+                        />
                         <Catalog products={products} />
 
                         <>

@@ -1,10 +1,10 @@
 import { useState, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { API_LANGS } from "../../constants/api";
 
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import Spinner from "../../components/Spinner/Spinner";
+import ScrollTopBtn from "../../components/ScrollTopBtn/ScrollTopBtn";
 
 import HomePage from "../HomePage/HomePage";
 import ProductPage from "../ProductPage/ProductPage";
@@ -15,26 +15,16 @@ import AboutPage from "../AboutPage/AboutPage";
 import ContactPage from "../ContactPage/ContactPage";
 import SearchPage from "../SearchPage/SearchPage";
 
-import { IProductDetail, Lang } from "../../types/types";
+import { IProductDetail } from "../../types/types";
 
 function App() {
   const [cartOpen, setCartOpen] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchList, setSearchList] = useState<IProductDetail[]>([]);
 
-  const [langs, setLangs] = useState<Lang[]>();
-
-  useEffect(() => {
-    const getLangs = async () => {
-      const res = await axios.get(API_LANGS);
-      setLangs(res.data);
-    }
-    getLangs();
-  }, [])
-
   return (
     <>
-    <Suspense fallback='loading...'>
+    <Suspense fallback={ <Spinner /> }>
       <Header 
         cartOpen={cartOpen} 
         setCartOpen={setCartOpen}
@@ -61,6 +51,7 @@ function App() {
         } />
       </Routes>
       <Footer />
+      <ScrollTopBtn />
       </Suspense>
     </>
   )

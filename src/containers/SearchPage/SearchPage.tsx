@@ -89,13 +89,13 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                 setSearchList([]);
                 setPages([]);
             } else {
-                const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=5&page=${currentPage}`);
+                const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=${currentPage}`);
 
                 if(res.status === 200) {
                     setSearchList(res.data.products);
                     setSearchQuanity(res.data.quantity_products);
                     
-                    const pagesItems = Math.ceil(res.data.quantity_products / 5);
+                    const pagesItems = Math.ceil(res.data.quantity_products / 24);
                     const pagesArray = [];
 
                     for(let i = 1; i <= pagesItems; i++) {
@@ -119,6 +119,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
     };
 
     const onNav = (page: number) => {
+        window.scrollTo(0, 0);
         setCurrentPage(page);
     }
 
@@ -178,6 +179,10 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                         </ul>
                     </div>
                 </div>
+                <div 
+                    className={sortingOpen ? 'categories-page__overlay categories-page__overlay--active' : 'categories-page__overlay'}
+                    onClick={() => setSortingOpen(false)}
+                />
                 {loading ? <Spinner /> : (
                     <>
                         <Catalog products={searchList} />

@@ -42,7 +42,7 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
             if(debouncedSearch === '') {
                 setSearchList([]);
             } else {
-                const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&page_size=5&page=1`);
+                const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + `?lang_id=${currentLanguage.id}&page_size=24&page=1`);
                 if(res.data.products === null) {
                     setSearchList([]);
                 } else {

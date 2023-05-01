@@ -5,7 +5,7 @@ import { API_PRODUCTS } from '../../constants/api';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { IProductDetail } from '../../types/types';
 import { useTranslation } from 'react-i18next';
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 import './RecentlyViewed.scss';
 
 interface RecentlyViewedProps {

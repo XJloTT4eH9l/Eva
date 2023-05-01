@@ -10,22 +10,29 @@ interface PaginationProps {
 }
 
 const Pagination:FC<PaginationProps> = ({ pages, currentPage, setCurrentPage, onNav}) => {
+    const onArrow = (arrow: string) => {
+        window.scrollTo(0, 0);
+        switch(arrow) {
+            case 'prev': setCurrentPage(currentPage - 1); break
+            case 'next': setCurrentPage(currentPage + 1); break
+        }
+    }
     return (
         <div className='pagination'>
             <button 
                 className='pagination__arrow pagination__arrow--prev' 
-                onClick={() => setCurrentPage(currentPage - 1)}
+                onClick={() => onArrow('prev')}
                 disabled={currentPage === 1}
                 >
                     <img className='pagination__img' src={arrow} alt='previous' />
             </button>
-            <ul className='categories-page__nav'>
+            <ul className='pagination__nav'>
                 {pages.map(page => {
                     const isActive = page === currentPage;
                     return (
                         <li 
                             key={page} 
-                            className={isActive ?  'categories-page__page-num categories-page__page-num--active': 'categories-page__page-num'} 
+                            className={isActive ?  'pagination__page-num pagination__page-num--active': 'pagination__page-num'} 
                             onClick={() => onNav(page)}
                         >
                             {page}
@@ -36,7 +43,7 @@ const Pagination:FC<PaginationProps> = ({ pages, currentPage, setCurrentPage, on
             <button 
                 disabled={currentPage === pages.length}
                 className={`pagination__arrow pagination__arrow--next`} 
-                onClick={() => setCurrentPage(currentPage + 1)}
+                onClick={() => onArrow('next')}
             >
                 <img className='pagination__img' src={arrow} alt='previous' />
             </button>

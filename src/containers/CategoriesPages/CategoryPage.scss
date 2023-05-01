@@ -3,6 +3,7 @@
 .categories-page {
     padding-top: 30px;
     min-height: 600px;
+    position: relative;
     &__list {
         margin-right: 30px;
         margin-bottom: 30px;
@@ -24,55 +25,14 @@
             background-color: $color-green
         }
     }
-    &__nav {
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    &__page-num {
-        cursor: pointer;
-        border-radius: 6px;
-        padding: 10px;
-        font-size: 16px;
-        transition: background-color 0.2s linear;
-        margin-right: 10px;
+    &__overlay {
+        position: absolute;
         &--active {
-            background-color: #bae1b6;
-        }
-        &:hover {
-            background-color: #bae1b6;
-        }
-        &:last-child {
-            margin-right: 0;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 3;
         }
     }
-    &__nav-arrow {
-        padding: 10px;
-        border-radius: 6px;
-        border: 1px solid;
-        border-color: #bae1b6;
-        &--prev {
-            margin-right: 30px;
-            & img {
-                transform: rotate(90deg);
-            }
-        }
-        &--next {
-            margin-left: 30px;
-            & img {
-                transform: rotate(-90deg);
-            }
-        }
-        &:hover {
-            background-color: #bae1b6;
-        }
-        & img {
-            width: 20px;
-            height: 20px;
-
-        }
-    }
-  }
-
-//   transform: rotate(90deg);
+}
