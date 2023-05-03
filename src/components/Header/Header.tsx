@@ -40,7 +40,6 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
         setCartOpen(true);
         try {
             const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
-            console.log(res);
             if(res.data.length > 0 && cartItems.length > 0) {
                 const cartItemsNew = cartItems.map(item => {
 
@@ -51,6 +50,7 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
                             )
                         }
                     }
+
                     return item
                 });
                 dispatch(setCart(cartItemsNew));

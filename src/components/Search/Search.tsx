@@ -58,10 +58,12 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
     }
 
     useEffect(() => {
+        setSearchQuanity(0);
         getSearchProducts();
     }, [debouncedSearch]);
 
     useEffect(() => {
+        setSearchQuanity(0);
         getSearchProducts();
     }, [currentLanguage])
 
@@ -107,6 +109,7 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
                                 onClick={() => {
                                     setSearchValue('');
                                     setMobileMenuOpen(false);
+                                    setSearchQuanity(0);
                                 }}
                             >
                                <img src={item.images[0]} alt={item.title} />

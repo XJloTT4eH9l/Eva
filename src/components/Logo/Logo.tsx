@@ -11,7 +11,7 @@ interface LogoProps {
 
 const Logo:FC<LogoProps> = ({ type }) => {
     return (
-        <Link to ='/' className={type === 'footer' ? 'logo logo--footer' : 'logo logo--header'}>
+        <Link to ='/main' className={type === 'footer' ? 'logo logo--footer' : 'logo logo--header'}>
             <img className={type === 'footer' ? 'logo__img--footer' : 'logo__img logo__img--header'} src={logo} alt='Eva' />
             <span className={type === 'footer' ?  'logo__text logo__text--footer' : 'logo__text'}>ТОВ "Витамин2015"</span>
         </Link>

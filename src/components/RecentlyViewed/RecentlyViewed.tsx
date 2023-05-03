@@ -24,15 +24,30 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
     const getProductsById = async () => {
         try {
             const res = await axios.get<IProductDetail[]>(API_PRODUCTS + recentsIds.join(',') + `?lang_id=${currentLanguage.id}`);
-            setRecentlyMain(res.data);
-            setRecently(res.data.filter(item => item.id !== id));
+
+            if(res.data.length > 0 && recents.length > 0) {
+                const upadatedRecents = recentlyMain.map(item => {
+
+                    for(let i = 0; i < res.data.length; i++) {
+                        if(item.id === res.data[i].id) {
+                           return { ...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price }
+                        }
+                    }
+
+                    return item
+                });
+                setRecentlyMain(upadatedRecents);
+                setRecently(upadatedRecents.filter(item => item.id !== id));
+            }
         } catch (error) {
             console.log(error);
         }
     }
 
     useEffect(() => {
-        getProductsById();
+        if(recents.length > 0) {
+            getProductsById();
+        }
     }, [id])
 
     useEffect(() => {

@@ -6,6 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import Spinner from "../../components/Spinner/Spinner";
 import ScrollTopBtn from "../../components/ScrollTopBtn/ScrollTopBtn";
 
+import MainPage from "../MainPage/MainPage";
 import HomePage from "../HomePage/HomePage";
 import ProductPage from "../ProductPage/ProductPage";
 import CatalogPage from "../CatalogPage/CatalogPage";
@@ -35,6 +36,7 @@ function App() {
       />
       <Routes>
         <Route path="/" element={ <HomePage /> } />
+        <Route path="/main" element={<MainPage /> } />
         <Route path='/categories' element={ <CatalogPage /> } />
         <Route path="/product/:id" element={ <ProductPage setCartOpen={setCartOpen} />} />
         <Route path="/categories/:id" element={ <CategoryPage /> } />

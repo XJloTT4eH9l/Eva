@@ -21,7 +21,6 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
     const dispatch = useAppDispatch();
     const [disable, setDisable] = useState<boolean>(false); 
     const { t } = useTranslation();
-    console.log(promo);
 
     const onMinus = (id: number, quanity: number) => {
         if(quanity !== minQuanityOrder) {

@@ -11,6 +11,8 @@
         width: 100%;
     }
     &__arrow {
+        position: relative;
+        bottom: 5px;
         padding: 8px;
         border-radius: 50%;
         box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
@@ -27,6 +29,7 @@
             background-color: #bae1b6;
         }
         &--prev {
+            left: -10px;
             & img {
                 top: 0;
                 left: -2px;
@@ -56,8 +59,8 @@
         font-size: 16px;
         transition: background-color 0.2s linear;
         margin-right: 10px;
-        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
         margin-bottom: 10px;
+        box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.2);
         &--active {
             background-color: #bae1b6;
         }
