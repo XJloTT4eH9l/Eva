@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.css": "/Eva/static/css/main.ab2ad9a2.css",
-    "main.js": "/Eva/static/js/main.47f9cc80.js",
+    "main.css": "/Eva/static/css/main.5f0a23f9.css",
+    "main.js": "/Eva/static/js/main.2295b0db.js",
     "static/media/main-juice.png": "/Eva/static/media/main-juice.87d35e0c7786834ce951.png",
     "static/media/hero-bg3.jpg": "/Eva/static/media/hero-bg3.32a18a29d6774930452e.jpg",
     "static/media/hero-bg2.jpg": "/Eva/static/media/hero-bg2.b897b8b0c8da8f7c54ea.jpg",
     "static/media/hero-bg.jpg": "/Eva/static/media/hero-bg.f6b5f0030fe7a7cc4cd7.jpg",
+    "static/media/about-company.jpg": "/Eva/static/media/about-company.a162ebfa3848df314d6e.jpg",
     "static/media/decoration-main.svg": "/Eva/static/media/decoration-main.ede5bd3bd58e9a134d50fa38dbf6995d.svg",
     "static/media/cart-empty.svg": "/Eva/static/media/cart-empty.839afd8054e11f36b945252a27de6185.svg",
     "static/media/order-completed.svg": "/Eva/static/media/order-completed.1ec18efe991ace69db7f0d5e847155a5.svg",
@@ -21,11 +22,11 @@
     "static/media/mark.svg": "/Eva/static/media/mark.9f68c322330b5074a9bfc5887a6fc62c.svg",
     "static/media/arrow.svg": "/Eva/static/media/arrow.1552a72b7f4b79661f0a7b2659dcedd5.svg",
     "static/media/getFetch.cjs": "/Eva/static/media/getFetch.40f37ddea2378391108f.cjs",
-    "main.ab2ad9a2.css.map": "/Eva/static/css/main.ab2ad9a2.css.map",
-    "main.47f9cc80.js.map": "/Eva/static/js/main.47f9cc80.js.map"
+    "main.5f0a23f9.css.map": "/Eva/static/css/main.5f0a23f9.css.map",
+    "main.2295b0db.js.map": "/Eva/static/js/main.2295b0db.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab2ad9a2.css",
-    "static/js/main.47f9cc80.js"
+    "static/css/main.5f0a23f9.css",
+    "static/js/main.2295b0db.js"
   ]
 }
