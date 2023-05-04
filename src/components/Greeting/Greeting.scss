@@ -1,0 +1,102 @@
+@import '../../styles/variables.scss';
+
+.greeting {
+    position: relative;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    min-height: 80vh;
+    background-image: linear-gradient(to right top, #406343, #4e8253, #5da263, #6cc374, #7ce585);
+    @media screen and (max-width: 900px) {
+        padding-top: 50px;
+    }
+    @media screen and (max-width: 550px) {
+        padding-bottom: 50px;
+    }
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @media screen and (max-width: 900px) {
+            flex-direction: column;
+        }
+    }
+    &__left {
+        max-width: 500px;
+        transform: translateX(-100px);
+        opacity: 0;
+        transition: opacity 0.4s linear, transform 0.4s ease-in;
+        &--active {
+            transform: translateX(0px);
+            opacity: 1;
+        }
+        @media screen and (max-width: 900px) {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    }
+    &__title {
+        font-size: 42px;
+        color: $color-white;
+        line-height: 1.2;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        @media screen and (max-width: 900px) {
+            font-size: 30px;
+        }
+        @media screen and (max-width: 550px) {
+            font-size: 25px;
+        }
+    }
+    &__text {
+        margin-bottom: 40px;
+        font-size: 22px;
+        line-height: 1.2;
+        color: $color-white;
+        @media screen and (max-width: 900px) {
+            font-size: 18px;
+        }
+    }
+    &__link {
+        padding: 15px 30px;
+        color: $color-white;
+        background-color: #FEB101;
+        font-size: 18px;
+        border-radius: 6px;
+        transition: box-shadow 0.2s linear;
+        &:hover {
+            box-shadow: 1px 1px 15px 0px rgba(0, 0, 0, 0.5);
+        }
+        @media screen and (max-width: 550px) {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    }
+    &__img {
+        width: 350px;
+        height: 350px;
+        transform: translateX(100px);
+        opacity: 0;
+        transition: opacity 0.4s linear, transform 0.4s ease-in;
+        &--active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        @media screen and (max-width: 900px) {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        @media screen and (max-width: 550px) {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto;
+        }
+    }
+    &__decoration {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+}
