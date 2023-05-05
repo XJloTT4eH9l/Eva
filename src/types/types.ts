@@ -41,3 +41,8 @@ export interface Lang {
     code: string;
     title: string;
 }
+
+export interface IPhoto {
+    id: number;
+    img: string;
+}
