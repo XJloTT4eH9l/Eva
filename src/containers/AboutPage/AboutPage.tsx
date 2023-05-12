@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
 
 import Greeting from '../../components/Greeting/Greeting';
+import VideoBlock from '../../components/VideoBlock/VideoBlock';
 import AboutBlock from '../../components/AboutBlock/AboutBlock';
 import Benefits from '../../components/Benefits/Benefits';
 import Gallery from '../../components/Gallery/Gallery';
@@ -14,6 +15,7 @@ import gallery3 from '../../assets/img/gallery-3.jpg';
 import gallery4 from '../../assets/img/gallery-4.jpg';
 import gallery5 from '../../assets/img/gallery-5.jpg';
 import gallery6 from '../../assets/img/gallery-6.jpg';
+import video from '../../assets/video/apples.mp4';
 
 import './AboutPage.scss';
 
@@ -81,6 +83,7 @@ const AboutPage:FC = () => {
     return (
         <div className='main-page'>
             <Greeting />
+            <VideoBlock title='Про компанію' video={video} />
             <AboutBlock />
             <Benefits />
             <Gallery photos={photos} />
