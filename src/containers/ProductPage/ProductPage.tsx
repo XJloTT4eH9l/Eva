@@ -145,7 +145,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
         <section className="product-page">
             <div className="container">
                 <div className="bread-crumbs">
-                    <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                    <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
                     <Link className='bread-crumbs__item' to='/categories'>{t("nav.categories")}</Link>
                     <span className='bread-crumbs__item'>{productInfo?.title}</span>
                 </div>

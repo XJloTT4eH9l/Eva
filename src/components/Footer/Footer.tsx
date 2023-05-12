@@ -20,9 +20,9 @@ const Footer:FC = () => {
                     <div className="footer__column">
                         <h4 className='footer__title'>{t("nav.info")}</h4>
                         <ul className="footer__list footer__list--nav">
-                            <li className='footer__item'><NavLink className='footer__link' to='/'>{t("nav.main")}</NavLink></li>
+                            <li className='footer__item'><NavLink className='footer__link' to='/home'>{t("nav.main")}</NavLink></li>
                             <li className='footer__item'><NavLink className='footer__link' to='/categories'>{t("nav.categories")}</NavLink></li>
-                            <li className='footer__item'><NavLink className='footer__link' to='/about'>{t("nav.about")}</NavLink></li>
+                            <li className='footer__item'><NavLink className='footer__link' to='/'>{t("nav.about")}</NavLink></li>
                             <li className='footer__item'><NavLink className='footer__link' to='/contacts'>{t("nav.contacts")}</NavLink></li>
                         </ul>
                     </div>

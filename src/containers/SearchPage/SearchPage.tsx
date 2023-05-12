@@ -138,7 +138,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
         <section className='search-page'>
             <div className="container">
                 <div className="bread-crumbs">
-                    <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                    <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
                     <span className='bread-crumbs__item'>{t("nav.search")}</span>
                 </div>
                 <h1 className='title'>{searchValue.length > 0 ? (`${t("search_page.search_by_request")} "${searchValue}"`) : t("nav.search")}</h1>

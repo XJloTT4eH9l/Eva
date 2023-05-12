@@ -15,7 +15,7 @@ const CatalogPage:FC = () => {
         <section className="catalog-page">
             <div className="container">
                 <div className="bread-crumbs">
-                    <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                    <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
                     <span className='bread-crumbs__item'>{t("nav.categories")}</span>
                 </div>
             </div>

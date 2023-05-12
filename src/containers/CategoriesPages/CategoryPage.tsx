@@ -132,7 +132,7 @@ const CategoryPage = () => {
                 {loading ? <Spinner /> : (
                     <>
                         <div className="bread-crumbs">
-                            <Link className='bread-crumbs__item' to='/'>{t("nav.main")}</Link>
+                            <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
                             <Link className='bread-crumbs__item' to='/categories'>{t("nav.categories")}</Link>
                             <span className='bread-crumbs__item'>{categories?.filter(item => item.id === Number(id))[0].title}</span>
                         </div>

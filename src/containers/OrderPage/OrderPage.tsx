@@ -60,7 +60,7 @@ const OrderPage:FC = () => {
                         <h1 className='title order-page__title'>{t("order_page.order_complete")}</h1>
                         <p className='order-page__text'>{t("order_page.order_complete_descr")}</p>
                         <Link 
-                            to='/'
+                            to='/home'
                             className='order-page__categories-link'
                         >
                             {t("nav.to_main")}

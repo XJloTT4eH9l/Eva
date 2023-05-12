@@ -39,21 +39,23 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
     const onCart = async () => {
         setCartOpen(true);
         try {
-            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
-            if(res.data.length > 0 && cartItems.length > 0) {
-                const cartItemsNew = cartItems.map(item => {
+            if(cartItems.length > 0) {
+                const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+                if(res.data.length > 0) {
+                    const cartItemsNew = cartItems.map(item => {
 
-                    for(let i = 0; i < res.data.length; i++) {
-                        if(item.id === res.data[i].id) {
-                            return (
-                                {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
-                            )
+                        for(let i = 0; i < res.data.length; i++) {
+                            if(item.id === res.data[i].id) {
+                                return (
+                                    {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                                )
+                            }
                         }
-                    }
 
-                    return item
-                });
-                dispatch(setCart(cartItemsNew));
+                        return item
+                    });
+                    dispatch(setCart(cartItemsNew));
+                }
             }
         } catch (error) {
             console.log(error);

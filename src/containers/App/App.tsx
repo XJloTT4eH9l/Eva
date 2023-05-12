@@ -6,7 +6,6 @@ import Footer from "../../components/Footer/Footer";
 import Spinner from "../../components/Spinner/Spinner";
 import ScrollTopBtn from "../../components/ScrollTopBtn/ScrollTopBtn";
 
-import MainPage from "../MainPage/MainPage";
 import HomePage from "../HomePage/HomePage";
 import ProductPage from "../ProductPage/ProductPage";
 import CatalogPage from "../CatalogPage/CatalogPage";
@@ -35,13 +34,12 @@ function App() {
         setSearchList={setSearchList}
       />
       <Routes>
-        <Route path="/" element={ <HomePage /> } />
-        <Route path="/main" element={<MainPage /> } />
+        <Route path="/" element={<AboutPage/> } />
+        <Route path="/home" element={ <HomePage /> } />
         <Route path='/categories' element={ <CatalogPage /> } />
         <Route path="/product/:id" element={ <ProductPage setCartOpen={setCartOpen} />} />
         <Route path="/categories/:id" element={ <CategoryPage /> } />
         <Route path="/order" element={ <OrderPage /> } />
-        <Route path="/about" element={ <AboutPage /> } />
         <Route path="/contacts" element={ <ContactPage /> } />
         <Route path="/search" element={ 
           <SearchPage 

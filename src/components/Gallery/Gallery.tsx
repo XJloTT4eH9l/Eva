@@ -43,7 +43,6 @@ const Gallery:FC<GalleryProps> = ({ photos }) => {
 
     return (
         <section className='gallery'>
-            <img className='gallery__decoration' src={decoration} alt='decoratoin' />
             <div className="container">
                 <h2 className='gallery__title'>Галерея</h2>
                 

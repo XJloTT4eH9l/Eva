@@ -3,7 +3,7 @@ import aboutImg from '../../assets/img/about-company.jpg';
 import './AboutBlock.scss';
 
 const AboutBlock = () => {
-    const [ref, inView] = useInView({threshold: 0.5});
+    const [ref, inView] = useInView({threshold: 0.5, triggerOnce: true});
     return (
         <div className="about-block" ref={ref}>
             <div className="container">
