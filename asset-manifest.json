@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "/Eva/static/css/main.518b8402.css",
-    "main.js": "/Eva/static/js/main.9b8aa77f.js",
+    "main.css": "/Eva/static/css/main.90705172.css",
+    "main.js": "/Eva/static/js/main.f06df597.js",
+    "static/media/apples.mp4": "/Eva/static/media/apples.878db594c2a727872417.mp4",
     "static/media/gallery-2.jpg": "/Eva/static/media/gallery-2.6c7fd4e136767deed495.jpg",
     "static/media/main-juice.png": "/Eva/static/media/main-juice.87d35e0c7786834ce951.png",
     "static/media/gallery-6.jpg": "/Eva/static/media/gallery-6.d33ba831f9657bce9e9f.jpg",
@@ -29,11 +30,11 @@
     "static/media/mark.svg": "/Eva/static/media/mark.9f68c322330b5074a9bfc5887a6fc62c.svg",
     "static/media/arrow.svg": "/Eva/static/media/arrow.1552a72b7f4b79661f0a7b2659dcedd5.svg",
     "static/media/getFetch.cjs": "/Eva/static/media/getFetch.40f37ddea2378391108f.cjs",
-    "main.518b8402.css.map": "/Eva/static/css/main.518b8402.css.map",
-    "main.9b8aa77f.js.map": "/Eva/static/js/main.9b8aa77f.js.map"
+    "main.90705172.css.map": "/Eva/static/css/main.90705172.css.map",
+    "main.f06df597.js.map": "/Eva/static/js/main.f06df597.js.map"
   },
   "entrypoints": [
-    "static/css/main.518b8402.css",
-    "static/js/main.9b8aa77f.js"
+    "static/css/main.90705172.css",
+    "static/js/main.f06df597.js"
   ]
 }
