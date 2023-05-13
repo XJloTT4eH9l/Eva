@@ -81,15 +81,13 @@ const AboutPage:FC = () => {
     }, [])
     
     return (
-        <div className='main-page'>
+        <div className='about-page'>
             <Greeting />
             <VideoBlock title='Про компанію' video={video} />
             <AboutBlock />
             <Benefits />
             <Gallery photos={photos} />
-            <div className='container'>
-                <Faq />
-            </div> 
+            <Faq />
         </div>
     )
 }

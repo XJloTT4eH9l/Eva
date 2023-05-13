@@ -1,31 +1,76 @@
 @import '../../styles/variables.scss';
 
 .faq {
-    max-width: 800px;
     margin: 0 auto;
-    margin-top: 30px;
     &__title {
-        margin-bottom: 30px;
+        position: relative;
+        margin-bottom: 40px;
         font-size: 22px;
+        text-align: center;
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: block;
+            height: 3px;
+            width: 150px;
+            background-color: $color-black;
+        }
     }
     &__item {
-        padding: 15px 10px;
+        position: relative;
+        padding: 15px 25px;
         margin-bottom: 20px;
-        border: 1px solid #b5e5b9;
+        border: 1px solid #b5e5b982;
         border-radius: 6px;
         cursor: pointer;
         transition: background-color 0.2s linear;
-        &--active {
-            background-color: #b5e5b9;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 28px;
+            display: block;
+            height: 2px;
+            width: 40px;
+            background-color: $color-black;
+            opacity: 0;
+            transition: opacity 0.3s linear;
+            @media screen and (max-width: 450px) {
+                width: 30px;
+                left: 18px;
+            }
         }
-        &:hover {
-            background-color: #b5e5b9;
+        &--active {
+            background-color: #b5e5b982;
+            &::after {
+                opacity: 1;
+            }
+        }
+        @media screen and (min-width: 900px) {
+            &:hover {
+                background-color: #b5e5b982;
+            }
+        }
+        @media screen and (max-width: 450px) {
+            padding: 15px;
         }
     }
     &__heading {
-        font-size: 20px;
+        font-size: 18px;
+        font-weight: 400;
+        transition: transform 0.3s ease-in, opacity 0.3s linear;
+        &--active {
+            transform: translateX(60px);
+            @media screen and (max-width: 450px) {
+                transform: translateX(40px);
+            }
+        }
     }
     &__question {
+        position: relative;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -44,6 +89,7 @@
         display: none;
         line-height: 1.4;
         padding-right: 20px;
+        color: $color-grey-text;
         &--active {
             margin-top: 10px;
             display: block;

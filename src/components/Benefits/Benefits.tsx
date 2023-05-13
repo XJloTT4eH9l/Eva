@@ -8,11 +8,11 @@ import award from '../../assets/img/award.png';
 import './Benefits.scss';
 
 const Benefits = () => {
-    const [ref, inView] = useInView({threshold: 0.3, triggerOnce: true});
+    const [ref, inView] = useInView({threshold: 0.1, triggerOnce: true});
     return (
         <section className="benefits">
             <div className="container">
-                <h2 className='benefits__heading'>Переваги</h2>
+                <h2 className={inView ? "benefits__heading benefits__heading--active" : "benefits__heading"}>Нам довіряють</h2>
                 <ul className='benefits__inner' ref={ref}>
                     <li className={inView ? "benefits__item benefits__item--active" : "benefits__item"}>
                         <h3 className='benefits__title'>Виробнича потужність</h3>
@@ -54,7 +54,8 @@ const Benefits = () => {
                         <ul className='benefits__list'>
                             <li className='benefits__part'>
                                 <img src={award} alt='Top Ukranian Award'/>
-                                <p>Всеукраїнське дослідження кращих товарів та послуг</p>
+                                <p>Top Ukrainian Award 2020</p>
+                                <p className='subtitle'>Всеукраїнське дослідження кращих товарів та послуг</p>
                             </li>
                         </ul>
                     </li>

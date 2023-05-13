@@ -17,6 +17,11 @@
         height: 100%;
         z-index: -1;
         overflow: hidden;
+        opacity: 0;
+        transition: opacity 0.3s linear;
+        &--active {
+            opacity: 1;
+        }
     }
     &__title {
         position: absolute;

@@ -61,28 +61,30 @@ const Faq = () => {
 
     return (
         <section className="faq">
-            <h2 className="faq__title">Питання які нам часто задають</h2>
-            <ul className="faq__questions">
-                {faqQuestions && (
-                    faqQuestions.map(item => (
-                        <li 
-                            key={item.id} 
-                            className={item.active ? 'faq__item faq__item--active' : 'faq__item'}
-                            onClick={() => setActiveQuestion(item.id)}
-                        >
-                            <div className="faq__question">
-                                <h3 className="faq__heading">{item.question}</h3>
-                                <img 
-                                    src={arrow}
-                                    alt='Відкрити'
-                                    className={item.active ? 'faq__arrow faq__arrow--active' : 'faq__arrow'} 
-                                />
-                            </div>
-                            <p className={item.active ? 'faq__answer faq__answer--active' : 'faq__answer'}>{item.answer}</p>
-                        </li>
-                    ))
-                )}
-            </ul>
+            <div className="container">
+                <h2 className="faq__title">Питання які нам часто задають</h2>
+                <ul className="faq__questions">
+                    {faqQuestions && (
+                        faqQuestions.map(item => (
+                            <li 
+                                key={item.id} 
+                                className={item.active ? 'faq__item faq__item--active' : 'faq__item'}
+                                onClick={() => setActiveQuestion(item.id)}
+                            >
+                                <div className="faq__question">
+                                    <h3 className={item.active ? 'faq__heading faq__heading--active' : 'faq__heading'}>{item.question}</h3>
+                                    <img 
+                                        src={arrow}
+                                        alt='Відкрити'
+                                        className={item.active ? 'faq__arrow faq__arrow--active' : 'faq__arrow'} 
+                                    />
+                                </div>
+                                <p className={item.active ? 'faq__answer faq__answer--active' : 'faq__answer'}>{item.answer}</p>
+                            </li>
+                        ))
+                    )}
+                </ul>
+            </div>
         </section>
     )
 }
