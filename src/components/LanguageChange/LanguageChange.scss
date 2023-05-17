@@ -24,19 +24,19 @@
         &:hover {
             color: $color-white;
         }
-       &:not(:last-child) {
-        margin-right: 20px;
-        &::after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 32px;
-            width: 2px;
-            height: 20px;
-            background-color: $color-white;
-            transform: rotate(180deg);
+        &:not(:last-child) {
+            margin-right: 20px;
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 32px;
+                width: 2px;
+                height: 20px;
+                background-color: $color-white;
+                transform: rotate(180deg);
+            }
         }
-       }
     }
 }

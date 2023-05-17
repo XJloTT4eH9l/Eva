@@ -8,7 +8,8 @@
         "search": "Search",
         "back": "Back",
         "to_catalog": "To catalog",
-        "to_main": "To main"
+        "to_main": "To the main",
+        "to_store": "To the store"
     },
     "proposition": {
         "promo": "Promo",
@@ -27,6 +28,16 @@
         "found": "Found in total",
         "products": "products",
         "view_all": "View all"
+    },
+    "about_page": {
+        "about_company": "About company",
+        "our_company": "Our company",
+        "benefits": "Benefits",
+        "production_capacity": "Production capacity",
+        "trust": "They trust us",
+        "awards": "Awards",
+        "gallery": "Gallery",
+        "faq": "Questions we are often asked"
     },
     "sorting": {
         "title": "Sorting",

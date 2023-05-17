@@ -23,7 +23,7 @@ const RecentlyViewed:FC<RecentlyViewedProps> = ({ type, id }) => {
 
     const getProductsById = async () => {
         try {
-            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + recentsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + recentsIds.join(',') + `&lang_id=${currentLanguage.id}`);
 
             if(res.data.length > 0 && recents.length > 0) {
                 const upadatedRecents = recentlyMain.map(item => {

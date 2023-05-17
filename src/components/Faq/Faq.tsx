@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import arrow from '../../assets/img/arrow.svg';
 import './Faq.scss';
 
@@ -10,13 +11,14 @@ interface FaqQuestions {
 }
 
 const Faq = () => {
+    const { t } = useTranslation();
     const [faqQuestions, setFaqQuestions] = useState<FaqQuestions[]>();
     const questions = [
         {
-        id: 1, 
-        question: 'Як зробити замовлення?',
-        answer: "Зробити замовлення на нашому сайті дуже просто, для цього потрібно натиснути кнопку «Додати в кошик», потім перейти в «Кошик», натиснути «Оформити замовлення» та заповнивнити міні-анкету. Якщо ви бажаєте отримати додаткову консультацію перед покупкою, перейдіть в розділ «Контакти» та подзвоніть на один з предоставлених номерів. Також можна зробити або уточнити замовлення, зв'язавшись по контактному номеру",
-        active: false
+            id: 1, 
+            question: 'Як зробити замовлення?',
+            answer: "Зробити замовлення на нашому сайті дуже просто, для цього потрібно натиснути кнопку «Додати в кошик», потім перейти в «Кошик», натиснути «Оформити замовлення» та заповнивнити міні-анкету. Якщо ви бажаєте отримати додаткову консультацію перед покупкою, перейдіть в розділ «Контакти» та подзвоніть на один з предоставлених номерів. Також можна зробити або уточнити замовлення, зв'язавшись по контактному номеру",
+            active: false
         },
         {
             id: 2, 
@@ -62,7 +64,7 @@ const Faq = () => {
     return (
         <section className="faq">
             <div className="container">
-                <h2 className="faq__title">Питання які нам часто задають</h2>
+                <h2 className="faq__title">{t("about_page.faq")}</h2>
                 <ul className="faq__questions">
                     {faqQuestions && (
                         faqQuestions.map(item => (

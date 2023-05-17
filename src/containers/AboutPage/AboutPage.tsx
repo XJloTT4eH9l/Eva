@@ -28,6 +28,8 @@ const AboutPage:FC = () => {
         {id: 4, img: gallery4},
         {id: 5, img: gallery5},
         {id: 6, img: gallery6},
+        {id: 7, img: gallery1},
+        {id: 8, img: gallery2},
     ];
 
     // const about = [
@@ -83,7 +85,7 @@ const AboutPage:FC = () => {
     return (
         <div className='about-page'>
             <Greeting />
-            <VideoBlock title='Про компанію' video={video} />
+            <VideoBlock title={t("about_page.about_company")} video={video} />
             <AboutBlock />
             <Benefits />
             <Gallery photos={photos} />

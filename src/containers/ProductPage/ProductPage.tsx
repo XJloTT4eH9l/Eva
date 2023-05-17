@@ -50,7 +50,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
         try {
             setLoading(true);
 
-            const res = await axios.get(API_PRODUCT + id + `?lang_id=${currentLanguage.id}`);
+            const res = await axios.get(API_PRODUCT + id + `&lang_id=${currentLanguage.id}`);
             const сharacteristicsParsed = Object.entries(res.data.characteristic)
                 .map(item => [String(item[0]), String(item[1])])
                 .map(([name, text]) => ({ name, text }));
@@ -100,7 +100,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
     const onCartOpen = async () => {
         setCartOpen(true);
         try {
-            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `&lang_id=${currentLanguage.id}`);
             if(res.data.length > 0 && cartItemsSelector.length > 0) {
                 const cartItemsNew = cartItemsSelector.map(item => {
 

@@ -113,17 +113,17 @@ const CategoryPage = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=1`);
+        getProducts(API_CATEGORIES_PRODUCTS + `?id=${id}` + `&lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=1`);
         getCategories();
     }, [])
 
     useEffect(() => {
-        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=1`);
+        getProducts(API_CATEGORIES_PRODUCTS + `?id=${id}` + `&lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=1`);
         getCategories();
     }, [currentLanguage])
 
     useEffect(() => {
-        getProducts(API_CATEGORIES_PRODUCTS + `id=${id}` + `?lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=${pageNum}`);
+        getProducts(API_CATEGORIES_PRODUCTS + `?id=${id}` + `&lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=${pageNum}`);
     }, [pageNum, sort])
 
     return (

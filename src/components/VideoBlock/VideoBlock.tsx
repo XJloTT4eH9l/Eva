@@ -7,7 +7,7 @@ interface VideoBlockProps {
     video: string;
 }
 
-const VideoBlock:FC<VideoBlockProps> = ({title, video}) => {
+const VideoBlock:FC<VideoBlockProps> = ({ title, video }) => {
     const [ref, inView] = useInView({threshold: 0.3, triggerOnce: true});
     return (
         <section className="video-block" ref={ref}>

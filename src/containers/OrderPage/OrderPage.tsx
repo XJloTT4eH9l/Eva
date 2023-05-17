@@ -23,7 +23,7 @@ const OrderPage:FC = () => {
 
     const translateCartItems = async () => {
         try {
-            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+            const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `&lang_id=${currentLanguage.id}`);
             if(res.data.length > 0 && cartItems.length > 0) {
                 const cartItemsNew = cartItems.map(item => {
     
@@ -45,7 +45,6 @@ const OrderPage:FC = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        console.log(cartItems);
     }, [])
 
     useEffect(() => {

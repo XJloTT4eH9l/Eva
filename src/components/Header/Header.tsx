@@ -40,7 +40,7 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
         setCartOpen(true);
         try {
             if(cartItems.length > 0) {
-                const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `?lang_id=${currentLanguage.id}`);
+                const res = await axios.get<IProductDetail[]>(API_PRODUCTS + cartItemsIds.join(',') + `&lang_id=${currentLanguage.id}`);
                 if(res.data.length > 0) {
                     const cartItemsNew = cartItems.map(item => {
 
