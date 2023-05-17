@@ -18,25 +18,21 @@
         cursor: pointer;
         transition: color, 0.2s linear;
         color: rgba($color-white, 0.7);
+        padding-left: 10px;
+        padding-right: 10px;
+        border-right: 2px solid $color-white;
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+            border-right: none;
+        }
         &--active {
             color: $color-white;
         }
         &:hover {
             color: $color-white;
-        }
-        &:not(:last-child) {
-            margin-right: 20px;
-            &::after {
-                content: '';
-                display: block;
-                position: absolute;
-                top: 0;
-                left: 32px;
-                width: 2px;
-                height: 20px;
-                background-color: $color-white;
-                transform: rotate(180deg);
-            }
         }
     }
 }

@@ -46,3 +46,73 @@ export interface IPhoto {
     id: number;
     img: string;
 }
+
+//translation
+
+interface TelephoneNumber {
+    presentationNum: string;
+    actualNum: string;
+}
+
+interface Company {
+    name: string;
+    info: string;
+}
+
+interface Address {
+    name: string;
+    info: string[];
+}
+
+interface Email {
+    name: string;
+    info: string[];
+}
+
+interface Schedule {
+    name: string;
+    time: string;
+}
+
+interface Location {
+    name: string;
+    googleMap: string;
+}
+
+export interface ContactType {
+    titleCompany: Company;
+    address: Address;
+    email: Email;
+    telephone: {
+        name: string;
+        telephoneNumber: TelephoneNumber[];
+    };
+    schedule: Schedule;
+    location: Location;
+}
+
+export interface StaticTranslation {
+    nav: Record<string, string>;
+    proposition: Record<string, string>;
+    contact_page: ContactType;
+    search_page: Record<string, string>;
+    sorting: Record<string, string>;
+    buy_info: Record<string, string>;
+    product_page: Record<string, string>;
+    cart: Record<string, string>;
+    order_page: {
+        order: string;
+        order_complete: string;
+        order_complete_descr: string;
+        order_pick_up: string;
+        our_address: string;
+        our_address_short: string;
+        order_form: Record<string, string>;
+    };
+    about_page: Record<string, string>;
+}
+
+export interface ITranslation {
+    lang_id: number;
+    data: StaticTranslation;
+};

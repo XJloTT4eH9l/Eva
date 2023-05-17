@@ -1,74 +1,39 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { API_TRANSLATIONS } from '../../constants/api';
+import { ContactType } from '../../types/types';
 import Spinner from '../../components/Spinner/Spinner';
 import './ContactPage.scss';
 
-interface ContactObj {
-    name: string;
-    info: string[];
-}
-
-interface telNumbers {
-    presentationNum: string;
-    actualNum: string
-}
-
-interface telephoneInfo {
-    name: string;
-    telephoneNumber: telNumbers[];
-}
-
-interface scheduleInfo {
-    name: string;
-    time: string;
-}
-
-interface ContactInfo {
-    titleCompany: ContactObj;
-    addres: ContactObj;
-    telephone: telephoneInfo;
-    email: ContactObj;
-    schedule: scheduleInfo;
-    location: string;
-}
-
 const ContactPage = () => {
-    const [contactInfo, setContactInfo] = useState<ContactInfo>();
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
+    const [contactInfo, setContactInfo] = useState<ContactType>();
     const [loading, setLoading] = useState<boolean>();
     const { t } = useTranslation(); 
-    
-    const infoData = {
-        titleCompany: {name: 'Назва компанії', info: ['ТОВ "Вітамін2015"']},
-        addres: {name: 'Адреса', info: ['с. Лепесівка , вул. Залізнодорожна 14, Хмельницька обл.']},
-        telephone: {
-            name: 'Телефон',
-            telephoneNumber: [
-                {presentationNum: '+38 (096) 198-98-06', actualNum: '+380961989806'},
-                {presentationNum: '+38 (096) 085-39-34', actualNum: '+380960853934'},
-                {presentationNum: '+38 (068) 626-32-26', actualNum: '+380686263226'},
-                {presentationNum: '+38 (067) 199-01-09', actualNum: '+380671990109'}
-            ]
-        },
-        email: {name: 'Email', info: ['vitamin.rsv@gmail.com']},
-        schedule: {name: 'Графік роботи', time: 'Пн - Пт 09:00 - 18:00; Сб, Нд - Вихідні'},
-        location: 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2547.3825111721117!2d26.879228015542644!3d50.322114504485064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTDCsDE5JzE5LjYiTiAyNsKwNTInNTMuMSJF!5e0!3m2!1sru!2sua!4v1681031957258!5m2!1sru!2sua'
+
+    const getContactInfo = async () => {
+        try {
+            setLoading(true);
+            const res = await axios.get(API_TRANSLATIONS + currentLanguage.id);
+            setContactInfo(res.data[0].data.contact_page);
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     useEffect(() => {
-        const getContactInfo = async () => {
-            //request
-            try {
-                setLoading(true);
-                setContactInfo(infoData);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
-        }
         window.scrollTo(0, 0);
         getContactInfo();
     }, [])
+
+    useEffect(() => {
+        getContactInfo();
+    }, [currentLanguage])
+
     return (
         <section className="contact-page">
             <div className="container">
@@ -84,21 +49,17 @@ const ContactPage = () => {
                                 <div className='contact-page__top-info'>
                                     <div className="contact-page__item">
                                         <h2 className='contact-page__title'>{contactInfo?.titleCompany.name}</h2>
-                                        <ul className='contact-page__list'>
-                                            {contactInfo?.titleCompany.info.map(item => (
-                                                <li key={item}>{item}</li>
-                                            ))}
-                                        </ul>
+                                        <p>{contactInfo?.titleCompany.info}</p>
                                     </div>
                                     <div className="contact-page__item">
-                                        <h2 className='contact-page__title'>{contactInfo?.addres.name}</h2>
+                                        <h2 className='contact-page__title'>{t("contact_page.address.name")}</h2>
                                         <ul className='contact-page__list'>
-                                            {contactInfo?.addres.info.map(item => (
+                                            {contactInfo?.address.info.map(item => (
                                                 <li key={item}>
-                                                    <a target='_blank' rel="noreferrer" className='contact-page__link' href={`href:${item}`}>
+                                                    <p className='contact-page__link'>
                                                         <svg className='contact-page__icon'><use href='#location'></use></svg>
                                                         <span>{item}</span>
-                                                    </a>
+                                                    </p>
                                                 </li>
                                             ))}
                                         </ul>
@@ -138,9 +99,9 @@ const ContactPage = () => {
                                 </div>
                             </div>
                             <div className="contact-page__map">
-                                <h2 className='contact-page__title contact-page__title--location'>{t("contact_page.location")}</h2>
+                                <h2 className='contact-page__title contact-page__title--location'>{contactInfo?.location.name}</h2>
                             <iframe 
-                                src={contactInfo?.location}
+                                src={contactInfo?.location.googleMap}
                                 title='Eva location'
                                 className='location' 
                                 allowFullScreen={true} 
