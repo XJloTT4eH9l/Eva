@@ -1,21 +1,17 @@
 {
   "files": {
-    "main.css": "/Eva/static/css/main.d70f2717.css",
-    "main.js": "/Eva/static/js/main.458ba495.js",
+    "main.css": "/Eva/static/css/main.6280e1cc.css",
+    "main.js": "/Eva/static/js/main.1ee53f29.js",
     "static/media/apples.mp4": "/Eva/static/media/apples.878db594c2a727872417.mp4",
     "static/media/gallery-2.jpg": "/Eva/static/media/gallery-2.6c7fd4e136767deed495.jpg",
-    "static/media/main-juice.png": "/Eva/static/media/main-juice.87d35e0c7786834ce951.png",
     "static/media/gallery-6.jpg": "/Eva/static/media/gallery-6.d33ba831f9657bce9e9f.jpg",
-    "static/media/award.png": "/Eva/static/media/award.06c8367ec133c6292953.png",
     "static/media/gallery-5.jpg": "/Eva/static/media/gallery-5.359fa07b505850dd6361.jpg",
     "static/media/hero-bg3.jpg": "/Eva/static/media/hero-bg3.32a18a29d6774930452e.jpg",
     "static/media/hero-bg2.jpg": "/Eva/static/media/hero-bg2.b897b8b0c8da8f7c54ea.jpg",
     "static/media/hero-bg.jpg": "/Eva/static/media/hero-bg.f6b5f0030fe7a7cc4cd7.jpg",
-    "static/media/about-company.jpg": "/Eva/static/media/about-company.a162ebfa3848df314d6e.jpg",
     "static/media/gallery-4.jpg": "/Eva/static/media/gallery-4.fa9cb63858a021eddfe3.jpg",
     "static/media/gallery-1.jpg": "/Eva/static/media/gallery-1.13db69b77a3bb07c4010.jpg",
     "static/media/gallery-3.jpg": "/Eva/static/media/gallery-3.8896e4747410d17d8fa0.jpg",
-    "static/media/danon.png": "/Eva/static/media/danon.70866ade271ddf996d4b.png",
     "static/media/cart-empty.svg": "/Eva/static/media/cart-empty.839afd8054e11f36b945252a27de6185.svg",
     "static/media/order-completed.svg": "/Eva/static/media/order-completed.1ec18efe991ace69db7f0d5e847155a5.svg",
     "static/media/logo.svg": "/Eva/static/media/logo.2758ce1ff12677e180f0886086a71908.svg",
@@ -30,11 +26,11 @@
     "static/media/mark.svg": "/Eva/static/media/mark.9f68c322330b5074a9bfc5887a6fc62c.svg",
     "static/media/arrow.svg": "/Eva/static/media/arrow.1552a72b7f4b79661f0a7b2659dcedd5.svg",
     "static/media/getFetch.cjs": "/Eva/static/media/getFetch.40f37ddea2378391108f.cjs",
-    "main.d70f2717.css.map": "/Eva/static/css/main.d70f2717.css.map",
-    "main.458ba495.js.map": "/Eva/static/js/main.458ba495.js.map"
+    "main.6280e1cc.css.map": "/Eva/static/css/main.6280e1cc.css.map",
+    "main.1ee53f29.js.map": "/Eva/static/js/main.1ee53f29.js.map"
   },
   "entrypoints": [
-    "static/css/main.d70f2717.css",
-    "static/js/main.458ba495.js"
+    "static/css/main.6280e1cc.css",
+    "static/js/main.1ee53f29.js"
   ]
 }
