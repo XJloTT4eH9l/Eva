@@ -21,33 +21,14 @@
     }
     &__item {
         position: relative;
-        padding: 15px 25px;
+        padding: 5px 25px;
         margin-bottom: 20px;
         border: 1px solid #b5e5b982;
         border-radius: 6px;
         cursor: pointer;
         transition: background-color 0.2s linear;
-        &::after {
-            content: '';
-            position: absolute;
-            top: 24px;
-            left: 28px;
-            display: block;
-            height: 2px;
-            width: 40px;
-            background-color: $color-black;
-            opacity: 0;
-            transition: opacity 0.3s linear;
-            @media screen and (max-width: 450px) {
-                width: 30px;
-                left: 18px;
-            }
-        }
         &--active {
             background-color: #b5e5b982;
-            &::after {
-                opacity: 1;
-            }
         }
         @media screen and (min-width: 900px) {
             &:hover {
@@ -55,11 +36,13 @@
             }
         }
         @media screen and (max-width: 450px) {
-            padding: 15px;
+            padding: 5px 15px;
         }
     }
     &__heading {
         font-size: 18px;
+        margin: 10px 0;
+        padding-right: 30px;
         font-weight: 400;
         transition: transform 0.3s ease-in, opacity 0.3s linear;
         &--active {
@@ -69,30 +52,37 @@
             }
         }
     }
-    &__question {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
     &__arrow {
+        position: absolute;
+        top: 17px;
+        right: 20px;
         width: 20px;
         height: 20px;
         transform: rotate(0deg);
-        transition: transform 0.3s linear;
+        transition: transform 0.5s linear;
         &--active {
             transform: rotate(180deg);
         }
     }
+    &__wrapper {
+        display: grid;
+        grid-template-rows: 0fr;
+        overflow: hidden;
+        transition: grid-template-rows 0.5s;
+        &--active {
+            grid-template-rows: 1fr;
+        }
+    }
     &__answer {
+        min-height: 0;
+        transition: visibility 0.5s linear;
+        visibility: hidden;
         font-size: 16px;
-        display: none;
+        padding-right: 10px;
         line-height: 1.4;
-        padding-right: 20px;
         color: $color-grey-text;
         &--active {
-            margin-top: 10px;
-            display: block;
+            visibility: visible;
         }
     }
 }

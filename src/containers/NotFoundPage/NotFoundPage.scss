@@ -1,0 +1,42 @@
+.not-found {
+    min-height: 500px;
+    margin-top: 50px;
+    @media screen and (max-width: 900px) {
+        margin-top: 30px;
+    }
+    &__title {
+        font-size: 70px;
+        text-align: center;
+        margin-bottom: 10px;
+        @media screen and (max-width: 480px) {
+            font-size: 50px;
+            margin-bottom: 0;
+        }
+    }
+    &__text {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+        opacity: 0.7;
+        @media screen and (max-width: 480px) {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+    }
+    &__link {
+        display: block;
+        max-width: 200px;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 6px;
+        color: white;
+        background-color: #406343;
+        transition: background-color 0.2s linear;
+        &:hover {
+            background-color: rgba(#406343, 0.8);
+        }
+    }
+}

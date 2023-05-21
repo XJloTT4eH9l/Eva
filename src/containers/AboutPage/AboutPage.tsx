@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FC } from 'react';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { API_TRANSLATIONS } from '../../constants/api';
+import { IAboutPage } from '../../types/types';
+import axios from 'axios';
 
 import Greeting from '../../components/Greeting/Greeting';
 import VideoBlock from '../../components/VideoBlock/VideoBlock';
@@ -8,6 +12,7 @@ import AboutBlock from '../../components/AboutBlock/AboutBlock';
 import Benefits from '../../components/Benefits/Benefits';
 import Gallery from '../../components/Gallery/Gallery';
 import Faq from '../../components/Faq/Faq';
+import Spinner from '../../components/Spinner/Spinner';
 
 import gallery1 from '../../assets/img/gallery-1.jpg';
 import gallery2 from '../../assets/img/gallery-2.jpg';
@@ -20,6 +25,22 @@ import video from '../../assets/video/apples.mp4';
 import './AboutPage.scss';
 
 const AboutPage:FC = () => {
+    const currentLanguage = useAppSelector(state => state.languages.curentLang);
+    const [aboutPageInfo, setAboutPageInfo] = useState<IAboutPage>();
+    const [loading, setLoading] = useState<boolean>(false);
+
+    const getAboutPageInfo = async () => {
+        try {
+            setLoading(true);
+            const res = await axios.get(API_TRANSLATIONS + currentLanguage.id);
+            if(res.status === 200) {
+                setAboutPageInfo(res.data[0].data.about_page);
+            }
+            setLoading(false);
+        } catch (error) {
+            
+        }
+    }
     const { t } = useTranslation();
     const photos = [
         {id: 1, img: gallery1},
@@ -31,8 +52,6 @@ const AboutPage:FC = () => {
         {id: 7, img: gallery1},
         {id: 8, img: gallery2},
     ];
-
-    // const about = [
     //     {
     //         id: 1,
     //         title: 'Наша продукція',
@@ -80,16 +99,33 @@ const AboutPage:FC = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        getAboutPageInfo();
     }, [])
+
+    useEffect(() => {
+        getAboutPageInfo();
+    }, [currentLanguage])
     
     return (
         <div className='about-page'>
-            <Greeting />
-            <VideoBlock title={t("about_page.about_company")} video={video} />
-            <AboutBlock />
-            <Benefits />
-            <Gallery photos={photos} />
-            <Faq />
+            {loading ? <Spinner /> : (
+                <>
+                    {aboutPageInfo && (
+                        <>
+                            <Greeting
+                                title={aboutPageInfo.greeting.title} 
+                                text={aboutPageInfo.greeting.text}
+                                img={aboutPageInfo.greeting.img}
+                            />
+                            <VideoBlock title={t("about_page.company.title")} video={video} />
+                            <AboutBlock sections={aboutPageInfo.company.sections} />
+                            <Benefits title={aboutPageInfo.benefits.title} sections={aboutPageInfo.benefits.sections} />
+                            <Gallery title={aboutPageInfo.gallery.title} photos={photos} />
+                            <Faq title={aboutPageInfo.faq.title} sections={aboutPageInfo.faq.sections} />
+                        </>
+                    )}
+                </>
+            )}
         </div>
     )
 }

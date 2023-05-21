@@ -14,6 +14,7 @@ import OrderPage from '../OrderPage/OrderPage';
 import AboutPage from "../AboutPage/AboutPage";
 import ContactPage from "../ContactPage/ContactPage";
 import SearchPage from "../SearchPage/SearchPage";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 import { IProductDetail } from "../../types/types";
 
@@ -49,6 +50,7 @@ function App() {
             setSearchList={setSearchList}
           /> 
         } />
+        <Route path="*" element={ <NotFoundPage /> } />
       </Routes>
       <Footer />
       <ScrollTopBtn />

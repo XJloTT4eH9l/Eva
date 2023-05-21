@@ -91,6 +91,45 @@ export interface ContactType {
     location: Location;
 }
 
+export interface IAboutPage {
+    company: {
+        title: string;
+        sections: {
+          title: string;
+          text: string;
+          img: string;
+        }[];
+      };
+      benefits: {
+        title: string;
+        sections: {
+          title: string;
+          info: {
+            name: string | null;
+            text: string | null;
+            img: string | null;
+          }[];
+        }[];
+      };
+      greeting: {
+        title: string;
+        text: string;
+        img: string;
+      };
+      faq: {
+        title: string;
+        sections: {
+          title: string;
+          text: string;
+          active: boolean;
+        }[];
+      };
+      gallery: {
+        title: string;
+        photos: (string | null)[];
+      };
+}
+
 export interface StaticTranslation {
     nav: Record<string, string>;
     proposition: Record<string, string>;
@@ -109,7 +148,7 @@ export interface StaticTranslation {
         our_address_short: string;
         order_form: Record<string, string>;
     };
-    about_page: Record<string, string>;
+    about_page: IAboutPage;
 }
 
 export interface ITranslation {

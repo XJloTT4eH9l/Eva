@@ -1,67 +1,42 @@
+import { FC } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useTranslation } from 'react-i18next';
-
-import biola from '../../assets/img/biola.png';
-import danon from '../../assets/img/danon.png';
-import sandora from '../../assets/img/sandora.png';
-import award from '../../assets/img/award.png';
 
 import './Benefits.scss';
 
-const Benefits = () => {
-    const { t } = useTranslation();
+interface BenefitsProps {
+    title: string;
+    sections: {
+        title: string;
+        info: {
+            name: string | null;
+            text: string | null;
+            img: string | null;
+        }[];
+    }[];
+}
+
+const Benefits:FC<BenefitsProps> = ({ title, sections }) => {
     const innerWidth = window.innerWidth;
     const [ref, inView] = useInView({threshold: innerWidth < 900 ? 0.1 : 0.3, triggerOnce: true});
     return (
         <section className="benefits">
             <div className="container">
-                <h2 className={inView ? "benefits__heading benefits__heading--active" : "benefits__heading"}>{t("about_page.benefits")}</h2>
+                <h2 className={inView ? "benefits__heading benefits__heading--active" : "benefits__heading"}>{title}</h2>
                 <ul className='benefits__inner' ref={ref}>
-                    <li className={inView ? "benefits__item benefits__item--active" : "benefits__item"}>
-                        <h3 className='benefits__title'>{t("about_page.production_capacity")}</h3>
-                        <ul className='benefits__list'>
-                            <li className='benefits__part'>
-                                <p>Переробка яблук у сезон</p>
-                                <span>150тыс тонн</span>
-                            </li>
-                            <li className='benefits__part'>
-                                <p>Фруктового пюре за добу</p>
-                                <span>200 тонн</span>
-                            </li>
-                            <li className='benefits__part'>
-                                <p>Яблучного концентрату за добу</p>
-                                <span>235 тонн</span>
-                            </li>
-                            <li className='benefits__part'>
-                                <p>Аромат фруктовий</p>
-                                <span>до 800 тонн</span>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className={inView ? "benefits__item benefits__item--active" : "benefits__item"}>
-                        <h3 className='benefits__title'>{t("about_page.trust")}</h3>
-                        <ul className='benefits__list'>
-                            <li className='benefits__part'>
-                                <img src={biola} alt='biola'/>
-                            </li>
-                            <li className='benefits__part'>
-                                <img src={danon} alt='danon'/>
-                            </li>
-                            <li className='benefits__part'>
-                                <img src={sandora} alt='sandora'/>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className={inView ? "benefits__item benefits__item--active" : "benefits__item"}>
-                        <h3 className='benefits__title'>{t("about_page.awards")}</h3>
-                        <ul className='benefits__list'>
-                            <li className='benefits__part'>
-                                <img src={award} alt='Top Ukranian Award'/>
-                                <p>Top Ukrainian Award 2020</p>
-                                <p className='subtitle'>Всеукраїнське дослідження кращих товарів та послуг</p>
-                            </li>
-                        </ul>
-                    </li>
+                    {sections.map(section => (
+                        <li key={section.title} className={inView ? "benefits__item benefits__item--active" : "benefits__item"}>
+                            <h3 className='benefits__title'>{section.title}</h3>
+                            <ul className='benefits__list'>
+                                {section.info.map((item, i) => (
+                                    <li className='benefits__part' key={i}>
+                                        { item.img && <img src={item.img} alt='' /> }
+                                        { item.name && <p>{item.name}</p> }
+                                        { item.text && <span>{item.text}</span> }
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </section>

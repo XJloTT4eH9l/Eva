@@ -58,12 +58,19 @@
     &__link {
         position: relative;
         padding: 15px 30px;
-        color: $color-white;
+        color: $color-black;
         background-color: #FEB101;
         font-size: 18px;
         border-radius: 6px;
-        transition: box-shadow 0.2s linear;
+        transition: box-shadow 0.2s linear, color 0.2 linear, background-color 0.2s linear;
         z-index: 50;
+        margin-right: 30px;
+        &:last-child {
+            margin-right: 0;
+        }
+        &--outline {
+            background-color: $color-white;
+        }
         &:hover {
             box-shadow: 1px 1px 15px 0px rgba(0, 0, 0, 0.5);
         }

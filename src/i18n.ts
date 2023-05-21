@@ -44,13 +44,3 @@ i18n
   })
 
 export default i18n;
-
-// import translationUa from './locales/UA/translation.json';
-// import translationEn from './locales/EN/translation.json';
-
- // EN: {
-  //   translation: translationEn
-  // },
-  // UA: {
-  //   translation: translationUa
-  // }

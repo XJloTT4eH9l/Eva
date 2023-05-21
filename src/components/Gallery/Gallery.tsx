@@ -10,10 +10,11 @@ import arrow from '../../assets/img/arrow.svg';
 import './Gallery.scss';
 
 interface GalleryProps {
+    title: string
     photos: IPhoto[];
 }
 
-const Gallery:FC<GalleryProps> = ({ photos }) => {
+const Gallery:FC<GalleryProps> = ({ title, photos }) => {
     const { t } = useTranslation();
     const [imgNumber, setImgNumber] = useState(0);
     const [modalOpen, setModalOpen] = useState(false);
@@ -48,7 +49,7 @@ const Gallery:FC<GalleryProps> = ({ photos }) => {
     return (
         <section className='gallery' ref={ref}>
             <div className="container">
-                <h2 className={inView ? 'gallery__title gallery__title--active' : 'gallery__title'}>{t("about_page.gallery")}</h2>
+                <h2 className={inView ? 'gallery__title gallery__title--active' : 'gallery__title'}>{title}</h2>
                 
                 <ul className={inView ? 'gallery__list gallery__list--active' : 'gallery__list'}>
                     {photos.filter((_, i) => i < 6).map((photo, i) => (
