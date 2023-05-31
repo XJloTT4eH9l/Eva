@@ -21,7 +21,7 @@ const Greeting:FC<GreetingProps> = ({ title, text, img }) => {
                         <h1 className='greeting__title'>{title}</h1>
                         <p className="greeting__text">{text}</p>
                         <Link className='greeting__link' to='/home'>{t("nav.to_store")}</Link>
-                        <a className='greeting__link greeting__link--outline' href='#faq'>FAQ</a>
+                        <a className='greeting__link greeting__link--outline' href='#faq'>{t("nav.to_faq")}</a>
                     </div>
                     <img className={inView ? 'greeting__img greeting__img--active' : 'greeting__img'} src={img} alt={title} />
                 </div>

@@ -1,8 +1,5 @@
 import { FC } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { useTranslation } from 'react-i18next';
-import axios from 'axios';
-import aboutImg from '../../assets/img/about-company.jpg';
 import './AboutBlock.scss';
 
 interface AboutBlockProps {
@@ -14,9 +11,8 @@ interface AboutBlockProps {
 }
 
 const AboutBlock:FC<AboutBlockProps> = ({ sections }) => {
-    const { t } = useTranslation();
     const innerWidth = window.innerWidth;
-    const [ref, inView] = useInView({threshold: innerWidth < 900 ? 0.1 : 0.5, triggerOnce: true});
+    const [ref, inView] = useInView({threshold: innerWidth < 900 ? 0.1 : 0.2, triggerOnce: true});
     return (
         <div className="about-block" ref={ref}>
             <div className="container">

@@ -5,10 +5,10 @@ import { useAppSelector } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
-import { IProductDetail } from '../../types/types';
+import { IProductDetail, ICategory } from '../../types/types';
 import { addToCart, onClickPlus, onClickMinus } from '../../store/cartSlice';
 import { addTorecentlyViewed } from '../../store/recentViewSlice';
-import { API_PRODUCT, API_PRODUCTS } from '../../constants/api';
+import { API_PRODUCT, API_PRODUCTS, API_CATEGORIES } from '../../constants/api';
 import { setCart } from '../../store/cartSlice';
 import axios from 'axios';
 
@@ -31,6 +31,9 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
     const dispatch = useAppDispatch();
 
     const [productInfo, setProductInfo] = useState<IProductDetail>();
+    const [categories, setCategories] = useState<ICategory[]>([]);
+    const [categoryId, setCategoryId] = useState<number>(0);
+    const [categoryTitle, setCategoryTitle] = useState<string>();
     const [productId, setProductId] = useState<number>();
     const [productQuanuty, setProductQuanity] = useState<number>(0);
     const [textType, setTextType] = useState<string>('description');
@@ -49,8 +52,16 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
     const getProductInfo = async (id: number) => {
         try {
             setLoading(true);
-
+            const catRes = await axios.get<ICategory[]>(API_CATEGORIES + `?lang_id=${currentLanguage.id}`);
             const res = await axios.get(API_PRODUCT + id + `&lang_id=${currentLanguage.id}`);
+            setCategoryId(res.data.category_id);
+
+            for(let i = 0; i < catRes.data.length; i++) {
+                if(catRes.data[i].id === res.data.category_id) {
+                    setCategoryTitle(catRes.data[i].title);
+                }
+            }
+
             const сharacteristicsParsed = Object.entries(res.data.characteristic)
                 .map(item => [String(item[0]), String(item[1])])
                 .map(([name, text]) => ({ name, text }));
@@ -147,6 +158,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                 <div className="bread-crumbs">
                     <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
                     <Link className='bread-crumbs__item' to='/categories'>{t("nav.categories")}</Link>
+                    <Link className='bread-crumbs__item' to={`/categories/${categoryId}`}>{categoryTitle}</Link>
                     <span className='bread-crumbs__item'>{productInfo?.title}</span>
                 </div>
                 
@@ -221,13 +233,13 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                 className={textType === 'description' ? 'product-page__btn product-page__btn--active' : 'product-page__btn'}
                                 onClick={() => setTextType('description')}
                             >
-                                {t("product_page.characteristics")}
+                                {t("product_page.description")}
                             </button>
                             <button 
                                 className={textType === 'characteristics' ? 'product-page__btn product-page__btn--active' : 'product-page__btn'}
                                 onClick={() => setTextType('characteristics')}
                             >
-                               {t("product_page.description")}
+                               {t("product_page.characteristics")}
                             </button>
                         </div>
                     {

@@ -9,6 +9,8 @@ export const API_SEARCH = BASE_API + '/products/search=';
 export const API_SEARCH_CATEGORY = BASE_API + '/categories/search?value=';
 export const API_LANGS = BASE_API + '/list/langs';
 export const API_TRANSLATIONS = BASE_API + '/list/site-translations?lang_ids=';
+export const API_DELIVERS = BASE_API +'/deliveries';
+export const API_ORDERS = BASE_API +'/orders';
 
 export const MEEST_BASE = 'https://publicapi.meest.com';
 export const MEEST_SEARCH_CITY = MEEST_BASE + '/geo_localities?search_beginning=';

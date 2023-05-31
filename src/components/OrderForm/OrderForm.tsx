@@ -5,57 +5,16 @@ import { useTranslation } from 'react-i18next';
 import { useDebounce } from '../../hooks/useDebounce';
 import { setOrderDone, clearCart } from '../../store/cartSlice';
 import { useAppSelector } from '../../hooks/reduxHooks';
-import { MEEST_SEARCH_CITY, MEEST_SEARCH_BRANCHES, NOVA_POST_BASE, NOVA_POST_KEY } from '../../constants/api';
-import { ICartItem } from '../../types/types';
+import { MEEST_SEARCH_CITY, MEEST_SEARCH_BRANCHES, NOVA_POST_BASE, NOVA_POST_KEY, API_DELIVERS, API_ORDERS } from '../../constants/api';
+import { OrderData, cityObj, cityNovaPoshta, departmentMeestExpress, departmentNovaPoshta, IOrderInfo } from '../../types/types';
 import Spinner from '../Spinner/Spinner';
 import axios from 'axios';
 import './OrderForm.scss';
 
-type OrderData = {
-    firstname: string;
-    surname: string;
-    byFather: string;
-    email: string;
-    phone: string;
-    deliveryType: string;
-    order: ICartItem[];
-    city?: string;
-    department?: departmentMeestExpress | departmentNovaPoshta;
-}
-
-type cityObj = {
-    data: cityType;
-}
-
-type cityType = {
-    n_ua: string;
-    city_id: string;
-    reg: string;
-}
-
-type cityNovaPoshta = {
-    Description: string;
-    CityId: string;
-    AreaDescription: string;
-}
-
-type srteetTypeMeestExpress = {
-    ua: string;
-    ru: string;
-    en: string;
-}
-
-type departmentMeestExpress = {
-    city: srteetTypeMeestExpress;
-    street: srteetTypeMeestExpress;
-    street_number: string;
-    num_showcase: string;
-}
-
-type departmentNovaPoshta = {
-    SiteKey: string;
-    ShortAddress: string;
-    Number: string;
+interface IDeliver {
+    id: number;
+    code: string;
+    title: string;
 }
 
 const OrderForm = () => {
@@ -65,6 +24,9 @@ const OrderForm = () => {
     const [departmentNovaPoshta, setDepartmantNovaPoshta] = useState<departmentNovaPoshta[]>();
     const [selectOpen, setSelectOpen] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [postLoading, setPostLoading] = useState<boolean>(false);
+    const [delivers, setDelivers] = useState<IDeliver[]>([]);
+    const [postError, setPostError] = useState<string>('');
     const { t } = useTranslation();
 
     const {
@@ -85,20 +47,31 @@ const OrderForm = () => {
     const curentCity = watch('city');
     const debouncedCity = useDebounce(curentCity, 500);
     const cartProducts = useAppSelector(state => state.cartItems.cartItems);
+    const currentLang = useAppSelector(state => state.languages.curentLang);
     const dispatch = useAppDispatch();
+
+    const getDelivers = async () => {
+        try {
+            setLoading(true);
+            const res = await axios.get(API_DELIVERS + `?lang_id=${currentLang.id}`);
+            setDelivers(res.data);
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
     const getCity = async () => {
         try {
-            setLoading(true);
-            if(curentDeliveryType === 'Meest Express') {
+            if(curentDeliveryType === '3') {
                 if(curentCity && curentCity.length > 0) {
                     const res = await axios.get(MEEST_SEARCH_CITY + curentCity);
                     console.log(res);
                     setCities(res.data.result);
                 }
             }
-            if(curentDeliveryType === 'Нова пошта') {
+            if(curentDeliveryType === '2') {
                 if(curentCity && curentCity.length > 0) {
                     const res = await axios.post(NOVA_POST_BASE, {
                         apiKey: NOVA_POST_KEY,
@@ -109,11 +82,9 @@ const OrderForm = () => {
                             Language: 'ua'
                         }
                     });
-                    console.log(res);
                     setCitiesNovaPoshta(res.data.data)
                 }
             }
-            setLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -121,12 +92,12 @@ const OrderForm = () => {
 
     const getDepartmant = async () => {
         try {
-            setLoading(true);
-            if(curentDeliveryType === 'Meest Express') {
+            if(curentDeliveryType === '3') {
                 const res = await axios.get(MEEST_SEARCH_BRANCHES + curentCity);
                 setDepartmantMeest(res.data.result);
+                console.log(res.data.result);
             }
-            if(curentDeliveryType === 'Нова пошта') {
+            if(curentDeliveryType === '2') {
                 
                 const res = await axios.post(NOVA_POST_BASE, {
                     apiKey: NOVA_POST_KEY,
@@ -140,33 +111,101 @@ const OrderForm = () => {
 
                 setDepartmantNovaPoshta(res.data.data);
             }
-            setLoading(false);
         } catch (error) {
             console.log(error);
         }
     }
 
+    const parsingDelivery = (info: string) => {
+        const regExp = /(.+?),\s(.+?),\s(.+?),\s(.+?),\s(?:відділення # (\d+)|branch # (\d+))/;
+        const matches = info.match(regExp);
+        let delivery_address;
+        if(matches) {
+            delivery_address = {
+                region: matches[1].trim(),
+                city: matches[2].trim(),
+                street: matches[3].trim(),
+                house_number: matches[4].trim(),
+                postal_office: matches[5] || matches[6]
+            }
+            return delivery_address
+        }
+    } 
+
+    const postOrder = async (order: IOrderInfo) => {
+        try {
+            const res = await axios.post(API_ORDERS, order);
+            if(res.data.ok) {
+                dispatch(setOrderDone());
+                dispatch(clearCart());
+                window.scrollTo(0, 0);
+                reset();
+            }
+            console.log(res.data);
+        } catch (error) {
+            setPostError('Щось пішло не так, спробуйте пізніше');
+            console.log(error);
+        }
+    }
+
     const onSubmit = handleSubmit((clientInfo) => {
-        const order = {
-            clientInfo,
-            cartProducts
-        };
-        console.log(order);
-        dispatch(setOrderDone());
-        dispatch(clearCart());
-        window.scrollTo(0, 0);
-        reset();
+        setPostLoading(true);
+        const products = cartProducts.map(({id, quanity}) => ({id, quantity:quanity}));
+        if(clientInfo.deliveryType === "1") {
+            const orderInfo: IOrderInfo = {
+                user_id: 1,
+                email: clientInfo.email,
+                lang_id: currentLang.id,
+                payment_status_id: 2,
+                payment_method_id: 2,
+                delivery_method_id: Number(clientInfo.deliveryType),
+                recipient: {
+                    first_name: clientInfo.firstname,
+                    middle_name: clientInfo.byFather,
+                    last_name: clientInfo.surname,
+                    phone: clientInfo.phone
+                },
+                products: products,
+                comment: ""
+            }
+            postOrder(orderInfo);
+        } else {
+            let departmentInfo;
+            clientInfo.department && (
+                departmentInfo = parsingDelivery(clientInfo.department)
+            ) 
+            const orderInfo: IOrderInfo = {
+                user_id: 1,
+                email: clientInfo.email,
+                lang_id: currentLang.id,
+                payment_status_id: 2,
+                payment_method_id: 2,
+                delivery_method_id: Number(clientInfo.deliveryType),
+                recipient: {
+                    first_name: clientInfo.firstname,
+                    middle_name: clientInfo.byFather,
+                    last_name: clientInfo.surname,
+                    phone: clientInfo.phone
+                },
+                products: products,
+                delivery_address: departmentInfo,
+                comment: ""
+            }
+            console.log(orderInfo);
+            postOrder(orderInfo);
+        }
+        setPostLoading(false);
     });
 
     useEffect(() => {
-        setValue('deliveryType', 'Нова пошта');
-    }, [])
+        getDelivers();
+        setValue('deliveryType', '2');
+    }, [currentLang])
 
     useEffect(() => {
         if(debouncedCity) {
             getCity();
             getDepartmant();
-            console.log(debouncedCity);
         }
     }, [debouncedCity])
 
@@ -222,7 +261,7 @@ const OrderForm = () => {
                 </div>
             </div>
             <div className='order-form__field'>
-                <label htmlFor='byFather'>{t("order_page.order_form.surname")}</label>
+                <label htmlFor='byFather'>{t("order_page.order_form.by_father")}</label>
                 <input 
                     type="text" 
                     id='byFather'
@@ -281,17 +320,19 @@ const OrderForm = () => {
             </div>
             <div className='order-form__field'>
             <label htmlFor='deliveryType'>{t("order_page.order_form.delivery")}</label>
-                <select 
+                {loading ? <Spinner /> : (
+                    <select 
                     id='deliveryType'
                     className='order-form__input-text'
                     {...register("deliveryType", { required: true })}
                     >
-                        <option value="Нова пошта">{t("order_page.order_form.nova_poshta")}</option>
-                        <option value="Meest Express">{t("order_page.order_form.meest_express")}</option>
-                        <option value="Самовивіз">{t("order_page.order_form.self_deliver")}</option>
+                        {delivers.map(deliver => (
+                            <option key={deliver.id} value={deliver.id}>{deliver.title}</option>
+                        ))}
                 </select>
+                )}
             </div>
-            {curentDeliveryType === 'Нова пошта' && (
+            {curentDeliveryType === '2' && (
                 <>
                     <div className='order-form__field'>
                     <label htmlFor='city'>{t("order_page.order_form.city")}</label>
@@ -333,8 +374,8 @@ const OrderForm = () => {
                         )}
                     </div>
                     </div>
-                    {curentCity && curentCity.length > 1 && (
-                        loading ? <Spinner /> : (
+                    {
+                        
                             <div className='order-form__field'>
                             <label htmlFor='department'>{t("order_page.order_form.branch")}</label>
                                 <select 
@@ -346,19 +387,19 @@ const OrderForm = () => {
                                             departmentNovaPoshta.map((departnent => (
                                                 <option 
                                                     key={departnent.SiteKey}
-                                                    value={`${departnent.ShortAddress}, ${t("order_page.order_form.branch_num")} ${departnent.Number}`}
+                                                    value={`${departnent.SettlementAreaDescription} обл., ${departnent.ShortAddress}, ${t("order_page.order_form.branch_num")} ${departnent.Number}`}
                                                 >
-                                                    {`${departnent.ShortAddress}, ${t("order_page.order_form.branch_num")} ${departnent.Number}`}
+                                                    {`${departnent.SettlementAreaDescription} обл., ${departnent.ShortAddress}, ${t("order_page.order_form.branch_num")} ${departnent.Number}`}
                                                 </option>
                                             )))
                                         )}
                                 </select>
                             </div> 
-                        )
-                    )}
+                        
+                    }
                 </>
             )}
-            {curentDeliveryType === 'Meest Express' && (
+            {curentDeliveryType === '3' && (
                 <>
                     <div className='order-form__field'>
                         <label htmlFor='city'>{t("order_page.order_form.city")}</label>
@@ -397,7 +438,8 @@ const OrderForm = () => {
                                 )}
                             </div>
                     </div>
-                    {curentCity && curentCity.length > 1 && (
+                    {
+                        loading ? <Spinner /> : (
                         <div className='order-form__field'>
                         <label htmlFor='department'>{t("order_page.order_form.branch")}</label>
                             <select 
@@ -406,12 +448,12 @@ const OrderForm = () => {
                                 {...register("department", { required: true })}
                                 >
                                     {departnentMeest && departnentMeest.length > 0 && (
-                                        departnentMeest.map(( departnent => (
+                                        departnentMeest.map((departnent => (
                                             <option 
-                                                key={`${departnent.city.ua}, ${departnent.street.ua} ${departnent.street_number}, ${t("order_page.order_form.branch_num")} ${departnent.num_showcase}`}
-                                                value={`${departnent.city.ua}, ${departnent.street.ua} ${departnent.street_number}, ${t("order_page.order_form.branch_num")} ${departnent.num_showcase}`}
+                                                key={`${departnent.region.ua} обл., ${departnent.city.ua}, ${departnent.street.ua}, ${departnent.street_number}, ${t("order_page.order_form.branch_num")} ${departnent.num_showcase}`}
+                                                value={`${departnent.region.ua} обл., ${departnent.city.ua}, ${departnent.street.ua}, ${departnent.street_number}, ${t("order_page.order_form.branch_num")} ${departnent.num_showcase}`}
                                             >
-                                                {`${departnent.city.ua}, ${departnent.street.ua} ${departnent.street_number}, ${t("order_page.order_form.branch_num")} ${departnent.num_showcase}`}
+                                                {`${departnent.region.ua} обл., ${departnent.city.ua}, ${departnent.street.ua}, ${departnent.street_number}, ${t("order_page.order_form.branch_num")} ${departnent.num_showcase}`}
                                             </option>
                                         )))
                                     )}
@@ -420,12 +462,14 @@ const OrderForm = () => {
                     )}
                 </>
             )}
-            {curentDeliveryType === 'Самовивіз' && (
+            {curentDeliveryType === '1' && (
                 <p className='order-form__text'>{t("order_page.order_pick_up")} <br /> 
                     <a href="https://www.google.com/maps/place/50%C2%B019'19.6%22N+26%C2%B052'53.1%22E/@50.322115,26.879228,16z/data=!4m4!3m3!8m2!3d50.3221111!4d26.8814167?hl=ua" target='blank'>{t("order_page.our_address")}</a>
                 </p>
             )}
+            {postError.length > 0 && <p>{postError}</p>}
             <button className='order-form__order-btn' type='submit'>{t("cart.order")}</button>
+            {postLoading && <Spinner />}
         </form>
     )
 }

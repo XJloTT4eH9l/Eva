@@ -18,7 +18,51 @@
         "detail": "Детальніше"
     },
     "contact_page": {
-        "location": "Місцезнаходження"
+        "titleCompany": {
+          "name": "Назва компанії",
+          "info": "ТОВ 'Вітамін2015'"
+        },
+        "address": {
+          "name": "Адреса",
+          "info": [
+            "с. Лепесівка, вул. Залізнодорожна 14, Хмельницька обл."
+          ]
+        },
+        "email": {
+          "name": "Email",
+          "info": [
+            "vitamin.rsv@gmail.com"
+          ]
+        },
+        "telephone": {
+          "name": "Телефон",
+          "telephoneNumber": [
+            {
+              "presentationNum": "+38 (096) 198-98-06",
+              "actualNum": "+380961989806"
+            },
+            {
+              "presentationNum": "+38 (096) 085-39-34",
+              "actualNum": "+380960853934"
+            },
+            {
+              "presentationNum": "+38 (068) 626-32-26",
+              "actualNum": "+380686263226"
+            },
+            {
+              "presentationNum": "+38 (067) 199-01-09",
+              "actualNum": "+380671990109"
+            }
+          ]
+        },
+        "schedule": {
+          "name": "Графік роботи",
+          "time": "Пн - Пт 09:00 - 18:00; Сб, Нд - Вихідні"
+        },
+        "location": {
+          "name": "Місцезнаходження",
+          "googleMap": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d2547.3825111721117!2d26.879228015542644!3d50.322114504485064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNTDCsDE5JzE5LjYiTiAyNsKwNTInNTMuMSJF!5e0!3m2!1sru!2sua!4v1681031957258!5m2!1sru!2sua"
+        }
     },
     "search_page": {
         "title": "Пошук",

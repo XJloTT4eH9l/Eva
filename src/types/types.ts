@@ -155,3 +155,89 @@ export interface ITranslation {
     lang_id: number;
     data: StaticTranslation;
 };
+
+export type OrderData = {
+    firstname: string;
+    surname: string;
+    byFather: string;
+    email: string;
+    phone: string;
+    deliveryType: string;
+    order: ICartItem[];
+    city?: string;
+    department?: string;
+}
+
+export type cityObj = {
+    data: cityType;
+}
+
+export type cityType = {
+    n_ua: string;
+    city_id: string;
+    reg: string;
+}
+
+export type cityNovaPoshta = {
+    Description: string;
+    CityId: string;
+    AreaDescription: string;
+}
+
+export type srteetTypeMeestExpress = {
+    ua: string;
+    ru: string;
+    en: string;
+}
+type MeestRegion = {
+    ua: string,
+    en: string
+}
+
+export type departmentMeestExpress = {
+    city: srteetTypeMeestExpress;
+    street: srteetTypeMeestExpress;
+    street_number: string;
+    num_showcase: string;
+    region: MeestRegion;
+}
+
+export type departmentNovaPoshta = {
+    SiteKey: string;
+    ShortAddress: string;
+    Number: string;
+    SettlementAreaDescription: string;
+}
+// Order info //
+interface Recipient {
+    first_name: string;
+    middle_name: string;
+    last_name: string;
+    phone: string;
+  }
+  
+  interface Product {
+    id: number;
+    quantity: number;
+  }
+  
+  interface DeliveryAddress {
+    region: string;
+    city: string;
+    street: string;
+    house_number: string;
+    postal_office: string;
+  }
+
+export interface IOrderInfo {
+    user_id: number;
+    email: string;
+    lang_id: number;
+    payment_status_id: number;
+    payment_method_id: number;
+    delivery_method_id: number;
+    recipient: Recipient;
+    products: Product[];
+    delivery_address?: DeliveryAddress;
+    comment: string;
+}
