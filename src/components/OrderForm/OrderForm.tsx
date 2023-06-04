@@ -40,7 +40,7 @@ const OrderForm = () => {
         handleSubmit,
         reset
     } = useForm<OrderData>({
-        mode: 'onSubmit'
+        mode: 'onBlur'
     });
 
     const curentDeliveryType = watch('deliveryType');
@@ -132,6 +132,7 @@ const OrderForm = () => {
 
     const postOrder = async (order: IOrderInfo) => {
         try {
+            setPostLoading(true);
             const res = await axios.post(API_ORDERS, order);
             if (res.data.ok) {
                 dispatch(setOrderDone());
@@ -140,6 +141,7 @@ const OrderForm = () => {
                 reset();
             }
             console.log(res.data);
+            setPostLoading(true);
         } catch (error) {
             setPostError('Щось пішло не так, спробуйте пізніше');
             console.log(error);
@@ -147,7 +149,6 @@ const OrderForm = () => {
     }
 
     const onSubmit = handleSubmit((clientInfo) => {
-        setPostLoading(true);
         const products = cartProducts.map(({ id, quanity }) => ({ id, quantity: quanity }));
         if (clientInfo.deliveryType === "1") {
             const orderInfo: IOrderInfo = {
@@ -192,7 +193,6 @@ const OrderForm = () => {
             console.log(orderInfo);
             postOrder(orderInfo);
         }
-        setPostLoading(false);
     });
 
     useEffect(() => {
@@ -345,6 +345,7 @@ const OrderForm = () => {
                                 type="text"
                                 id='city'
                                 className='order-form__input-text'
+                                autoComplete='off'
                                 onClick={() => {
                                     setSelectOpen(true);
                                 }}
@@ -386,7 +387,7 @@ const OrderForm = () => {
                                 <select
                                     id='department'
                                     className='order-form__input-text'
-                                    {...register("department", { required: true })}
+                                    {...register("department", { required: t("order_page.order_form.required_field") || 'required' })}
                                 >
                                     {departmentNovaPoshta && departmentNovaPoshta.length > 0 && (
                                         departmentNovaPoshta.map((departnent => (
@@ -399,6 +400,9 @@ const OrderForm = () => {
                                         )))
                                     )}
                                 </select>
+                                <div className='order-form__error'>
+                                    {errors.department && <p>{errors.department.message || 'Error'}</p>}
+                                </div>
                             </div>
 
                         }
@@ -418,6 +422,7 @@ const OrderForm = () => {
                             <input
                                 type='text'
                                 id='city'
+                                autoComplete='off'
                                 placeholder='Знайти місто'
                                 className='order-form__input-text order-form__input-text--custom'
                                 onClick={() => {
@@ -457,7 +462,7 @@ const OrderForm = () => {
                                     <select
                                         id='department'
                                         className='order-form__input-text'
-                                        {...register("department", { required: true })}
+                                        {...register("department", { required: t("order_page.order_form.required_field") || 'required'})}
                                     >
                                         {departnentMeest && departnentMeest.length > 0 && (
                                             departnentMeest.map((departnent => (
@@ -470,6 +475,9 @@ const OrderForm = () => {
                                             )))
                                         )}
                                     </select>
+                                    <div className='order-form__error'>
+                                        {errors.department && <p>{errors.department.message || 'Error'}</p>}
+                                    </div>
                                 </div>
                             )}
                     </>
@@ -479,7 +487,7 @@ const OrderForm = () => {
                         <a href="https://www.google.com/maps/place/50%C2%B019'19.6%22N+26%C2%B052'53.1%22E/@50.322115,26.879228,16z/data=!4m4!3m3!8m2!3d50.3221111!4d26.8814167?hl=ua" target='blank'>{t("order_page.our_address")}</a>
                     </p>
                 )}
-                {postError.length > 0 && <p>{postError}</p>}
+                {postError.length > 0 && <p className='order-form__fail'>{postError}</p>}
                 <button className='order-form__order-btn' type='submit'>{t("cart.order")}</button>
                 {postLoading && <Spinner />}
             </div>

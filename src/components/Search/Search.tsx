@@ -53,7 +53,7 @@ const Search:FC<SearchProps> = ({ type, searchList, searchValue, setSearchValue,
 
             setLoading(false);
         } catch (error) {
-            alert('Виникли проблеми, спробуйте пізніше');
+            alert('Виникли проблеми, спробуйте пізніше або змініть мову введення');
         }
     }
 

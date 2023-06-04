@@ -81,9 +81,9 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
                         <div className='header__top'>
                             <Nav type='desktop' setMobileMenuOpen={setMobileMenuOpen} />
                             <BurgerIcon mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
-                            <button className='header__login header__login--comp'>
+                            {/* <button className='header__login header__login--comp'>
                                 <img src={loginIcon} alt='Увійти'/>
-                            </button>
+                            </button> */}
                             <LanguageChange  setMobileMenuOpen={setMobileMenuOpen} />
                             <div className={mobileMenuOpen ? 'header__mobile-menu header__mobile-menu--active' : 'header__mobile-menu'}>
                                 <Search 

@@ -209,7 +209,7 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                                             <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
                                                         </div>
                                                         <p className='product-page__summary'>
-                                                           {t("buy_info.sum")} 
+                                                           {t("buy_info.sum") + ' '} 
                                                             {
                                                                productInfo.promo?.promo_price 
                                                                 ? Math.round(productQuanuty * productInfo.promo.promo_price)

@@ -11,9 +11,9 @@ import './Hero.scss';
 const Hero:FC = () => {
     const { t } = useTranslation();
     const slides = [
-        {id: 1, title: 'Eva ТОВ', text: 'Натуральні соки для дорослих та дітей', img: heroBg},
+        {id: 1, title: 'Eva', text: 'Натуральні соки для дорослих та дітей', img: heroBg},
         {id: 2, title: 'Eva', text: 'Натуральні соки', img: heroBg2},
-        {id: 3, title: 'Eva ТОВ ', text: 'Для дорослих та дітей', img: heroBg3}
+        {id: 3, title: 'Eva', text: 'Для дорослих та дітей', img: heroBg3}
     ];
     const sliderSettings = {
         fade: true,
