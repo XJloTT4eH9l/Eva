@@ -96,9 +96,9 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
                                 />
                                 <Nav type='mobile' setMobileMenuOpen={setMobileMenuOpen} />
                                 <LanguageChange type='mobileChange' setMobileMenuOpen={setMobileMenuOpen} />
-                                <button className='header__login header__login--tel'>
+                                {/* <button className='header__login header__login--tel'>
                                     <img src={loginIcon} alt='Увійти'/>
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                         <Search 

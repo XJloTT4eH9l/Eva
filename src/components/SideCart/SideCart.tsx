@@ -52,6 +52,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                                             minQuanityOrder={item.minQuanityOrder}
                                             barcode={item.barcode}
                                             promo={item.promo}
+                                            setCartOpen={setCartOpen}
                                         />
                                     ))
                                 }

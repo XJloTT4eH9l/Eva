@@ -6,6 +6,11 @@ type cartState = {
     orderDone: boolean;
 }
 
+interface input {
+    id: string;
+    value: number;
+}
+
 const tempCartItems = localStorage.getItem('cartProducts');
 const cartItemsState = tempCartItems ? JSON.parse(tempCartItems) : [];
 
@@ -35,7 +40,7 @@ const cartSlice = createSlice({
         onClickPlus : (state, action: PayloadAction<number>) => {
             const item = state.cartItems.find(item => item.id === action.payload);
 
-            if(item) {
+            if(item && item.quanity < 9999) {
                 item.quanity++;
             }
 
@@ -49,6 +54,15 @@ const cartSlice = createSlice({
                 if(item.quanity < item.minQuanityOrder) {
                     state.cartItems = state.cartItems.filter(item => item.id !== action.payload);
                 }
+            }
+
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
+        },
+        onQuantityChange: (state, action:PayloadAction<input>) => {
+            const item = state.cartItems.find(item => item.id === +action.payload.id);
+            
+            if(item) {
+                item.quanity = action.payload.value;
             }
 
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
@@ -71,6 +85,6 @@ const cartSlice = createSlice({
     }
 })
 
-export const { addToCart, onClickPlus, onClickMinus, removeItem, clearCart, setCart, setOrderDone } = cartSlice.actions;
+export const { addToCart, onClickPlus, onClickMinus, onQuantityChange, removeItem, clearCart, setCart, setOrderDone } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -1,8 +1,9 @@
-import { FC, useState, memo } from 'react';
-import { useAppDispatch } from '../../hooks/reduxHooks';
+import { FC, useState, useEffect, memo } from 'react';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 import { NewPrice } from '../../types/types';
-import { onClickMinus, onClickPlus, removeItem } from '../../store/cartSlice';
+import { onClickMinus, onClickPlus, removeItem, onQuantityChange } from '../../store/cartSlice';
 import './CartItem.scss';
 
 interface CartItemProps {
@@ -15,11 +16,15 @@ interface CartItemProps {
     type?: string;
     promo?: NewPrice;
     barcode? : string;
+    setCartOpen?: (item: boolean) => void;
 }
 
-const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanityOrder, type, promo, barcode }) => {
+const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanityOrder, type, promo, barcode, setCartOpen }) => {
     const dispatch = useAppDispatch();
+    const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const [disable, setDisable] = useState<boolean>(false); 
+    const [inputQuantity, setInputQuantity] = useState<number>(quanity);
+    const [inputFocus, setInputFocus] = useState<boolean>(false);
     const { t } = useTranslation();
 
     const onMinus = (id: number, quanity: number) => {
@@ -40,15 +45,48 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
         dispatch(removeItem(id))
     }
 
+    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(inputQuantity < minQuanityOrder) {
+            dispatch(onQuantityChange({id: String(id), value: minQuanityOrder}))
+            setInputQuantity(minQuanityOrder)
+        } else if (inputQuantity > 9999) {
+            dispatch(onQuantityChange({id: String(id), value: 9999}))
+            setInputQuantity(9999)
+        } else {
+            dispatch(onQuantityChange({id: String(id), value: +e.target.value}));
+            setInputQuantity(+e.target.value);
+        }
+    }
+
+    const handleFocus = () => {
+        setInputFocus(true)
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const regex = /^[0-9]*$/;
+        const value =  e.target.value;
+
+        if(regex.test(value)) {
+            setInputQuantity(+value);
+        }
+    }
+
+    useEffect(() => {
+        const currentItem = cartItems.find(item => item.id === id);
+        if(currentItem) {
+            setInputQuantity(currentItem.quanity);
+        }
+    }, [cartItems])
+
     return (
         <li className={`cart-item ${type === 'orderItem' && 'cart-item--order'}`}>
             <div className={type === 'orderItem' ? 'cart-item__inner cart-item__inner--order' : 'cart-item__inner'}>
                     {type === 'orderItem' ? (
                         <>
-                            <div className='cart-item__left'>
+                            <Link to={`/product/${id}`} target='_blank' className='cart-item__left'>
                                 <img className='cart-item__img cart-item__img--order' src={img[0]} alt={title} />
                                 <h3 className='cart-item__title cart-item__title--order'>{title}</h3>
-                            </div>
+                            </Link>
                             <div className='cart-item__right'>
                                 <div className='cart-item__counter'>
                                     <button 
@@ -57,7 +95,13 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                     >
                                         -
                                     </button>
-                                    <span className='cart-item__quanity'>{quanity}</span>
+                                    <input 
+                                        className='cart-item__quanity' 
+                                        onChange={handleChange} 
+                                        value={inputQuantity}
+                                        onFocus={handleFocus}
+                                        onBlur={handleBlur}
+                                    />
                                     <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                 </div>
                                 <div className='cart-item__summ'>
@@ -73,9 +117,13 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                         </>
                     ) : (
                         <>
-                            <img className='cart-item__img' src={img[0]} alt={title} />
+                            <Link to={`/product/${id}`} onClick={() => setCartOpen && setCartOpen(false)}>
+                                <img className='cart-item__img' src={img[0]} alt={title} />
+                            </Link>
                             <div className='cart-item__content'>
-                                <h3 className='cart-item__title'>{title}</h3>
+                                <Link to={`/product/${id}`} onClick={() => setCartOpen && setCartOpen(false)}>
+                                    <h3 className='cart-item__title'>{title}</h3>
+                                </Link>
                                 <div className="cart-item__bottom">
                                     <div className='cart-item__counter'>
                                     <button 
@@ -84,7 +132,14 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                     >
                                         -
                                     </button>
-                                        <span className='cart-item__quanity'>{quanity}</span>
+                                        {/* <span className='cart-item__quanity'>{quanity}</span> */}
+                                        <input 
+                                            className='cart-item__quanity' 
+                                            onChange={handleChange} 
+                                            value={inputQuantity}
+                                            onFocus={handleFocus}
+                                            onBlur={handleBlur}
+                                        />
                                         <button className='cart-item__count-btn' onClick={() => onPlus(id)}>+</button>
                                     </div>
                                     <div className='cart-item__summ'>

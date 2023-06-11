@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Link } from 'react-router-dom';
 import { IProductDetail, ICategory } from '../../types/types';
-import { addToCart, onClickPlus, onClickMinus } from '../../store/cartSlice';
+import { addToCart, onClickPlus, onClickMinus, onQuantityChange } from '../../store/cartSlice';
 import { addTorecentlyViewed } from '../../store/recentViewSlice';
 import { API_PRODUCT, API_PRODUCTS, API_CATEGORIES } from '../../constants/api';
 import { setCart } from '../../store/cartSlice';
@@ -31,14 +31,14 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
     const dispatch = useAppDispatch();
 
     const [productInfo, setProductInfo] = useState<IProductDetail>();
-    const [categories, setCategories] = useState<ICategory[]>([]);
     const [categoryId, setCategoryId] = useState<number>(0);
     const [categoryTitle, setCategoryTitle] = useState<string>();
     const [productId, setProductId] = useState<number>();
-    const [productQuanuty, setProductQuanity] = useState<number>(0);
+    const [productQuanuty, setProductQuanity] = useState<number>(1);
     const [textType, setTextType] = useState<string>('description');
     const [productAdded, setProductAdded] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [focus, setFocus] = useState<boolean>(false);
 
     const cartItemsSelector = useAppSelector(state => state.cartItems.cartItems);
     const cartItemsIds = cartItemsSelector.map(item => item.id);
@@ -131,6 +131,39 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
         }
     }
 
+    const onQuantityChnage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const regex = /^[0-9]*$/;
+        const value =  e.target.value;
+
+        if(regex.test(value)) {
+            setProductQuanity(+value);
+        }
+    }
+
+    const handleFocus = () => {
+        setFocus(true);
+    }
+
+    const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(productInfo && productInfo.minQuanityOrder && id) {
+            const value = e.target.value.startsWith('0') ? e.target.value.slice(1) : e.target.value;
+            if(productQuanuty < productInfo.minQuanityOrder) {
+                const minQuantity = productInfo.minQuanityOrder;
+                dispatch(onQuantityChange({id, value: minQuantity}));
+                setProductQuanity(minQuantity);
+                setFocus(false);
+            } else if (productQuanuty > 9999) {
+                const maxQuantity = 9999;
+                dispatch(onQuantityChange({id, value: maxQuantity}));
+                setProductQuanity(maxQuantity);
+                setFocus(false);
+            } else {
+                dispatch(onQuantityChange({id, value: +value}));
+                setProductQuanity(+value);
+            }
+        }
+    };
+
     const onPlus = (id: number) => {
         dispatch(onClickPlus(id))
     }
@@ -205,7 +238,15 @@ const ProductPage:FC<ProductPageProps> = ({ setCartOpen }) => {
                                                     <div className='product-page__quanity'>
                                                         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                                                             <button className='product-page__btn-cart' onClick={() => onMinus(productInfo.id)}>-</button>
-                                                                <span className='product-page__num'>{productQuanuty}</span>
+                                                                {/* <span className='product-page__num'>{productQuanuty}</span> */}
+                                                                <input 
+                                                                    className='product-page__input' 
+                                                                   
+                                                                    onChange={onQuantityChnage} 
+                                                                    value={productQuanuty}
+                                                                    onFocus={handleFocus}
+                                                                    onBlur={handleBlur}
+                                                                />
                                                             <button className='product-page__btn-cart' onClick={() => onPlus(productInfo.id)}>+</button>
                                                         </div>
                                                         <p className='product-page__summary'>

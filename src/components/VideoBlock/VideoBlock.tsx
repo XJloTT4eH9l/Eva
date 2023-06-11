@@ -20,7 +20,7 @@ const VideoBlock:FC<VideoBlockProps> = ({ title, video }) => {
 
     return (
         <section className="video-block" ref={ref}>
-             <div className={inView ? 'video-block__container video-block__container--active' : 'video-block__container'}>
+             <div onClick={() => videoRef.current && videoRef.current.play()} className={inView ? 'video-block__container video-block__container--active' : 'video-block__container'}>
                 <h2 className='video-block__title'>{title}</h2>
                 <video
                     ref={videoRef}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { useAppSelector } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 import { IProductDetail, ICategory } from '../../types/types';
 import { API_CATEGORIES, API_CATEGORIES_PRODUCTS } from '../../constants/api';
@@ -100,6 +100,7 @@ const CategoryPage = () => {
                 setPages(pagsArray);
 
             }
+            window.scrollTo(0, 0);
             setLoading(false);
         } catch (error) {
             console.log(error);
@@ -107,7 +108,6 @@ const CategoryPage = () => {
     }
 
     const onNav = (page: number) => {
-        window.scrollTo(0, 0);
         setPageNum(page);
     }
 
