@@ -1,0 +1,133 @@
+@import '../../styles/variables.scss';
+
+.product-info {
+    &__switch {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        border-radius: 6px;
+    }
+    &__text-container {
+        width: 85%;
+        margin: 0 auto;
+        @media screen and (max-width: 800px) {
+            width: 100%;
+        }
+    }
+    &__text {
+        font-size: 16px;
+        line-height: 1.5;
+        white-space: pre-wrap;
+    }
+    &__char {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        word-break: break-word;
+    }
+    &__list {
+        margin-left: 16%;
+        @media screen and (max-width: 950px) {
+            margin-left: 0;
+        }
+        @media screen and (max-width: 800px) {
+            margin-left: 0;
+        }
+        @media screen and (max-width: 600px) {
+            max-width: 900px;
+            margin-left: 0;
+        }
+    }
+    &__lable {
+        position: relative;
+        align-self: flex-start;
+        width: 40%;
+        @media screen and (max-width: 950px) {
+            width: 60%;
+        }
+        @media screen and (max-width: 550px) {
+            width: 50%;
+        }
+        & span {
+            position: relative;
+            display: inline-block;
+            padding-right: 16px;
+            background-color: #f9f9f9;
+        }
+        &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            bottom: 4px;
+            width: 100%;
+            border-bottom: 1px dotted $color-green;
+            @media screen and (max-width: 550px) {
+                display: none;
+            }
+        }
+    }
+    &__value {
+        width: 60%;
+        padding-left: 15px;
+        max-width: 400px;
+        color: $color-grey-text;
+        @media screen and (max-width: 950px) {
+            width: 40%;
+        }
+        @media screen and (max-width: 550px) {
+            width: 50%;
+        }
+    }
+    &__btn {
+        width: 50%;
+        padding: 10px 15px;
+        font-size: 16px;
+        border: 1px solid;
+        color: $color-black;
+        border-color: $color-green;
+        background-color: $color-white;
+        transition: background-color 0.3s, color 0.5s linear;
+        &--cart {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid;
+            border-radius: 6px;
+            color: $color-black;
+            border-color: $color-green;
+            background-color: $color-white;
+            transition: background-color 0.3s, color 0.5s linear;
+            &--active {
+                display: flex;
+                margin: 0 auto;
+                padding: 10px 15px;
+                font-size: 16px;
+                border-radius: 6px;
+                background-color: $color-green;
+                color: $color-white; 
+                transition: background-color 0.2s linear;
+                & img {
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 10px;
+                }
+                &:hover {
+                    background-color: rgba($color-green, 0.8);
+                }
+            }
+            &:hover {
+                background-color: $color-green;
+                color: $color-white;
+            }
+        }
+        &--active {
+            background-color: $color-green;
+            color: $color-white; 
+        }
+        &:hover {
+            background-color: $color-green;
+            color: $color-white;
+        }
+    }
+}

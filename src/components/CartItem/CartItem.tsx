@@ -47,13 +47,13 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(inputQuantity < minQuanityOrder) {
-            dispatch(onQuantityChange({id: String(id), value: minQuanityOrder}))
+            dispatch(onQuantityChange({id: id, value: minQuanityOrder}))
             setInputQuantity(minQuanityOrder)
         } else if (inputQuantity > 9999) {
-            dispatch(onQuantityChange({id: String(id), value: 9999}))
+            dispatch(onQuantityChange({id: id, value: 9999}))
             setInputQuantity(9999)
         } else {
-            dispatch(onQuantityChange({id: String(id), value: +e.target.value}));
+            dispatch(onQuantityChange({id: id, value: +e.target.value}));
             setInputQuantity(+e.target.value);
         }
     }

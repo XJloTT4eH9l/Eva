@@ -7,7 +7,7 @@ type cartState = {
 }
 
 interface input {
-    id: string;
+    id: number;
     value: number;
 }
 
@@ -59,7 +59,7 @@ const cartSlice = createSlice({
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
         onQuantityChange: (state, action:PayloadAction<input>) => {
-            const item = state.cartItems.find(item => item.id === +action.payload.id);
+            const item = state.cartItems.find(item => item.id === action.payload.id);
             
             if(item) {
                 item.quanity = action.payload.value;
