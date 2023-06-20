@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import store from './store';
 import App from './containers/App/App';
 import './i18n';
@@ -12,9 +13,11 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store}>
-    <BrowserRouter basename='/Eva'>
-      <App />
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter basename='/Eva'>
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
   </Provider>
 );
 

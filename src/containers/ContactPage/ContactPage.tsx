@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { API_TRANSLATIONS } from '../../constants/api';
 import { ContactType } from '../../types/types';
+import Seo from '../../components/Seo/Seo';
 import Spinner from '../../components/Spinner/Spinner';
 import './ContactPage.scss';
 
@@ -35,7 +36,16 @@ const ContactPage = () => {
     }, [currentLanguage])
 
     return (
-        <section className="contact-page">
+        <>
+            <Seo
+                title={currentLanguage.id === 1 ? 'Eva | Контакти' : 'Eva | Contacts'}
+                description={
+                    currentLanguage.id === 1 
+                        ? 'Наша компанія Eva знаходиться за адресою: с. Лепесівка, вул. Залізнодорожна 14, Хмельницька обл.. Працюємо Пн - Пт 09:00 - 18:00; Сб, Нд - Вихідні' 
+                        : 'Our company Eva is located at the address: Lepesivka, str. Zaliznodorozhna 14, Khmelnytska region. We work Mon - Fri 09:00 - 18:00; Sat, Sun - Weekend'
+                } 
+            />
+            <section className="contact-page">
             <div className="container">
             <div className="bread-crumbs">
                 <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
@@ -114,6 +124,7 @@ const ContactPage = () => {
                 </div>
             </div>
         </section>
+        </>
     )
 }
 

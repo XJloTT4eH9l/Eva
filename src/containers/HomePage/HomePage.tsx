@@ -5,6 +5,7 @@ import { IProductDetail } from '../../types/types';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
+import Seo from '../../components/Seo/Seo';
 import Hero from '../../components/Hero/Hero';
 import Categories from '../../components/Categories/Categories';
 import Proposition from '../../components/Proposition/Proposition';
@@ -44,6 +45,14 @@ const HomePage = () => {
     }, [currentLanguage])
     return (
         <>
+            <Seo 
+                title={currentLanguage.id === 1 ? 'Eva | Головна' : 'Eva | Main'} 
+                description={
+                    currentLanguage.id === 1 
+                        ? 'В нашому магазині купуйте соки, чаї, сиропи та багато іншого' 
+                        : 'In our store, buy juices, teas, syrups and much more'
+                }
+            />
             <Hero /> 
             <Categories />
             {promotions && (

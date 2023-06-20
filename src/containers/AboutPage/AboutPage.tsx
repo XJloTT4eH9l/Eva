@@ -6,6 +6,7 @@ import { API_TRANSLATIONS } from '../../constants/api';
 import { IAboutPage } from '../../types/types';
 import axios from 'axios';
 
+import Seo from '../../components/Seo/Seo';
 import Greeting from '../../components/Greeting/Greeting';
 import VideoBlock from '../../components/VideoBlock/VideoBlock';
 import AboutBlock from '../../components/AboutBlock/AboutBlock';
@@ -107,7 +108,16 @@ const AboutPage:FC = () => {
     }, [currentLanguage])
     
     return (
-        <div className='about-page'>
+        <>
+            <Seo 
+                title={currentLanguage.id === 1 ? "Eva | Про нас" : "Eva | About us" }
+                description={
+                    currentLanguage.id === 1 
+                        ? "Ласкаво просимо до нашого онлайн-магазину, де ви зможете придбати свіжі соки, ароматні чаї та смачні фруктові вироби."
+                        : "Welcome to our online store where you can buy fresh juices, aromatic teas and delicious fruit products."
+                }
+            />
+            <div className='about-page'>
             {loading ? <Spinner /> : (
                 <>
                     {aboutPageInfo && (
@@ -127,6 +137,7 @@ const AboutPage:FC = () => {
                 </>
             )}
         </div>
+        </>
     )
 }
 
