@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { IProductDetail } from '../../types/types';
+import { IProductDetail, IProductSize } from '../../types/types';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { onClickPlus, onClickMinus, addToCart, onQuantityChange } from '../../store/cartSlice';
 import mark from '../../assets/img/mark.svg';
@@ -17,8 +17,17 @@ const ProductOrderCard:FC<ProductOrderCardProps> = ({ info, setProductAdded, onC
     const dispatch = useAppDispatch();
     const [productQuantity, setProductQuantity] = useState<number>(1);
     const [focus, setFocus] = useState<boolean>(false);
+    // price will change to prices = [...]
     const { id, title, promo, price, minQuanityOrder, availability, images, barcode } = info;
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
+
+    //fake prices
+    const productSizes = [
+        {id: 1, package_id: 1, package_quantity: 13, price: 20, promo: {promo_price: null}},
+        {id: 2, package_id: 2, package_quantity: 18, price: 30, promo: {promo_price: 18}},
+        {id: 3, package_id: 3, package_quantity: 25, price: 40, promo: {promo_price: null}}
+    ];
+    const [currentSize, setCurrentSize] = useState<IProductSize>(productSizes[0])
 
     const onCart = () => {
         if (info) {
@@ -27,11 +36,13 @@ const ProductOrderCard:FC<ProductOrderCardProps> = ({ info, setProductAdded, onC
                 id: id,
                 title: title,
                 images: images,
-                price: price,
+                //change price
+                price: currentSize.promo.promo_price ? currentSize.promo.promo_price : currentSize.price,
                 quanity: minQuanityOrder,
                 minQuanityOrder: minQuanityOrder,
-                promo: promo,
-                barcode: barcode
+                promo: currentSize.promo,
+                barcode: barcode,
+                size: currentSize.package_id
             }));
             window.setTimeout(() => setProductAdded(false), 2000);
         }
@@ -47,11 +58,13 @@ const ProductOrderCard:FC<ProductOrderCardProps> = ({ info, setProductAdded, onC
     }
 
     const onPlus = (id: number) => {
-        dispatch(onClickPlus(id))
+        const size = currentSize.package_id;
+        dispatch(onClickPlus({id, size}))
     }
 
     const onMinus = (id: number) => {
-        dispatch(onClickMinus(id))
+        const size = currentSize.package_id;
+        dispatch(onClickMinus({id, size}));
     }
 
     const handleFocus = () => {
@@ -63,53 +76,72 @@ const ProductOrderCard:FC<ProductOrderCardProps> = ({ info, setProductAdded, onC
             const value = e.target.value.startsWith('0') ? e.target.value.slice(1) : e.target.value;
             if (productQuantity < minQuanityOrder) {
                 const minQuantity = minQuanityOrder;
-                dispatch(onQuantityChange({ id, value: minQuantity }));
+                dispatch(onQuantityChange({ id, value: minQuantity, size: currentSize.package_id }));
                 setProductQuantity(minQuantity);
                 setFocus(false);
             } else if (productQuantity > 9999) {
                 const maxQuantity = 9999;
-                dispatch(onQuantityChange({ id, value: maxQuantity }));
+                dispatch(onQuantityChange({ id, value: maxQuantity, size: currentSize.package_id }));
                 setProductQuantity(maxQuantity);
                 setFocus(false);
             } else {
-                dispatch(onQuantityChange({ id, value: +value }));
+                dispatch(onQuantityChange({ id, value: +value, size: currentSize.package_id }));
                 setProductQuantity(+value);
             }
         }
     }
     useEffect(() => {
-        const itemQuanity = cartItems.find(item => item.id === id);
+        const itemQuanity = cartItems.find(item => item.id === id && item.size === currentSize.package_id);
         if (itemQuanity) {
             setProductQuantity(itemQuanity.quanity)
         }
-    }, [id, cartItems])
+    }, [id, cartItems, currentSize])
     return (
         <section className="product-order-card">
             <h1 className='product-order-card__title'>{title}</h1>
             <div className='product-order-card__cart'>
                 <div className='product-order-card__price'>
-                    {promo ? (
+                    {currentSize.promo.promo_price ? (
                         <p className='product-order-card__new-price'>
-                            {t("buy_info.price")} <strong>{promo.promo_price} {t("buy_info.uah")} </strong>
-                            <span>{price} {t("buy_info.uah")}</span>
+                            {t("buy_info.price")} <strong>{currentSize.promo.promo_price} {t("buy_info.uah")} </strong>
+                            <span>{currentSize.price} {t("buy_info.uah")}</span>
                         </p>
-                    ) : <span>{t("buy_info.price")} {price} {t("buy_info.uah")}</span>}
+                    ) : <span>{t("buy_info.price")} {currentSize.price} {t("buy_info.uah")}</span>}
                 </div>
                 {
                     availability === true
                         ? <div className='product-order-card__availability product-order-card__availability--true'>{t("buy_info.in_stock")}</div>
                         : <div className='product-order-card__availability product-order-card__availability--false'>{t("buy_info.out_of_stock")}</div>
                 }
+                <h2 className='product-order-card__subtitle'>Розміри:</h2>
+                <ul className='product-order-card__sizes'>
+                    {productSizes.map(size => (
+                        <li 
+                            key={size.id} 
+                            className={size.package_id === currentSize.package_id ? 'product-order-card__size product-order-card__size--active' : 'product-order-card__size'} 
+                            onClick={() => setCurrentSize(size)}
+                        >
+                            {size.package_quantity} л
+                        </li>
+                    ))}
+                </ul>
                 <p className='product-order-card__min-quanity'>{t("buy_info.min_count_buy")} {minQuanityOrder}</p>
 
+                {/* <h2 className='product-order-card__subtitle'>Розміри:</h2> */}
                 {/* <ul className='product-order-card__sizes'>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
+                    {productSizes.map(size => (
+                        <li 
+                            key={size.id} 
+                            className={size.package_id === currentSize.package_id ? 'product-order-card__size product-order-card__size--active' : 'product-order-card__size'} 
+                            onClick={() => setCurrentSize(size)}
+                        >
+                            {size.package_quantity} л
+                        </li>
+                    ))}
                 </ul> */}
 
                 {availability &&
-                    cartItems.find(item => item.id === id)
+                    cartItems.find(item => item.id === id && item.size === currentSize.package_id)
                     ? (
                         <>
                             <div className='product-order-card__quanity'>
@@ -128,9 +160,9 @@ const ProductOrderCard:FC<ProductOrderCardProps> = ({ info, setProductAdded, onC
                                 <p className='product-order-card__summary'>
                                     {t("buy_info.sum") + ' '}
                                     {
-                                        promo?.promo_price
-                                            ? Math.round(productQuantity * promo.promo_price)
-                                            : Math.round(productQuantity * price)
+                                        currentSize.promo?.promo_price
+                                            ? Math.round(productQuantity * currentSize.promo.promo_price)
+                                            : Math.round(productQuantity * currentSize.price)
                                     } {t("buy_info.uah")}
                                 </p>
                             </div>

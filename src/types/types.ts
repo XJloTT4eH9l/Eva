@@ -17,7 +17,7 @@ export type Characteristics = {
 }
 
 export type NewPrice = {
-    promo_price: number;
+    promo_price: number | null;
 }
 
 export interface IProductDetail extends IProduct {
@@ -28,12 +28,23 @@ export interface IProductDetail extends IProduct {
     promo?: NewPrice;
     barcode?: string;
 }
+interface IPromo {
+    promo_price: number | null;
+} 
+export interface IProductSize {
+    id: number;
+    package_id: number;
+    package_quantity: number;
+    price: number;
+    promo: IPromo;
+}
 
 export interface ICartItem extends IProduct {
     quanity: number;
     minQuanityOrder: number;
     promo?: NewPrice;
     barcode?: string;
+    size: number;
 }
 
 export interface Lang {

@@ -30,7 +30,8 @@ const OrderPage:FC = () => {
                     for(let i = 0; i < res.data.length; i++) {
                         if(item.id === res.data[i].id) {
                             return (
-                                {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                                // {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                                {...item, title: res.data[i].title}
                             )
                         }
                     }
@@ -74,13 +75,14 @@ const OrderPage:FC = () => {
                                 {
                                     cartItems.map(item => (
                                         <CartItem 
-                                            key={item.id}
+                                            key={item.id + ' ' + item.size}
                                             id={item.id}
                                             title={item.title}
                                             price={item.price}
                                             promo={item.promo}
                                             img={item.images} 
                                             quanity={item.quanity}
+                                            size={item.size}
                                             minQuanityOrder={item.minQuanityOrder}
                                             type='orderItem'
                                         />

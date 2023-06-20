@@ -188,4 +188,32 @@
         margin-left: 20px;
         margin-right: 20px;
     }
+    &__subtitle {
+        font-size: 20px;
+    }
+    &__sizes {
+        max-width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &__size {
+        padding: 10px 15px;
+        border: 1px solid $color-green;
+        transition: color 0.2s linear, background-color 0.2s linear;
+        border-radius: 6px;
+        cursor: pointer;
+        &--active {
+            color: $color-white;
+            background-color: $color-green;
+        }
+        &:hover {
+            color: $color-white;
+            background-color: $color-green;
+        }
+    }
 }

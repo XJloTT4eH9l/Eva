@@ -9,6 +9,12 @@ type cartState = {
 interface input {
     id: number;
     value: number;
+    size: number
+}
+
+interface IProductAdded {
+    id: number;
+    size: number;
 }
 
 const tempCartItems = localStorage.getItem('cartProducts');
@@ -32,13 +38,14 @@ const cartSlice = createSlice({
                 quanity: action.payload.quanity,
                 minQuanityOrder: action.payload.minQuanityOrder,
                 promo: action.payload.promo,
-                barcode: action.payload.barcode
+                barcode: action.payload.barcode,
+                size: action.payload.size
             })
             state.orderDone = false;
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
-        onClickPlus : (state, action: PayloadAction<number>) => {
-            const item = state.cartItems.find(item => item.id === action.payload);
+        onClickPlus : (state, action: PayloadAction<IProductAdded>) => {
+            const item = state.cartItems.find(item => item.id === action.payload.id && item.size === action.payload.size);
 
             if(item && item.quanity < 9999) {
                 item.quanity++;
@@ -46,20 +53,20 @@ const cartSlice = createSlice({
 
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
-        onClickMinus : (state, action: PayloadAction<number>) => {
-            const item = state.cartItems.find(item => item.id === action.payload);
+        onClickMinus : (state, action: PayloadAction<IProductAdded>) => {
+            const item = state.cartItems.find(item => item.id === action.payload.id && item.size === action.payload.size);
 
             if(item) {
                 item.quanity--;
                 if(item.quanity < item.minQuanityOrder) {
-                    state.cartItems = state.cartItems.filter(item => item.id !== action.payload);
+                    state.cartItems = state.cartItems.filter(cartItem => cartItem !== item);
                 }
             }
 
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
         onQuantityChange: (state, action:PayloadAction<input>) => {
-            const item = state.cartItems.find(item => item.id === action.payload.id);
+            const item = state.cartItems.find(item => item.id === action.payload.id && item.size === action.payload.size);
             
             if(item) {
                 item.quanity = action.payload.value;
@@ -67,9 +74,13 @@ const cartSlice = createSlice({
 
             localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
         },
-        removeItem : (state, action: PayloadAction<number>) => {
-            state.cartItems = state.cartItems.filter(item => item.id !== action.payload);
-            localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
+        removeItem : (state, action: PayloadAction<IProductAdded>) => {
+            const item = state.cartItems.find(item => item.id === action.payload.id && item.size === action.payload.size);
+            
+            if(item) {
+                state.cartItems = state.cartItems.filter(cartItem => cartItem !== item);
+                localStorage.setItem('cartProducts', JSON.stringify(state.cartItems));
+            }
         },
         clearCart : (state) => {
             state.cartItems = [];

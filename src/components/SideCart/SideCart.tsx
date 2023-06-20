@@ -18,6 +18,7 @@ interface SideCartProps {
 const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
+    console.log(cartItems);
     const sum = cartItems.reduce((sum, item) => item.promo?.promo_price ? sum + item.promo.promo_price * item.quanity : sum + item.price * item.quanity, 0);
     const { t } = useTranslation();
 
@@ -43,7 +44,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                                 {
                                     cartItems.map(item => (
                                         <CartItem
-                                            key={item.id}
+                                            key={item.id + ' ' + item.size}
                                             id={item.id}
                                             title={item.title}
                                             price={item.price}
@@ -53,6 +54,7 @@ const SideCart:FC<SideCartProps> = ({ cartOpen, setCartOpen }) => {
                                             barcode={item.barcode}
                                             promo={item.promo}
                                             setCartOpen={setCartOpen}
+                                            size={item.size}
                                         />
                                     ))
                                 }

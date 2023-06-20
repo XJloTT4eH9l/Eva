@@ -65,6 +65,10 @@
             text-align: center;
         }
     }
+    &__size {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
     &__content {
         width: 240px;
         @media screen and (max-width: 470px) {

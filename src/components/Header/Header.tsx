@@ -47,7 +47,8 @@ const Header:FC<HeaderProps> = ({ cartOpen, setCartOpen, searchValue, setSearchV
                         for(let i = 0; i < res.data.length; i++) {
                             if(item.id === res.data[i].id) {
                                 return (
-                                    {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                                    // {...item, title: res.data[i].title, promo: res.data[i].promo, price: res.data[i].price}
+                                    {...item, title: res.data[i].title }
                                 )
                             }
                         }

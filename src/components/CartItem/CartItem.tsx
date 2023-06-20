@@ -17,9 +17,22 @@ interface CartItemProps {
     promo?: NewPrice;
     barcode? : string;
     setCartOpen?: (item: boolean) => void;
+    size: number;
 }
 
-const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanityOrder, type, promo, barcode, setCartOpen }) => {
+const CartItem:FC<CartItemProps> = ({ 
+        id,
+        title,
+        img, 
+        price, 
+        quanity, 
+        minQuanityOrder, 
+        type, 
+        promo, 
+        barcode, 
+        setCartOpen, 
+        size 
+    }) => {
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector(state => state.cartItems.cartItems);
     const [disable, setDisable] = useState<boolean>(false); 
@@ -29,7 +42,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
 
     const onMinus = (id: number, quanity: number) => {
         if(quanity !== minQuanityOrder) {
-            dispatch(onClickMinus(id));
+            dispatch(onClickMinus({id, size}));
             setDisable(false);
         } else {
             setDisable(true);
@@ -37,23 +50,23 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
     }
     
     const onPlus = (id: number) => {
-        dispatch(onClickPlus(id));
+        dispatch(onClickPlus({id, size}));
         setDisable(false);
     }
 
     const onRemove = (id: number) => {
-        dispatch(removeItem(id))
+        dispatch(removeItem({id, size}))
     }
 
     const handleBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(inputQuantity < minQuanityOrder) {
-            dispatch(onQuantityChange({id: id, value: minQuanityOrder}))
+            dispatch(onQuantityChange({id: id, value: minQuanityOrder, size}))
             setInputQuantity(minQuanityOrder)
         } else if (inputQuantity > 9999) {
-            dispatch(onQuantityChange({id: id, value: 9999}))
+            dispatch(onQuantityChange({id: id, value: 9999, size}))
             setInputQuantity(9999)
         } else {
-            dispatch(onQuantityChange({id: id, value: +e.target.value}));
+            dispatch(onQuantityChange({id: id, value: +e.target.value, size}));
             setInputQuantity(+e.target.value);
         }
     }
@@ -72,7 +85,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
     }
 
     useEffect(() => {
-        const currentItem = cartItems.find(item => item.id === id);
+        const currentItem = cartItems.find(item => item.id === id && item.size === size);
         if(currentItem) {
             setInputQuantity(currentItem.quanity);
         }
@@ -85,7 +98,10 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                         <>
                             <Link to={`/product/${id}`} target='_blank' className='cart-item__left'>
                                 <img className='cart-item__img cart-item__img--order' src={img[0]} alt={title} />
-                                <h3 className='cart-item__title cart-item__title--order'>{title}</h3>
+                                <div className='cart-item__size-container'>
+                                    <h3 className='cart-item__title cart-item__title--order'>{title}</h3>
+                                    <p className='cart-item__size'>Розмір: {size}</p>
+                                </div>
                             </Link>
                             <div className='cart-item__right'>
                                 <div className='cart-item__counter'>
@@ -106,7 +122,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                 </div>
                                 <div className='cart-item__summ'>
                                     <span>
-                                        {promo 
+                                        {promo?.promo_price 
                                             ? (promo.promo_price * quanity) % 1 !== 0 ? Math.round(promo.promo_price * quanity) : (promo.promo_price * quanity)
                                             : (price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)
                                         } 
@@ -124,6 +140,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                 <Link to={`/product/${id}`} onClick={() => setCartOpen && setCartOpen(false)}>
                                     <h3 className='cart-item__title'>{title}</h3>
                                 </Link>
+                                <p className='cart-item__size'>Розмір: {size}</p>
                                 <div className="cart-item__bottom">
                                     <div className='cart-item__counter'>
                                     <button 
@@ -144,7 +161,7 @@ const CartItem:FC<CartItemProps> = ({ id, title, img, price, quanity, minQuanity
                                     </div>
                                     <div className='cart-item__summ'>
                                         <span>
-                                        {promo 
+                                        {promo?.promo_price 
                                             ? (promo.promo_price * quanity) % 1 !== 0 ? Math.round(promo.promo_price * quanity) : (promo.promo_price * quanity)
                                             : (price * quanity) % 1 !== 0 ? Math.round(price * quanity) : (price * quanity)
                                         } 
