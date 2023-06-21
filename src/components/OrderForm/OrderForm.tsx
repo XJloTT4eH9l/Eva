@@ -149,7 +149,7 @@ const OrderForm = () => {
     }
 
     const onSubmit = handleSubmit((clientInfo) => {
-        const products = cartProducts.map(({ id, quanity }) => ({ id, quantity: quanity }));
+        const products = cartProducts.map(({ id, quanity, size }) => ({ id, quantity: quanity, package_id: size }));
         if (clientInfo.deliveryType === "1") {
             const orderInfo: IOrderInfo = {
                 user_id: 1,

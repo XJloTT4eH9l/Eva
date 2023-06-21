@@ -6,6 +6,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { useAppSelector } from '../../hooks/reduxHooks';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
+import Seo from '../../components/Seo/Seo';
 import Catalog from '../../components/Catalog/Catalog';
 import Spinner from '../../components/Spinner/Spinner';
 import Pagination from '../../components/Pagination/Pagination';
@@ -92,22 +93,24 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                 const res = await axios.get(API_SEARCH_CATEGORY + debouncedSearch + `&lang_id=${currentLanguage.id}&sort_param=${sortParam}&sort_field=${sortField}&page_size=24&page=${currentPage}`);
 
                 if(res.status === 200) {
-                    setSearchList(res.data.products);
-                    setSearchQuanity(res.data.quantity_products);
-                    if(res.data.products.length > 0) {
-                        const pagesItems = Math.ceil(res.data.quantity_products / 24);
-                        const pagesArray = [];
-    
-                        for(let i = 1; i <= pagesItems; i++) {
-                            pagesArray.push(i);
+                    if(res.data) {
+                        setSearchList(res.data.products);
+                        setSearchQuanity(res.data.quantity_products);
+                        if(res.data.products.length > 0) {
+                            const pagesItems = Math.ceil(res.data.quantity_products / 24);
+                            const pagesArray = [];
+
+                            for(let i = 1; i <= pagesItems; i++) {
+                                pagesArray.push(i);
+                            }
+
+                            setPages(pagesArray);
+                        } else {
+                            setSearchList([]);
+                            setPages([]);
                         }
-                        
-                        setPages(pagesArray);
                     }
-                } else {
-                    setSearchList([]);
-                    setPages([]);
-                }
+                } 
             }
 
             setLoading(false);
@@ -141,7 +144,16 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
     }, [])
 
     return (
-        <section className='search-page'>
+        <>
+            <Seo
+                title={currentLanguage.id === 1 ? "Eva | Пошук" : "Eva | Search" }
+                description={
+                    currentLanguage.id === 1 
+                        ? "Ласкаво просимо до нашого онлайн-магазину, де ви зможете придбати свіжі соки, ароматні чаї та смачні фруктові вироби."
+                        : "Welcome to our online store where you can buy fresh juices, aromatic teas and delicious fruit products."
+                }
+            />
+            <section className='search-page'>
             <div className="container">
                 <div className="bread-crumbs">
                     <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
@@ -208,6 +220,7 @@ const SearchPage:FC<SearchPageProps> = ({ searchValue, setSearchValue, setSearch
                 )}
             </div>
         </section>
+        </>
     )
 }
 

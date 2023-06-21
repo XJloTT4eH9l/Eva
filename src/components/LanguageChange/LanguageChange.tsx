@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHooks';
 import { setLanguage, setAllLanguages } from '../../store/languageSlice';
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { Lang } from '../../types/types';
 import { API_LANGS } from '../../constants/api';
@@ -15,6 +16,8 @@ interface LanguageChangeProps {
 const LanguageChange:FC<LanguageChangeProps> = ({ type, setMobileMenuOpen }) => {
     const langs = useAppSelector(state => state.languages.langs);
     const curentLang = useAppSelector(state => state.languages.curentLang);
+    const location = useLocation();
+    const currentPath = location.pathname;
     const dispatch = useAppDispatch();
     const { i18n } = useTranslation();
 
@@ -36,6 +39,7 @@ const LanguageChange:FC<LanguageChangeProps> = ({ type, setMobileMenuOpen }) => 
     }
     
     useEffect(() => {
+        console.log(currentPath);
         getLangs();
     }, [])
 

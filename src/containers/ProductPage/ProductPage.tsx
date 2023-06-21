@@ -11,6 +11,7 @@ import { API_PRODUCT, API_PRODUCTS, API_CATEGORIES } from '../../constants/api';
 import { setCart } from '../../store/cartSlice';
 import axios from 'axios';
 
+import Seo from '../../components/Seo/Seo';
 import LinkBack from '../../components/LinkBack/LinkBack';
 import SliderThumbs from '../../components/SliderThumbs/SliderThumbs';
 import ProductOrderCard from '../../components/ProductOrderСard/ProductOrderCard';
@@ -113,7 +114,16 @@ const ProductPage: FC<ProductPageProps> = ({ setCartOpen }) => {
     }, [id, currentLanguage])
 
     return (
-        <section className="product-page">
+        <>
+        <Seo
+            title={productInfo ? 'Eva | ' + productInfo.title : 'Eva'}
+            description={
+                currentLanguage.id === 1 
+                    ? "Ласкаво просимо до нашого онлайн-магазину, де ви зможете придбати свіжі соки, ароматні чаї та смачні фруктові вироби."
+                    : "Welcome to our online store where you can buy fresh juices, aromatic teas and delicious fruit products."
+            } 
+        />
+            <section className="product-page">
             <div className="container">
                 <div className="bread-crumbs">
                     <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
@@ -158,6 +168,7 @@ const ProductPage: FC<ProductPageProps> = ({ setCartOpen }) => {
                 {recentlyViewed.length > 0 && <RecentlyViewed id={productId} type='product' />}
             </div>
         </section>
+        </>
     )
 }
 

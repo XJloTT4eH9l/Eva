@@ -6,6 +6,7 @@ import { IProductDetail, ICategory } from '../../types/types';
 import { API_CATEGORIES, API_CATEGORIES_PRODUCTS } from '../../constants/api';
 import axios from 'axios';
 
+import Seo from '../../components/Seo/Seo';
 import LinkBack from "../../components/LinkBack/LinkBack";
 import Catalog from "../../components/Catalog/Catalog";
 import Spinner from '../../components/Spinner/Spinner';
@@ -31,18 +32,18 @@ const CategoryPage = () => {
     const currentLanguage = useAppSelector(state => state.languages.curentLang);
 
     const sortOptions = [
-        {id: 'price-down', label: t("sorting.price_down")},
-        {id: 'price-up', label: t("sorting.price_up")},
-        {id: 'title-down', label: t("sorting.title_down")},
-        {id: 'title-up', label: t("sorting.title_up")},
-        {id: 'date-down', label: t("sorting.date_down")},
-        {id: 'date-up', label: t("sorting.date_up")},
+        { id: 'price-down', label: t("sorting.price_down") },
+        { id: 'price-up', label: t("sorting.price_up") },
+        { id: 'title-down', label: t("sorting.title_down") },
+        { id: 'title-up', label: t("sorting.title_up") },
+        { id: 'date-down', label: t("sorting.date_down") },
+        { id: 'date-up', label: t("sorting.date_up") },
     ];
 
     const onSort = (sort: string) => {
         setSort(sort);
         setPageNum(1);
-        switch(sort) {
+        switch (sort) {
             case 'price-up':
                 setSortField('price');
                 setSortParam('down');
@@ -89,12 +90,12 @@ const CategoryPage = () => {
         try {
             setLoading(true);
             const res = await axios.get(link);
-            if(res.status === 200) {
+            if (res.status === 200) {
                 setProducts(res.data.products);
                 const pags = Math.ceil(res.data.quantity_products / 24);
                 const pagsArray = [];
 
-                for(let i = 1; i <= pags; i++) {
+                for (let i = 1; i <= pags; i++) {
                     pagsArray.push(i);
                 }
                 setPages(pagsArray);
@@ -127,60 +128,70 @@ const CategoryPage = () => {
     }, [pageNum, sort])
 
     return (
-       <section className="categories-page">
-            <div className="container">
-                {loading ? <Spinner /> : (
-                    <>
-                        <div className="bread-crumbs">
-                            <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
-                            <Link className='bread-crumbs__item' to='/categories'>{t("nav.categories")}</Link>
-                            <span className='bread-crumbs__item'>{categories?.filter(item => item.id === Number(id))[0].title}</span>
-                        </div>
-                        <LinkBack />
-                        <div className='d-flex'>
-                            <h1 className="title">{categories?.filter(item => item.id === Number(id))[0].title}</h1>                            <div className={sortingOpen ? 'sorting sorting--active' : 'sorting'}>
-                                <button 
-                                    onClick={() => setSortingOpen(prev => !prev)} 
-                                    className={sortingOpen ? 'sorting__btn sorting__btn--active' : 'sorting__btn'}
-                                >
-                                    {t("sorting.title")}
-                                </button>
-                                <ul className={sortingOpen ? 'sorting__list sorting__list--active' : 'sorting__list'}>
-                                    {sortOptions.map(item => {
-                                        const isActive = item.id === sort;
-                                        return( 
-                                            <li
-                                                key={item.id} 
-                                                className={isActive ? 'sorting__item sorting__item--active' : 'sorting__item'}
-                                                onClick={() => onSort(item.id)}
-                                            >
-                                                {item.label}
-                                            </li>
-                                        )
-                                    })}
-                                </ul>  
-                            </div>
-                        </div>
-                        <div 
-                            className={sortingOpen ? 'categories-page__overlay categories-page__overlay--active' : 'categories-page__overlay'}
-                            onClick={() => setSortingOpen(false)}
-                        />
-                        <Catalog products={products} />
-
+        <>
+            <Seo
+                title={categories ? 'Eva | ' + categories?.filter(item => item.id === Number(id))[0].title : 'Eva'}
+                description={
+                    currentLanguage.id === 1 
+                        ? "Ласкаво просимо до нашого онлайн-магазину, де ви зможете придбати свіжі соки, ароматні чаї та смачні фруктові вироби."
+                        : "Welcome to our online store where you can buy fresh juices, aromatic teas and delicious fruit products."
+                } 
+            />
+            <section className="categories-page">
+                <div className="container">
+                    {loading ? <Spinner /> : (
                         <>
-                        {pages.length > 1 && (
-                            <Pagination
-                                currentPage={pageNum}
-                                setCurrentPage={setPageNum}
-                                pages={pages}
-                                onNav={onNav} 
+                            <div className="bread-crumbs">
+                                <Link className='bread-crumbs__item' to='/home'>{t("nav.main")}</Link>
+                                <Link className='bread-crumbs__item' to='/categories'>{t("nav.categories")}</Link>
+                                <span className='bread-crumbs__item'>{categories?.filter(item => item.id === Number(id))[0].title}</span>
+                            </div>
+                            <LinkBack />
+                            <div className='d-flex'>
+                                <h1 className="title">{categories?.filter(item => item.id === Number(id))[0].title}</h1>                            <div className={sortingOpen ? 'sorting sorting--active' : 'sorting'}>
+                                    <button
+                                        onClick={() => setSortingOpen(prev => !prev)}
+                                        className={sortingOpen ? 'sorting__btn sorting__btn--active' : 'sorting__btn'}
+                                    >
+                                        {t("sorting.title")}
+                                    </button>
+                                    <ul className={sortingOpen ? 'sorting__list sorting__list--active' : 'sorting__list'}>
+                                        {sortOptions.map(item => {
+                                            const isActive = item.id === sort;
+                                            return (
+                                                <li
+                                                    key={item.id}
+                                                    className={isActive ? 'sorting__item sorting__item--active' : 'sorting__item'}
+                                                    onClick={() => onSort(item.id)}
+                                                >
+                                                    {item.label}
+                                                </li>
+                                            )
+                                        })}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div
+                                className={sortingOpen ? 'categories-page__overlay categories-page__overlay--active' : 'categories-page__overlay'}
+                                onClick={() => setSortingOpen(false)}
                             />
-                        )}
+                            <Catalog products={products} />
+
+                            <>
+                                {pages.length > 1 && (
+                                    <Pagination
+                                        currentPage={pageNum}
+                                        setCurrentPage={setPageNum}
+                                        pages={pages}
+                                        onNav={onNav}
+                                    />
+                                )}
+                            </>
                         </>
-                    </>
-                )}
-            </div>
-       </section>
+                    )}
+                </div>
+            </section>
+        </>
     )
 }
 
