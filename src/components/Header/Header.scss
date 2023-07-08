@@ -19,6 +19,9 @@
         justify-content: space-between;
         align-items: center;
         min-width: 550px;
+        @media screen and (max-width: 900px) {
+            min-width: auto;
+        }
     }
     &__cart {
         position: relative;
